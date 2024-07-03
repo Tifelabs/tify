@@ -79,13 +79,19 @@ body, html {
 #more:hover {
     background-color: #050144;
 }
-
+/* 
 #clock {
     color: white;
     font-size: 10px;
 }
+ */
 
-
+ #clock {
+    color: white;
+    font-size: 24px;
+    overflow: hidden; /* Ensure text doesn't overflow its container */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
 
 /* Testing ramdon shit */
 
