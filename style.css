@@ -2,8 +2,18 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
 }
+
+
+/* Font Stuffs */
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2'),
+         url('./JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Bold.woff2') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
 
 .container {
     max-width: 800px;
@@ -40,7 +50,7 @@ body, html {
     font-size: 36px;
     color: #050144;
     margin-bottom: 20px;
-    font-family:  Arial, Helvetica, sans-serif;
+    font-family: 'JetBrains Mono', monospace;;
 }
 
 .about {
@@ -63,11 +73,14 @@ body, html {
     font-size: 20px;
     color: #050144;
     margin-bottom: 0;
-    font-family:  Arial, Helvetica, sans-serif;
+    font-family: 'JetBrains Mono', monospace;
 }
 .icon-link img {
     width: 40px; 
     height: 25px; 
+    display:inline-flex;
+   
+    
 }
 
 .blog-img{
@@ -177,10 +190,6 @@ h1 {
     font-size: 1.2em;
 }
 
-
-
-
-
 /* 
 THIS IS FOR MORE>HTML */
 
@@ -193,6 +202,7 @@ THIS IS FOR MORE>HTML */
    background-color: aqua;
    padding: 20px;
    border-radius: 20px;
+   font-family:'JetBrains Mono', monospace; 
 }
 
 .tife-more2{
@@ -204,10 +214,21 @@ THIS IS FOR MORE>HTML */
    background-color: aqua;
    padding: 20px;
    border-radius: 20px;
+   font-family: 'JetBrains Mono', monospace;
 }
 
 .tife-more2 , img {
     margin-top: 60px;
     border-radius: 20px;
     display: flexbox;
+}
+
+.overall{
+    display: flexbox;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #050144;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
