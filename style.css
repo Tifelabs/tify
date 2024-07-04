@@ -3,17 +3,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'JetBrains Mono', monospace;
+    box-sizing: border-box;
 }
-
-
-/* Font Stuffs */
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('./JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2'),
-         url('./JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Bold.woff2') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
 
 .container {
     max-width: 800px;
@@ -29,10 +20,7 @@ body, html {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 20px;
-}
-
-.tabs-left {
-    display: flex;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .tabs a {
@@ -50,7 +38,7 @@ body, html {
     font-size: 36px;
     color: #050144;
     margin-bottom: 20px;
-    font-family: 'JetBrains Mono', monospace;;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .about {
@@ -69,24 +57,21 @@ body, html {
     margin-bottom: 10px;
 }
 
-.links{
+.links {
     font-size: 20px;
     color: #050144;
     margin-bottom: 0;
     font-family: 'JetBrains Mono', monospace;
 }
-.icon-link img {
-    width: 40px; 
-    height: 25px; 
-    display:inline-flex;
-   
-    
+
+.icon-link {
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Ensures the clickable area is just the image */
 }
 
-.blog-img{
-    align-items: center;
-    display: flex;
-    margin-left: 500px;
+.icon-link img {
+    display: block; /* Ensures no extra spacing around the image */
+    border: none; /* Remove any border */
 }
 
 #more {
@@ -102,143 +87,37 @@ body, html {
 #more:hover {
     background-color: #050144;
 }
-/* 
-#clock {
-    color: white;
-    font-size: 10px;
-}
- */
 
- #clock {
-    color: white;
+#clock {
+    color: rgb(187, 38, 233);
     font-size: 24px;
     overflow: hidden; /* Ensure text doesn't overflow its container */
     white-space: nowrap; /* Prevent text from wrapping */
 }
 
-/* Testing ramdon shit */
-
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-} */
-
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-.container {
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.grid-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.grid-item img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.grid-item:hover img {
-    transform: scale(1.1);
-}
-
-.overlay {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.grid-item:hover .overlay {
-    opacity: 1;
-}
-
-.overlay p {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-/* 
-THIS IS FOR MORE>HTML */
-
-.overall{
-    display: flexbox;
+.overall {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-   padding: 20px;
-   border-radius: 20px;
-   font-family:'JetBrains Mono', monospace; 
-}
-
-.tife-more{
-    display: flexbox;
-    margin-top: 40px;
-    margin-left: 100px;
-    margin-right: 100px;
-    justify-content: center;
-   background-color: aqua;
-   padding: 20px;
-   border-radius: 20px;
-   font-family:'JetBrains Mono', monospace; 
-}
-
-.tife-more2{
-    display: flexbox;
-    margin-top: 100px;
-    margin-left: 100px;
-    margin-right: 100px;
-    justify-content: center;
-   background-color: aqua;
-   padding: 20px;
-   border-radius: 20px;
-   font-family: 'JetBrains Mono', monospace;
-}
-
-.tife-more2 , img {
-    margin-top: 60px;
-    border-radius: 20px;
-    display: flexbox;
-}
-
-.overall{
-    display: flexbox;
-    justify-content: space-between;
     align-items: center;
-    background-color: #050144;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.tife-more, .tife-more2 {
+    background-color: aqua;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    width: 90%;
+}
+
+.responsive-img {
+    width: 600px;
+    height: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
 }
 
 #footer {
@@ -247,8 +126,129 @@ THIS IS FOR MORE>HTML */
     align-items: center;
     margin-top: 100px;
     width: 100%;
-    background-color: #f1f1f1; /* Optional: Add background color */
-    padding: 10px; /* Optional: Add padding for better spacing */
-    font-size: 1em; /* Adjust font size as needed */
-    color: #333; /* Adjust text color as needed */
+    background-color: #b6aeaebd;
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+    font-family: 'JetBrains Mono', monospace;
 }
+
+@media (max-width: 600px) {
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tabs a {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .name {
+        font-size: 28px;
+    }
+
+    .about p {
+        font-size: 14px;
+    }
+
+    .links {
+        font-size: 18px;
+    }
+
+    #clock {
+        font-size: 20px;
+
+    }
+
+    .tife-more, .tife-more2 {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .responsive-img {
+        margin-top: 10px;
+    }
+}
+
+/* FOR PHOTOS */
+/* Reset some default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Basic styling for the body */
+  body {
+    font-family: Arial, sans-serif; /* Use a suitable fallback font */
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header styling */
+  header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+  /* Main container styling */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Grid container styling */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with minimum item width of 250px */
+    gap: 20px; /* Gap between grid items */
+  }
+  
+  /* Individual grid item styling */
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .grid-item img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .grid-item:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Overlay styling */
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .grid-item:hover .overlay {
+    transform: translateY(0);
+  }
+  
+
+  #gh{
+    display: flexbox;
+    justify-content: center;
+    margin-left: 120px;
+    margin-top: 20px;
+  }
