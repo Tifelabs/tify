@@ -193,6 +193,14 @@ h1 {
 /* 
 THIS IS FOR MORE>HTML */
 
+.overall{
+    display: flexbox;
+    justify-content: center;
+   padding: 20px;
+   border-radius: 20px;
+   font-family:'JetBrains Mono', monospace; 
+}
+
 .tife-more{
     display: flexbox;
     margin-top: 40px;
