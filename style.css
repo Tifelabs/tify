@@ -232,3 +232,15 @@ THIS IS FOR MORE>HTML */
     border-radius: 10px;
     margin-bottom: 20px;
 }
+
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100%;
+    background-color: #f1f1f1; /* Optional: Add background color */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    font-size: 1em; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+}

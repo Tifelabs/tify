@@ -10,7 +10,4 @@ function updateClock() {
 }
 
 setInterval(updateClock, 1000);
-updateClock(); // initial call to display clock immediately
-
-
-//Read more
+updateClock(); 
