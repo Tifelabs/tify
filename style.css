@@ -58,6 +58,32 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
+.pro{
+    font-size: 20px;
+    color: #050144;
+    margin-bottom: 0;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.project {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  
+  .project:hover {
+    background-color: #050144;
+  }
+  
 .links {
     font-size: 20px;
     color: #050144;
@@ -247,9 +273,14 @@ body, html {
   }
   
 
-  #gh{
-    display: flexbox;
+  #gh {
+    display: flex;
     justify-content: center;
+    align-items: center;
     margin-left: 120px;
     margin-top: 20px;
+    height: 60px;
+    width: 100px;
+    border-radius: 20px;
   }
+  
