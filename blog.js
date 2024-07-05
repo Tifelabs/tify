@@ -1,4 +1,8 @@
-const blogPosts = [
+const blogPosts = [{
+        title: "Thank you Konan",
+        date: "July 4, 2024",
+        content: `Are there still great people on Earth? Absolutely! I met <a href="https://x.com/GuilhermeKonan" target="_blank">@Konan</a> on Twitter, and I really love his <a href="https://gmkonan.dev" target="_blank">website</a>. I decided to take a shot and ask him what font he uses. He told me he uses JetBrains Mono font on his site. <br><br><img src="public/Assets/images/1.PNG" height="400px" width="220px"> <br><br> I was thrilled to get a reply from him. He even offered to help me with my website and stays updated with my progress. <br><br><img src="public/Assets/images/2.PNG" height="400px" width="220px"> <br><br> Thanks, Konan!`
+    },
     {
         title: 'SUBNETTING AND CIDR EXPLAINED',
         date: 'May 10, 2023',
