@@ -1,7 +1,22 @@
-const blogPosts = [{
+const blogPosts = [
+    {
+        title: "Logic Gates",
+        date: "July 12, 2024",
+        content: "It has been a hectic day so far. Being away from my main desktop computer, I decided to refresh my knowledge on <a href = 'https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> and basic computing concepts. It was fun while learning, and I got to know more about the influence of transistors in digital circuits.<br> <img src='public/Assets/blog-img/crashcourse.JPG' height =250px width=300px> <br> Understanding these fundamentals is crucial, as they are the building blocks of all modern electronic devices. As I delved deeper, I explored the different types of logic gates such as AND, OR, NOT, NAND, NOR, XOR, and XNOR, and how they are used to perform various logical operations. I also revisited how these gates are combined to form complex circuits and how they are represented in truth tables. Learning about how transistors act as switches and amplifiers in these gates gave me a new appreciation for the intricate designs of microprocessors and other integrated circuits. This refresher also reminded me of how essential this knowledge is for embedded programming and working with hardware like Raspberry Pis and Arduinos. Despite the busy day, I'm glad I took the time to revisit this essential topic. It's incredible how something so fundamental underpins all the technology we rely on daily."
+    },
+    
+    
+    
+    {
+        title: "Learning C",
+        date: "July 10, 2024",
+        content: "I decided to learn C once again after being taught it in my first year of university. I believe it builds a solid foundation on how computers work and kindles creativity. As someone who loves embedded programming, working with Raspberry Pis and Arduinos, I am really happy to get the chance to learn C again. Time to lock in!<br><br> <img src='public/Assets/blog-img/C.JPG' height= 250px width = 250px alt = 'learning C'>"
+    },
+
+    {
         title: "Thank you Konan",
         date: "July 4, 2024",
-        content: `Are there still great people on Earth? Absolutely! I met <a href="https://x.com/GuilhermeKonan" target="_blank">@Konan</a> on Twitter, and I really love his <a href="https://gmkonan.dev" target="_blank">website</a>. I decided to take a shot and ask him what font he uses. He told me he uses JetBrains Mono font on his site. <br><br><img src="public/Assets/images/1.PNG" height="400px" width="220px"> <br><br> I was thrilled to get a reply from him. He even offered to help me with my website and stays updated with my progress. <br><br><img src="public/Assets/images/2.PNG" height="400px" width="220px"> <br><br> Thanks, Konan!`
+        content: `Are there still great people on Earth? Absolutely! I met <a href="https://x.com/GuilhermeKonan" target="_blank">@Konan</a> on Twitter, and I really love his <a href="https://gmkonan.dev" target="_blank">website</a>. I decided to take a shot and ask him what font he uses. He told me he uses JetBrains Mono font on his site. <br><br><img src="public/Assets/blog-img/1.PNG" height="400px" width="220px"> <br><br> I was thrilled to get a reply from him. He even offered to help me with my website and stays updated with my progress. <br><br><img src="public/Assets/blog-img/2.PNG" height="400px" width="220px"> <br><br> Thanks, Konan!`
     },
     {
         title: 'SUBNETTING AND CIDR EXPLAINED',
