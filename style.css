@@ -65,24 +65,6 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.project {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    background-color: #004D6E;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    text-align: center;
-    transition: background-color 0.3s;
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-  
-  .project:hover {
-    background-color: #71C9CE;
-  }
   
 .links {
     font-size: 20px;
