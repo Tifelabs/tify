@@ -11,3 +11,24 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock(); 
+
+
+//Audio
+// Wait for the DOM to be fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the play button element
+    var playButton = document.getElementById('play-button');
+    
+    // Get the audio element
+    var audio = document.getElementById('background-music');
+    
+    // Add a click event listener to the play button
+    playButton.addEventListener('click', function() {
+        // Toggle play/pause of the audio
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
+    });
+});

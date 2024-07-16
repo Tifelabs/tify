@@ -24,9 +24,7 @@
         <div id="clock">12:00</div>
         
         <!-- Clock -->
-        <div class="clock-container">
-            
-        </div>
+        <div class="clock-container"></div>
 
         <!-- About -->
         <div class="about">
@@ -54,10 +52,24 @@
                     <img src="./public/Assets/icons/coffee.png" alt="Ko-fi">
                 </a>
             </div>
-            
-            <footer id="footer">&copy;Tifelabs 2024</footer>
+                                
+                        <!-- Audio player -->
+                        <div class="audio-container">
+                            <div class="audio-circle" id="play-button">
+                                <img src="./public/Assets/icons/audio.png" alt="Audio Icon">
+                            </div>
+                            <audio id="background-music" class="rounded-audio" autoplay>
+                                <source src="public/Assets/audio/duvet.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="audio-text"> Click to play☝️</div>
+                            <div class="audio-bar"></div>
+                        </div>
+
+            <footer id="footer">&copy;Tifelabs 2024</footer>   
     </div>
-    
+            
+        
     <script src="index.js"></script>
 </body>
 </html>
