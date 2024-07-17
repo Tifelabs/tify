@@ -1,36 +1,66 @@
-body {
-    font-family: 'JetBrains Mono', monospace;;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* Header styling */
 header {
     background-color: #71C9CE;
     color: #fff;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     text-align: center;
     font-family: 'JetBrains Mono', monospace;
-
 }
 
-header nav ul {
-    list-style: none;
-    padding: 0;
+header h5 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #004D6E;
 }
 
-header nav ul li {
-    display: inline;
-    margin: 0 1rem;
+/* Navigation link */
+#gh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    font-size: larger;
+    background-color: #71C9CE;
+    color: #004D6E;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
 }
 
-header nav ul li a {
-    color: #fff;
+#gh:hover {
+    background-color: #004D6E;
+    color: red;
+}
+
+a {
+    color: #004D6E;
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 main {
-    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 20px;
 }
 
 #blog-posts {
@@ -44,33 +74,47 @@ main {
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 20px;
-    font-family: 'JetBrains Mono', monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.blog-post h2 {
+.blog-post h3 {
     margin-top: 0;
+    color: #004D6E;
 }
 
-#footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.blog-post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+footer {
     margin-top: 100px;
-    width: 100%;
     background-color: #71C9CE;
-    padding: 10px;
+    padding: 10px 0;
     font-size: 1em;
-    color: #333;
+    color: #fff;
     font-family: 'JetBrains Mono', monospace;
+    text-align: center;
 }
 
-#gh {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-    margin-top: 20px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: larger;
-  }
-  
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    main {
+        padding: 1rem;
+    }
+
+    #gh {
+        margin: 10px 0;
+        width: 80px;
+    }
+
+    .blog-post {
+        padding: 1rem;
+    }
+
+    .blog-post h3 {
+        font-size: 1.25rem;
+    }
+}
