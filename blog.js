@@ -22,14 +22,38 @@ const blogPosts = [ {
         `I recently completed <strong><em>THE LAST OF US PART 2</em></strong> game last month, 
         but yet I still feel so empty, 
         I think about what's next on Ellie's path. She wanted to be loved and not being left alone.<br> 
-        Perhaps she did a great thing by sparing Abby's Life and I believe this will make Joel happy<
-        date: "July 10, 2024",
-        content: "I decided to learn C once again after being taught it in my first year of university. 
+        Perhaps she did a great thing by sparing Abby's Life and I believe this will make Joel happy
+        <img src='public/Assets/blog-img/ellie.JPG' alt='ellie'>`
+    },
+
+    {
+        title: "Logic Gates",
+        date: "July 12, 2024",
+        content: 
+        `It has been a hectic day so far. Being away from my main desktop computer, 
+        I decided to refresh my knowledge on <a href = 'https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> and basic computing concepts. 
+        It was fun while learning, 
+        and I got to know more about the influence of transistors in digital circuits.<br> <img src='public/Assets/blog-img/crashcourse.JPG'> 
+        <br> Understanding these fundamentals is crucial, as they are the building blocks of all modern electronic devices. As I delved deeper, 
+        I explored the different types of logic gates such as AND, OR, NOT, NAND, NOR, XOR, and XNOR, and how they are used to perform various logical operations. 
+        I also revisited how these gates are combined to form complex circuits and how they are represented in truth tables. 
+        Learning about how transistors act as switches and amplifiers in these gates gave me a new appreciation for the intricate designs of microprocessors and other integrated circuits. 
+        This refresher also reminded me of how essential this knowledge is for embedded programming and working with hardware like Raspberry Pis and Arduinos. 
+        Despite the busy day, I'm glad I took the time to revisit this essential topic. It's incredible how something so fundamental underpins all the technology we rely on daily.`    
+    },
+
+
+    {
+        title : "Learning C",
+        date :  "July 10, 2024",
+        content: 
+        `I decided to learn C once again after being taught it in my first year of university. 
         I believe it builds a solid foundation on how computers work and kindles creativity. 
         As someone who loves embedded programming, working with Raspberry Pis and Arduinos, 
         I am really happy to get the chance to learn C again. 
         Time to lock in!<br><br> <img src='public/Assets/blog-img/C.JPG' alt='Learning C'>`
     },
+
     {
         title: "Thank you Konan",
         date: "July 4, 2024",
