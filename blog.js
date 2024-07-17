@@ -1,4 +1,10 @@
-const blogPosts = [
+const blogPosts = [{
+        title: "Feeling Empty?",
+        date: "July 17,2024",
+        content: "I recently completed <strong><em>THE LAST OF US PART 2</em></strong> game last month, but yet I still feel so empty, I think about what's next on Ellie's path. She wanted to be loved and not being left alone.<br> Perharps she did a great thing by sparing Abby's Life and I believe this will make Joel happy. I kinda feel she doesnt deserve to be left alone. <br><br> <img src='public/Assets/blog-img/ellie.JPG' height=250px>."
+    },
+
+
     {
         title: "Logic Gates",
         date: "July 12, 2024",
