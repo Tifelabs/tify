@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./public/Assets/images/baby.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <div class="container">
@@ -21,15 +20,17 @@
 
         <!-- Name -->
         <h1 class="name">Tife</h1>
-        <div id="clock">12:00</div>
         
-        <!-- Clock -->
-        <div class="clock-container"></div>
+        <!-- Clock and Timezone -->
+        <div class="clock-zone-container">
+            <div id="clock">12:00</div>
+            <div id="zone">(ADT)</div>
+        </div>
 
         <!-- About -->
         <div class="about">
             <p>
-                Hello, I am Tife, a software engineer ,on this website you will find more information about me, interests, hobbies and projects.I love building stuffs , photography and learning new things. Over the years, 
+                Hello, I am Tife, a software dev,on this website you will find more information about me, interests, hobbies and projects.I love building stuffs , photography and learning new things. Over the years, 
                 I've developed my skills by experimenting with homebrew softwares on PlayStation consoles and learning languages like C, Python, and JavaScript.
             </p>
             <a href="more.html"><button id="more">Read More</button></a>
@@ -53,20 +54,20 @@
                 </a>
             </div>
                                 
-                        <!-- Audio player -->
-                        <div class="audio-container">
-                            <div class="audio-circle" id="play-button">
-                                <img src="./public/Assets/icons/audio.png" alt="Audio Icon">
-                            </div>
-                            <audio id="background-music" class="rounded-audio" autoplay>
-                                <source src="public/Assets/audio/duvet.mp3" type="audio/mp3">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <div class="audio-text"> Click to play☝️</div>
-                            <div class="audio-bar"></div>
-                        </div>
+        <!-- Audio player -->
+        <div class="audio-container">
+            <div class="audio-circle" id="play-button">
+                <img src="./public/Assets/icons/audio.png" alt="Audio Icon">
+            </div>
+            <audio id="background-music" class="rounded-audio" autoplay>
+                <source src="public/Assets/audio/duvet.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="audio-text"> Click to play☝️</div>
+            <div class="audio-bar"></div>
+        </div>
 
-            <footer id="footer">&copy;Tifelabs 2024</footer>   
+        <footer id="footer">&copy;Tifelabs 2024</footer>   
     </div>
                   
     <script src="index.js"></script>

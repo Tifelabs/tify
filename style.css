@@ -41,6 +41,28 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
+.clock-zone-container {
+    display: flex;
+    align-items: center;
+}
+
+#clock {
+    color: rgb(187, 38, 233);
+    font-size: 24px;
+    font-family:  'JetBrains Mono', monospace;
+    margin-right: 5px; /* Adjust space between clock and zone */
+    overflow: hidden; /* Ensure text doesn't overflow its container */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+#zone {
+    color: rgb(187, 38, 233);
+    font-size: 24px;
+    font-family:  'JetBrains Mono', monospace;
+    overflow: hidden; /* Ensure text doesn't overflow its container */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
 .about {
     background-color: #fff;
     padding: 20px;
@@ -65,7 +87,6 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
-  
 .links {
     font-size: 20px;
     color: #004D6E;
@@ -96,14 +117,6 @@ body, html {
 
 #more:hover {
     background-color: #71C9CE;
-}
-
-#clock {
-    color: rgb(187, 38, 233);
-    font-size: 24px;
-    font-family:  'JetBrains Mono', monospace;
-    overflow: hidden; /* Ensure text doesn't overflow its container */
-    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .overall {
@@ -168,7 +181,6 @@ body, html {
 
     #clock {
         font-size: 20px;
-
     }
 
     .tife-more, .tife-more2 {
@@ -187,60 +199,60 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  /* Basic styling for the body */
-  body {
+}
+
+/* Basic styling for the body */
+body {
     font-family: Arial, sans-serif; /* Use a suitable fallback font */
     line-height: 1.6;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-  }
-  
-  /* Header styling */
-  header {
+}
+
+/* Header styling */
+header {
     background-color: #333;
     color: rgb(204, 37, 37);
     text-align: center;
     padding: 1rem 0;
     font-family:  'JetBrains Mono', monospace;
-  }
-  
-  /* Main container styling */
-  .main {
+}
+
+/* Main container styling */
+.main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-  }
-  
-  /* Grid container styling */
-  .grid {
+}
+
+/* Grid container styling */
+.grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with minimum item width of 250px */
     gap: 20px; /* Gap between grid items */
-  }
-  
-  /* Individual grid item styling */
-  .grid-item {
+}
+
+/* Individual grid item styling */
+.grid-item {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-  }
-  
-  .grid-item img {
+}
+
+.grid-item img {
     width: 100%;
     display: block;
     border-radius: 8px;
     transition: transform 0.3s ease;
-  }
-  
-  .grid-item:hover img {
+}
+
+.grid-item:hover img {
     transform: scale(1.1);
-  }
-  
-  /* Overlay styling */
-  .overlay {
+}
+
+/* Overlay styling */
+.overlay {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -251,14 +263,13 @@ body, html {
     text-align: center;
     transform: translateY(100%);
     transition: transform 0.3s ease;
-  }
-  
-  .grid-item:hover .overlay {
-    transform: translateY(0);
-  }
-  
+}
 
-  #gh {
+.grid-item:hover .overlay {
+    transform: translateY(0);
+}
+
+#gh {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -267,14 +278,13 @@ body, html {
     height: 60px;
     width: 100px;
     border-radius: 20px;
-  }
+}
   
-#photo{
+#photo {
     background-color: #71C9CE;
 }
 
-
-/*AUDIO STUFFS */
+/* AUDIO STUFFS */
 /* Add your custom styles here */
 .audio-container {
     display: flex;
