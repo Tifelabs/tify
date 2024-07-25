@@ -1,19 +1,20 @@
-const blogPosts = [ {
-    title: "Be Happy",
-    date: "July 17, 2024",
-    content: `
-      The CEO and founder of <a href='https://elysianlabs.ai/'>Elysian Labs</a>, 
-      <strong><em><a href='https://x.com/nearcyan'>Asara Near</a></em></strong>, 
-      replied to my comment on his website. I found his 
-      <a href='https://near.blog/productivity-tips/'>productivity tips</a> 
-      to be incredibly insightful and valuable. His response truly made my day. 
-      The world would be a better place if more engineers and developers were like Near.
-      <br><br> 
-      <img src='public/Assets/blog-img/near.png' alt='My chat with Near'>
-      <br><br>
-      My goal is to become a founder someday. I won't relent, I won't stop learning. Adios!
-    `
-  },
+const blogPosts = [ 
+        {
+        title: "Be Happy",
+        date: "July 17, 2024",
+        content: `
+        The CEO and founder of <a href='https://elysianlabs.ai/'>Elysian Labs</a>, 
+        <strong><em><a href='https://x.com/nearcyan'>Asara Near</a></em></strong>, 
+        replied to my comment on his website. I found his 
+        <a href='https://near.blog/productivity-tips/'>productivity tips</a> 
+        to be incredibly insightful and valuable. His response truly made my day. 
+        The world would be a better place if more engineers and developers were like Near.
+        <br><br> 
+        <img src='public/Assets/blog-img/near.png' alt='My chat with Near'>
+        <br><br>
+        My goal is to become a founder someday. I won't relent, I won't stop learning. Adios!
+        `
+    },
     
     {
         title: "Feeling Empty?",
@@ -31,18 +32,26 @@ const blogPosts = [ {
         date: "July 12, 2024",
         content: 
         `It has been a hectic day so far. Being away from my main desktop computer, 
-        I decided to refresh my knowledge on <a href = 'https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> and basic computing concepts. 
+        I decided to refresh my knowledge on <a href='https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> and basic computing concepts. 
         It was fun while learning, 
-        and I got to know more about the influence of transistors in digital circuits.<br> <img src='public/Assets/blog-img/crashcourse.JPG'> 
-        <br> Understanding these fundamentals is crucial, as they are the building blocks of all modern electronic devices. As I delved deeper, 
-        I explored the different types of logic gates such as AND, OR, NOT, NAND, NOR, XOR, and XNOR, and how they are used to perform various logical operations. 
-        I also revisited how these gates are combined to form complex circuits and how they are represented in truth tables. 
-        Learning about how transistors act as switches and amplifiers in these gates gave me a new appreciation for the intricate designs of microprocessors and other integrated circuits. 
+        and I got to know more about the influence of transistors in digital circuits.<br> 
+        <img src='public/Assets/blog-img/crashcourse.JPG'> 
+        <br> Understanding these fundamentals is crucial, as they are the building blocks of all modern electronic devices. 
+        As I delved deeper, I explored the different types of <a href='https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> such as 
+        <a href='https://en.wikipedia.org/wiki/AND_gate'>AND</a>, 
+        <a href='https://en.wikipedia.org/wiki/OR_gate'>OR</a>, 
+        <a href='https://en.wikipedia.org/wiki/NOT_gate'>NOT</a>, 
+        <a href='https://en.wikipedia.org/wiki/NAND_gate'>NAND</a>, 
+        <a href='https://en.wikipedia.org/wiki/NOR_gate'>NOR</a>, 
+        <a href='https://en.wikipedia.org/wiki/XOR_gate'>XOR</a>, and 
+        <a href='https://en.wikipedia.org/wiki/XNOR_gate'>XNOR</a>, and how they are used to perform various logical operations. 
+        I also revisited how these <a href='https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> are combined to form complex circuits and how they are represented in truth tables. 
+        Learning about how transistors act as switches and amplifiers in these <a href='https://en.wikipedia.org/wiki/Logic_gate'>logic gates</a> gave me a new appreciation for the intricate designs of microprocessors and other integrated circuits. 
         This refresher also reminded me of how essential this knowledge is for embedded programming and working with hardware like Raspberry Pis and Arduinos. 
-        Despite the busy day, I'm glad I took the time to revisit this essential topic. It's incredible how something so fundamental underpins all the technology we rely on daily.`    
+        Despite the busy day, I'm glad I took the time to revisit this essential topic. 
+        It's incredible how something so fundamental underpins all the technology we rely on daily.`    
     },
-
-
+    
     {
         title : "Learning C",
         date :  "July 10, 2024",
