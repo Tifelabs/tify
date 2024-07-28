@@ -254,8 +254,6 @@ async function updateSongInfo(token) {
         document.getElementById('artist-name').innerText = songData.item.artists.map(artist => artist.name).join(', ');
     } else {
         document.getElementById('album-art').src = './images/dog.jpg';
-        document.getElementById('song-name').innerText = 'Offline';
-        document.getElementById('artist-name').innerText = 'Artist Name';
     }
 }
 
