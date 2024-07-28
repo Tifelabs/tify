@@ -182,31 +182,88 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // SPOTIFYYYYY
-async function fetchNowPlaying() {
-    try {
-        const response = await fetch('/now-playing');
-        const data = await response.json();
+// async function fetchNowPlaying() {
+//     try {
+//         const response = await fetch('/now-playing');
+//         const data = await response.json();
 
-        console.log('Fetched data:', data);
+//         console.log('Fetched data:', data);
 
-        if (data.error) {
-            console.error('Error:', data.error);
-            return;
+//         if (data.error) {
+//             console.error('Error:', data.error);
+//             return;
+//         }
+
+//         // Update the DOM elements with the fetched data
+//         document.getElementById('song-name').innerText = data.song_name || 'No song playing';
+//         document.getElementById('artist-name').innerText = data.artist_name || '';
+//         document.getElementById('album-art').src = data.album_art || './images/dog.jpg';
+
+//         console.log('Updated DOM elements with song information');
+//     } catch (error) {
+//         console.error('Fetch error:', error);
+//         document.getElementById('album-art').src = './images/dog.jpg';
+//     }
+// }
+
+// // Fetch now playing information every 5 seconds
+// setInterval(fetchNowPlaying, 5000);
+// // Initial fetch
+// fetchNowPlaying();
+
+//
+const clientId = '01a18b193c814e0f84090a7fd40570d4';
+const redirectUri = 'http://localhost:3000/callback'; // Replace with your redirect URI
+const scopes = 'user-read-currently-playing user-read-playback-state';
+
+const authEndpoint = 'https://accounts.spotify.com/authorize';
+const currentlyPlayingEndpoint = 'https://api.spotify.com/v1/me/player/currently-playing';
+
+// Get the access token from the URL
+function getTokenFromUrl() {
+    const params = new URLSearchParams(window.location.hash.replace('#', ''));
+    return params.get('access_token');
+}
+
+// Redirect to Spotify's authorization page
+function redirectToSpotifyAuth() {
+    const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
+    window.location.href = authUrl;
+}
+
+// Function to get the currently playing song
+async function getCurrentlyPlaying(token) {
+    const response = await fetch(currentlyPlayingEndpoint, {
+        headers: {
+            'Authorization': 'Bearer ' + token
         }
+    });
+    if (response.status === 204) {
+        return null; // No song currently playing
+    }
+    const data = await response.json();
+    return data;
+}
 
-        // Update the DOM elements with the fetched data
-        document.getElementById('song-name').innerText = data.song_name || 'No song playing';
-        document.getElementById('artist-name').innerText = data.artist_name || '';
-        document.getElementById('album-art').src = data.album_art || './images/dog.jpg';
-
-        console.log('Updated DOM elements with song information');
-    } catch (error) {
-        console.error('Fetch error:', error);
+// Function to update the HTML with the song info
+async function updateSongInfo(token) {
+    const songData = await getCurrentlyPlaying(token);
+    if (songData) {
+        document.getElementById('album-art').src = songData.item.album.images[0].url;
+        document.getElementById('song-name').innerText = songData.item.name;
+        document.getElementById('artist-name').innerText = songData.item.artists.map(artist => artist.name).join(', ');
+    } else {
         document.getElementById('album-art').src = './images/dog.jpg';
+        document.getElementById('song-name').innerText = 'Offline';
+        document.getElementById('artist-name').innerText = 'Artist Name';
     }
 }
 
-// Fetch now playing information every 5 seconds
-setInterval(fetchNowPlaying, 5000);
-// Initial fetch
-fetchNowPlaying();
+document.getElementById('login-btn').addEventListener('click', redirectToSpotifyAuth);
+
+// Update the song info every 5 seconds if the token is available
+const token = getTokenFromUrl();
+if (token) {
+    setInterval(() => updateSongInfo(token), 5000);
+    updateSongInfo(token);
+}
