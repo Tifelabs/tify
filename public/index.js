@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // SPOTIFYYYYY
 async function fetchNowPlaying() {
     try {
-        const response = await fetch('/now-playing');
+        const response = await fetch('http://tifelabs.com/now-playing');
         const data = await response.json();
 
         console.log('Fetched data:', data);
@@ -194,17 +194,15 @@ async function fetchNowPlaying() {
             return;
         }
 
-        // Check if data is valid and update DOM elements
         if (data.song_name && data.artist_name && data.album_art) {
             document.getElementById('song-name').innerText = data.song_name;
             document.getElementById('artist-name').innerText = data.artist_name;
             document.getElementById('album-art').src = data.album_art;
             console.log('Updated DOM elements with song information');
         } else {
-            // Use placeholder image and default text when no song is playing
             document.getElementById('song-name').innerText = 'No track currently playing';
             document.getElementById('artist-name').innerText = '';
-            document.getElementById('album-art').src = './images/dog.jpg'; // Path to your placeholder image
+            document.getElementById('album-art').src = './images/dog.jpg';
             console.log('Set placeholder image and default text');
         }
     } catch (error) {
@@ -212,7 +210,5 @@ async function fetchNowPlaying() {
     }
 }
 
-// Fetch now playing information every 5 seconds
 setInterval(fetchNowPlaying, 5000);
-// Initial fetch
 fetchNowPlaying();
