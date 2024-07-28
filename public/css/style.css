@@ -1,4 +1,63 @@
-/* Reset and general styles */
+/* Spotify Stuffs */
+.now-playing {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: 'JetBrains Mono', monospace;
+    flex-wrap: wrap; /* Add this line */
+}
+
+#album-art {
+    width: 125px;
+    height: 125px;
+    border-radius: 5px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+#song-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#song-name, #artist-name {
+    margin: 0;
+}
+
+#artist-name{
+    color: red;
+}
+
+/* Box Stuffs */
+.big-box {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+}
+
+.box {
+    width: 50%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-size: 16px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(2, 56, 233, 0.1);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* My Main CSS */
 body, html {
     margin: 0;
     padding: 0;
@@ -190,10 +249,35 @@ body, html {
 
     .responsive-img {
         margin-top: 10px;
+
+    }
+
+    .now-playing {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+   #album-art {
+        width: 100px;
+        height: 100px;
+        margin-right: 0;
+        margin-bottom: 10px; /* Add some margin below the image */
+        }
+    
+    #song-info {
+        align-items: center;
+        width: 100%;
+          
+        }
+    
+    #song-name, #artist-name {
+        text-align: center;
+      
     }
 }
 
-/* FOR PHOTOGRAPHY SECTION*/
+/* FOR PHOTOGRAPHY SECTION */
 /* Reset some default margin and padding */
 * {
     margin: 0;
