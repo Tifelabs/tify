@@ -1,21 +1,4 @@
-ul {
-    list-style-type: none; /* Remove default bullets */
-    padding: 0; /* Remove default padding */
-}
 
-li {
-    position: relative; /* Ensure the pseudo-element is positioned relative to the list item */
-    padding-left: 20px; /* Add space for the arrow */
-    margin-bottom: 5px; /* Optional: space between list items */
-}
-
-li::before {
-    content: '→'; /* Arrow symbol */
-    position: absolute;
-    left: 0; /* Position the arrow on the left side */
-    color: #000; /* Color of the arrow */
-    font-size: 16px; /* Size of the arrow */
-}
 
 
  /*THE TWO BOXES I AM  ADDING */
@@ -61,6 +44,25 @@ li::before {
     margin: 5px 0;
 }
 
+ /* THE ARROW BULLETS POINTS */
+ ul {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0; /* Remove default padding */
+}
+
+li {
+    position: relative; /* Ensure the pseudo-element is positioned relative to the list item */
+    padding-left: 20px; /* Add space for the arrow */
+    margin-bottom: 5px; /* Optional: space between list items */
+}
+
+li::before {
+    content: '→'; /* Arrow symbol */
+    position: absolute;
+    left: 0; /* Position the arrow on the left side */
+    color: navy; /* Color of the arrow */
+    font-size: 16px; /* Size of the arrow */
+}
 
 /* My Main CSS */
 body, html {
