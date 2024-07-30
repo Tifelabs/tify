@@ -160,8 +160,7 @@ setInterval(updateClock, 1000);
 updateClock(); 
 
 
-//Audio
-// Wait for the DOM to be fully loaded
+//Audio to play Lain Music at my Landing Page
 document.addEventListener("DOMContentLoaded", function() {
     // Get the play button element
     var playButton = document.getElementById('play-button');
@@ -180,33 +179,3 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-//SPOTIFYYYYY
-async function fetchNowPlaying() {
-    try {
-        const response = await fetch('/now-playing');
-        const data = await response.json();
-
-        console.log('Fetched data:', data);
-
-        if (data.error) {
-            console.error('Error:', data.error);
-            return;
-        }
-
-        // Update the DOM elements with the fetched data
-        document.getElementById('song-name').innerText = data.song_name || 'No song playing';
-        document.getElementById('artist-name').innerText = data.artist_name || '';
-        document.getElementById('album-art').src = data.album_art || './images/dog.jpg';
-
-        console.log('Updated DOM elements with song information');
-    } catch (error) {
-        console.error('Fetch error:', error);
-        document.getElementById('album-art').src = './images/dog.jpg';
-    }
-}
-
-// Fetch now playing information every 5 seconds
-setInterval(fetchNowPlaying, 5000);
-// Initial fetch
-fetchNowPlaying();

@@ -1,51 +1,40 @@
-/* Spotify Stuffs */
-.now-playing {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    font-family: 'JetBrains Mono', monospace;
-    flex-wrap: wrap; /* Add this line */
+ul {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0; /* Remove default padding */
 }
 
-#album-art {
-    width: 125px;
-    height: 125px;
-    border-radius: 5px;
-    margin-right: 10px;
-    flex-shrink: 0;
-    object-fit: cover;
+li {
+    position: relative; /* Ensure the pseudo-element is positioned relative to the list item */
+    padding-left: 20px; /* Add space for the arrow */
+    margin-bottom: 5px; /* Optional: space between list items */
 }
 
-#song-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+li::before {
+    content: '→'; /* Arrow symbol */
+    position: absolute;
+    left: 0; /* Position the arrow on the left side */
+    color: #000; /* Color of the arrow */
+    font-size: 16px; /* Size of the arrow */
 }
 
-#song-name, #artist-name {
-    margin: 0;
-}
 
-#artist-name{
-    color: red;
-}
+ /*THE TWO BOXES I AM  ADDING */
 
-/* Box Stuffs */
 .big-box {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows boxes to wrap to the next line if they don't fit */
     gap: 30px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .box {
-    width: 50%;
-    height: 300px;
+    flex: 1;
+    min-width: 300px; /* Ensure boxes have a minimum width */
+    max-width: 600px; /* Ensure boxes have a maximum width */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     color: black;
     font-size: 16px;
@@ -56,6 +45,22 @@
     text-align: left;
     margin-bottom: 20px;
 }
+
+.fav {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.box ul li {
+    margin: 5px 0;
+}
+
 
 /* My Main CSS */
 body, html {
@@ -139,7 +144,7 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.pro{
+.pro {
     font-size: 20px;
     color: #004D6E;
     margin-bottom: 0;
@@ -249,7 +254,6 @@ body, html {
 
     .responsive-img {
         margin-top: 10px;
-
     }
 
     .now-playing {
@@ -258,22 +262,20 @@ body, html {
         align-items: flex-start;
     }
     
-   #album-art {
+    #album-art {
         width: 100px;
         height: 100px;
         margin-right: 0;
         margin-bottom: 10px; /* Add some margin below the image */
-        }
+    }
     
     #song-info {
         align-items: center;
         width: 100%;
-          
-        }
+    }
     
     #song-name, #artist-name {
         text-align: center;
-      
     }
 }
 
@@ -383,17 +385,6 @@ header {
 }
 
 .audio-circle img {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-}
-
-.audio-text {
-    margin-top: 10px;
-}
-
-.audio-bar {
-    width: 100%;
-    height: 2px;
-    background-color: #ccc;
-    margin-top: 10px;
+    width: 60px; /* Set the desired width */
+    height: 60px; /* Set the desired height */
 }
