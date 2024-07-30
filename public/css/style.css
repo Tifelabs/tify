@@ -30,9 +30,12 @@
 }
 
 .fav {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #004D6E;
+
 }
 
 .box ul {
@@ -46,8 +49,8 @@
 
  /* THE ARROW BULLETS POINTS */
  ul {
-    list-style-type: none; /* Remove default bullets */
-    padding: 0; /* Remove default padding */
+    list-style-type: none; 
+    padding: 0; 
 }
 
 li {
@@ -264,25 +267,9 @@ body, html {
         align-items: flex-start;
     }
     
-    #album-art {
-        width: 100px;
-        height: 100px;
-        margin-right: 0;
-        margin-bottom: 10px; /* Add some margin below the image */
-    }
-    
-    #song-info {
-        align-items: center;
-        width: 100%;
-    }
-    
-    #song-name, #artist-name {
-        text-align: center;
-    }
 }
 
 /* FOR PHOTOGRAPHY SECTION */
-/* Reset some default margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -373,7 +360,6 @@ header {
 }
 
 /* AUDIO STUFFS */
-/* Add your custom styles here */
 .audio-container {
     display: flex;
     align-items: center;
