@@ -106,9 +106,10 @@ footer {
         padding: 1rem;
     }
 
-    #gh {
-        margin: 10px 0;
+    #home-btn {
+        margin: 15px 0;
         width: 80px;
+        margin-left: 10px;
     }
 
     .blog-post {
@@ -117,6 +118,11 @@ footer {
 
     .blog-post h3 {
         font-size: 1.25rem;
+    }
+    .audio-container-more{
+        margin: 15px 0;
+        width: 80px;
+        margin-left: 10px;
     }
 }
 
@@ -130,7 +136,7 @@ footer {
     flex-direction: column;
     align-items: center;
     margin-top: 0px;
-    margin-left: 600px;
+    margin-left: 20px;
 }
 
 /* Play Button */
@@ -167,4 +173,18 @@ audio {
     margin-top: 10px;
     font-size: 12px;
     color: #999;
+}
+
+/* Footer Adjustments */
+#footer1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+    background-color: #71C9CE;
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+    font-family: 'JetBrains Mono', monospace;
 }

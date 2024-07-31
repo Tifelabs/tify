@@ -344,7 +344,7 @@ header {
     transform: translateY(0);
 }
 
-#gh {
+#home-btn {
     display: flex;
     justify-content: center;
     align-items: center;
