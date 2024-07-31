@@ -28,22 +28,23 @@ header h5 {
 }
 
 /* Navigation link */
-#gh {
+#home-btn {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
+    margin-left: 820px;
+    margin-top: 20px;
     font-size: larger;
     background-color: #71C9CE;
-    color: #004D6E;
+    color: red;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 20px 0px;
     text-decoration: none;
     width: 100px;
     text-align: center;
+    font-weight: bolder;
 }
 
-#gh:hover {
+#home-btn:hover {
     background-color: #004D6E;
     color: red;
 }
