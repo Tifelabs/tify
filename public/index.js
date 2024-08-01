@@ -1,5 +1,23 @@
-//BLOG WRITING
+//BLOG WRITING USING THE JS OBJECT
 const blogPosts = [ 
+    {
+        title: "August!",
+        date:"August 1,2024",
+        content: 
+        `Time goes by so quickly, but in any case, I'm glad that a new month has finally arrived. Moreoever, I'm  glad that my birthday is just 29 days away.
+        I made a commitment to myself this month to become better, seek clarity, and practice mindfulness. 
+        Nevertheless Strive hard to learn the stuff I need to Learn.
+        <br>
+        <img src='./assets/blog-img/aug.JPG' alt="flowers">
+
+        <strong><em>Be good August!, Happy New Month!</em></strong>
+
+        
+        
+        
+        `
+
+    },
     {
     title: "Be Happy",
     date: "July 17, 2024",
@@ -13,7 +31,7 @@ const blogPosts = [
     <br><br> 
     <img src='./assets/blog-img/near.png' alt='My chat with Near'>
     <br><br>
-    My goal is to become a founder someday. I won't relent, I won't stop learning. Adios!
+    My goal is to become a founder someday. I won't relent, I won't stop learning. <strong><em>Adios!</em></strong>
     `
 },
 
@@ -99,7 +117,8 @@ const blogPosts = [
     CIDR: CIDR notation is a way of specifying an IP address and subnet mask in a compact form. It uses a slash (/) followed by the number of bits used for the network portion of the address.
     
     The formula for calculating the number of possible hosts per subnet is: Number of hosts per subnet = 2^(number of host bits) - 2. 
-    For example, if you have an IP address of 192.168.1.0/24, the subnet mask is 255.255.255.0, and you have used 24 bits for the network portion. This means there are 8 bits left for the host portion, which gives you: Number of hosts per subnet = 2^8 - 2 = 254. This means you can have up to 254 hosts per subnet. The first and last IP addresses in the subnet are reserved for the network address and broadcast address, respectively, so they cannot be used as host addresses.
+    For example, 
+    if you have an IP address of 192.168.1.0/24, the subnet mask is 255.255.255.0, and you have used 24 bits for the network portion. This means there are 8 bits left for the host portion, which gives you: Number of hosts per subnet = 2^8 - 2 = 254. This means you can have up to 254 hosts per subnet. The first and last IP addresses in the subnet are reserved for the network address and broadcast address, respectively, so they cannot be used as host addresses.
     
     In summary, subnetting involves dividing an IP address into smaller sub-groups, while CIDR is a way of specifying the number of bits used for the network portion of the address in a compact form. The formulas for calculating the number of possible subnets and hosts per subnet are useful for determining how to configure your network.`
 },
@@ -143,9 +162,7 @@ blogPosts.forEach(post => {
 });
 
 
-////////// WHAT THE FUUUUUCKKKK!
-
-//Clock Stuff
+//CLOCK STUFFS TO GET CURRENT TIME
 function updateClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
