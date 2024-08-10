@@ -11,12 +11,7 @@ const blogPosts = [
         <img src='./assets/blog-img/aug.JPG' alt="flowers">
 
         <strong><em>Be good August!, Happy New Month!</em></strong>
-
-        
-        
-        
         `
-
     },
     {
     title: "Be Happy",

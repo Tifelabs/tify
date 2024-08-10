@@ -85,8 +85,8 @@ main {
 
 .blog-post img {
     max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 500px;
+    border-radius: 20px 0;
     margin-top: 10px;
 }
 
@@ -128,7 +128,6 @@ footer {
 
 /* AUDIO STUFFS  FOR MORE*/
 /* General styles */
-
 
 /* Audio Player Container */
 .audio-container-more {
