@@ -149,11 +149,15 @@ return postElement;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-const blogPostsContainer = document.getElementById('blog-posts');
+    const blogPostsContainer = document.getElementById('blog-posts');
+    const urlParams = new URLSearchParams(window.location.search);
+    const postIndex = urlParams.get('post');
 
-blogPosts.forEach(post => {
-    blogPostsContainer.appendChild(createPostElement(post));
-});
+    if (postIndex !== null && blogPosts[postIndex]) {
+        blogPostsContainer.appendChild(createPostElement(blogPosts[postIndex]));
+    } else {
+        blogPostsContainer.textContent = "Blog post not found.";
+    }
 });
 
 
@@ -191,4 +195,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
+// Dark and Light mode
+
+document.addEventListener("DOMContentLoaded", function() {
+    const toggleButton = document.getElementById("mode-toggle");
+
+    // Check if dark mode was previously enabled
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+
+    toggleButton.addEventListener("click", function() {
+        document.body.classList.toggle("dark-mode");
+
+        // Save the dark mode state in localStorage
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.removeItem("darkMode");
+        }
+    });
+});
 
