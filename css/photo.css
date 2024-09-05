@@ -21,6 +21,18 @@ header {
     border-bottom: 2px solid var(--accent-color);
 }
 
+.toggle-mode {
+    margin-left: 20px;
+}
+
+.toggle-mode button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: inherit;
+}
+
 .logo a {
     font-size: 24px;
     font-weight: bold;
@@ -47,17 +59,8 @@ nav ul li a:hover {
     color: var(--accent-color);
 }
 
-.toggle-mode {
-    margin-left: 20px;
-}
 
-.toggle-mode button {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: inherit;
-}
+
 
 h1 {
     font-size: 36px;
@@ -126,7 +129,7 @@ footer {
 
 /* Light Mode Variables */
 body.light-mode {
-    --background-color: #ffffff;
+    --background-color: rgba(221, 214, 214, 0.447);
     --text-color: #333333;
     --accent-color: #007acc;
 }
