@@ -3,20 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Video with Text</title>
-    <link rel="stylesheet" href="index.css">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <div class="video-container">
-        <video id="myVideo" controls>
-            <source src="./rick.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <p>My website is under CONSTRUCTION : )</p>
-        <p>ENJOY</p>
+<body class="dark-mode">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="/index.html">
+                    <img src="./public/assets/icons/logo.png" alt="Logo" height="50">
+                </a> 
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="./blog.html">Blogs</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./photo.html">Photography</a></li>
+                </ul>
+            </nav>
+            <div class="toggle-mode">
+                <button id="mode-toggle">🌙</button>
+            </div>
+        </header>
+
+        <!-- About -->
+        <div class="about">
+            <p>
+                <strong>Hello, I'm Tife,</strong> a software developer in my early 20s. 
+                This is my personal corner of the internet where I share my passion for building things, 
+                photography, robotics, and learning new skills. 
+                I've developed my skills by experimenting with homebrew software on PlayStation consoles, and it has been really fun so far.
+            </p>
+        </div>
+
+        <!-- Favorite Links -->
+        <div class="fav">
+            <h1>Favorite Links</h1>
+            <ul>
+                <li><a href="https://near.blog/productivity-tips/">Productivity</a><em><strong> Asara Near</strong></em></li>
+                <li><a href="https://www.paulgraham.com/start.html">How to start a StartUp</a><em><strong> Paul Graham</strong></em></li>
+            </ul>
+        </div>
+
+        <main>
+            <!-- Section for My Social Links -->
+            <section id="links">
+                <div class="box">
+                    <h1 class="pro">Links</h1>
+                    <div class="links-container">
+                        <a href="https://x.com/tifyszn"><img src="./public/assets/icons/twitter.png" alt="Twitter"></a>
+                        <a href="https://github.com/Tifelabs"><img src="./public/assets/icons/github.png" alt="Github"></a>
+                        <a href="https://ko-fi.com/tifelabs"><img src="./public/assets/icons/coffee.png" alt="Coffee"></a> 
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; Tifelabs 2024 </p>
+        </footer>
     </div>
 
-
-    <script src="fun.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>

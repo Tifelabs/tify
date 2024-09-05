@@ -1,0 +1,159 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General styling for the blog */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2e2e2e;
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Light Mode Styling */
+body.light-mode {
+    background-color: #f4f4f4;
+    color: #2e2e2e;
+}
+
+/* Blog container */
+.container {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #4f4f4f;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+
+.toggle-mode {
+    margin-left: 20px;
+}
+
+.toggle-mode button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: inherit;
+}
+
+
+/* Header styling */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Logo styling */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Navigation styling */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #eaeaea;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+/* Blog list container */
+#blog-list {
+    margin: 20px;
+}
+
+/* Individual blog item */
+.blog-item {
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Blog item hover effect */
+.blog-item:hover {
+    background-color: #e9e9e9;
+}
+
+/* Blog content container */
+#blog-content {
+    margin: 20px;
+    background-color: #ffffff;
+    color: #333;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Blog content title */
+#blog-content h2 {
+    margin-top: 0;
+}
+
+/* Back button styling */
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Back button hover effect */
+button:hover {
+    background-color: #555;
+}
+
+/* Footer styling */
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    border-top: 2px solid var(--accent-color);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
