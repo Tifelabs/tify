@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: var(--background-color);
     color: var(--text-color);
+    font-family: 'JetBrains Mono', monospace;
 }
 
 /* Container */
@@ -74,6 +75,7 @@ nav ul li a:hover {
 }
 
 /* Favorite Links Section */
+/* Favorite Links Section */
 .fav {
     max-width: 1200px;
     margin: 0 auto;
@@ -81,8 +83,8 @@ nav ul li a:hover {
     text-align: justify;
 }
 
-.fav h1 {
-    font-size: 24px;
+.fav h4 { /* Changed from h1 to h4 for consistency */
+    font-size: 20px; /* Adjust the font size as needed */
     margin-bottom: 20px;
 }
 
@@ -90,7 +92,7 @@ nav ul li a:hover {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 18px;
+    font-size: 14px; /* Adjust the font size to your preference */
 }
 
 .fav ul li {
@@ -100,11 +102,13 @@ nav ul li a:hover {
 .fav ul li a {
     color: var(--accent-color);
     text-decoration: none;
+    font-size: 14px; /* Adjust the font size to your preference */
 }
 
 .fav ul li a:hover {
     text-decoration: underline;
 }
+
 
 /* Main Content */
 main {
@@ -186,29 +190,5 @@ body.light-mode footer {
 
 body.light-mode header {
     border-color: var(--accent-color);
-}
-
-.metrics {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-}
-
-.views-counter, .reaction {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.reaction button {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.reaction button:disabled {
-    color: #ccc;
 }
 
