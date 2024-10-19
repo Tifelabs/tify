@@ -3,40 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog List</title>
-    <link rel="stylesheet" href="./css/blog-list.css">
-    <link rel="icon" href="./public/Assets/images/baby.png" type="image/png">
+    <meta name="description" content="Tife's personal blog about software development, photography, and robotics.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Blog - Tife</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./public/assets/images/baby.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-
-        <!-- Header -->
-        <header>
-            <h2>My Blogs</h2>
-        </header>
+        <!-- Top Tabs -->
+        <div class="tabs">
+            <a href="/">Home</a>
+            <a href="./more.html">About</a>
+            <a href="./blog.html">Blogs</a>
+            <a href="./photo.html">Photography</a>
+        </div>
         
-        <!-- Navigation Link -->
-        <a href="/" id="home-btn">Home</a>
-        <p>Currently fixing the blog route issue.. thanks</p>
-        <p>Will be back soon...</p>
-        <p>Sometimes JS sucks.....</p>
-        <!-- Main Content -->
-        <main>
-            <div class="box">
-                <section id="blog-titles">
-                    <!-- Blog titles will be injected here by JavaScript -->
-                </section>
-            </div>
-        </main>
+        <!-- Blog Post List -->
+        <div class="blog-list">
+            <h4>Blog Posts</h4>
+            <ul id="post-list"></ul> <!-- List to be populated by JavaScript -->
+        </div>
 
-        <!-- Footer -->
-        <footer id="footer1">&copy;Tifelabs 2024</footer>
+        <footer id="footer">&copy; Tifelabs 2024</footer>
     </div>
-
-    <script src="./js/blog-list.js"></script>
-
+   
     <script src="./js/index.js"></script>
- 
+    <script src="./js/oneko.js"></script>
+    <script>
+        // Array of blog posts
+        const blogPosts = [
+            {
+                title: "Do Something Nice",
+                date: "2024-10-19",
+                link: "/old_web/posts/nice.html"
+            },
+           
+            // Add more posts as needed
+        ];
+
+
+       // Function to populate the blog post list
+function populateBlogPosts() {
+    const postListElement = document.getElementById("post-list");
+
+    blogPosts.forEach(post => {
+        const listItem = document.createElement("li");
+        
+        // Create the link element for the blog title
+        const link = document.createElement("a");
+        link.href = post.link; // Using the relative path for the link
+        link.textContent = post.title; // Displaying the title
+
+        // Create the date element
+        const date = document.createElement("span");
+        date.textContent = ` -  ${post.date}`; // Adding a hyphen to separate title and date
+        date.style.color = "#888"; // Optional: style the date text (light grey)
+
+        // Append both the link and the date to the list item
+        listItem.appendChild(link);
+        listItem.appendChild(date);
+
+        // Append the list item to the post list element
+        postListElement.appendChild(listItem);
+    });
+}
+
+// Call the function to populate the blog posts when the page loads
+window.onload = populateBlogPosts;
+
+    </script>
 </body>
 </html>
