@@ -57,6 +57,7 @@ li {
     position: relative; /* Ensure the pseudo-element is positioned relative to the list item */
     padding-left: 20px; /* Add space for the arrow */
     margin-bottom: 5px; /* Optional: space between list items */
+
 }
 
 li::before {
@@ -98,15 +99,15 @@ body, html {
     color: #004D6E;
     margin-right: 15px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .tabs a:hover {
-    text-decoration: underline;
+    text-decoration:underline;
 }
 
 .name {
-    font-size: 36px;
+    font-size: 30px;
     color: #004D6E;
     margin-bottom: 20px;
     font-family: 'JetBrains Mono', monospace;
@@ -119,7 +120,7 @@ body, html {
 
 #clock {
     color: rgb(187, 38, 233);
-    font-size: 24px;
+    font-size: 15px;
     font-family:  'JetBrains Mono', monospace;
     margin-right: 5px; /* Adjust space between clock and zone */
     overflow: hidden; /* Ensure text doesn't overflow its container */
@@ -128,7 +129,7 @@ body, html {
 
 #zone {
     color: rgb(187, 38, 233);
-    font-size: 24px;
+    font-size: 15px;
     font-family:  'JetBrains Mono', monospace;
     overflow: hidden; /* Ensure text doesn't overflow its container */
     white-space: nowrap; /* Prevent text from wrapping */
@@ -229,15 +230,7 @@ body, html {
 }
 
 @media (max-width: 600px) {
-    .tabs {
-        flex-direction: column;
-    }
-
-    .tabs a {
-        margin-bottom: 10px;
-        font-size: 16px;
-    }
-
+    
     .name {
         font-size: 28px;
     }
