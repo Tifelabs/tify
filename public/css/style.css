@@ -1,74 +1,4 @@
-
-
-
- /*THE TWO BOXES I AM  ADDING */
-
-.big-box {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; /* Allows boxes to wrap to the next line if they don't fit */
-    gap: 30px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.box {
-    flex: 1;
-    min-width: 300px; /* Ensure boxes have a minimum width */
-    max-width: 600px; /* Ensure boxes have a maximum width */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: black;
-    font-size: 16px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(2, 56, 233, 0.1);
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-.fav {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    color: #004D6E;
-
-}
-
-.box ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.box ul li {
-    margin: 5px 0;
-}
-
- /* THE ARROW BULLETS POINTS */
- ul {
-    list-style-type: none; 
-    padding: 0; 
-}
-
-li {
-    position: relative; /* Ensure the pseudo-element is positioned relative to the list item */
-    padding-left: 20px; /* Add space for the arrow */
-    margin-bottom: 5px; /* Optional: space between list items */
-
-}
-
-li::before {
-    content: '→'; /* Arrow symbol */
-    position: absolute;
-    left: 0; /* Position the arrow on the left side */
-    color: navy; /* Color of the arrow */
-    font-size: 16px; /* Size of the arrow */
-}
-
-/* My Main CSS */
+/* GLOBAL STYLES */
 body, html {
     margin: 0;
     padding: 0;
@@ -84,6 +14,7 @@ body, html {
     padding: 20px;
 }
 
+/* HEADER AND NAVIGATION */
 .tabs {
     display: flex;
     justify-content: space-between;
@@ -103,7 +34,7 @@ body, html {
 }
 
 .tabs a:hover {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 .name {
@@ -113,28 +44,71 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.clock-zone-container {
+/* BOXES */
+.big-box {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-#clock {
-    color: rgb(187, 38, 233);
-    font-size: 15px;
-    font-family:  'JetBrains Mono', monospace;
-    margin-right: 5px; /* Adjust space between clock and zone */
-    overflow: hidden; /* Ensure text doesn't overflow its container */
-    white-space: nowrap; /* Prevent text from wrapping */
+.box {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+    font-size: 16px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(2, 56, 233, 0.1);
+    text-align: left;
+    margin-bottom: 20px;
 }
 
-#zone {
-    color: rgb(187, 38, 233);
-    font-size: 15px;
-    font-family:  'JetBrains Mono', monospace;
-    overflow: hidden; /* Ensure text doesn't overflow its container */
-    white-space: nowrap; /* Prevent text from wrapping */
+.fav {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #004D6E;
 }
 
+.box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.box ul li {
+    margin: 5px 0;
+}
+
+/* LIST BULLET STYLING */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: navy;
+    font-size: 16px;
+}
+
+/* ABOUT SECTION */
 .about {
     background-color: #fff;
     padding: 20px;
@@ -152,28 +126,22 @@ body, html {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.pro {
+.pro, .links {
     font-size: 20px;
     color: #004D6E;
     margin-bottom: 0;
     font-family: 'JetBrains Mono', monospace;
 }
 
-.links {
-    font-size: 20px;
-    color: #004D6E;
-    margin-bottom: 0;
-    font-family: 'JetBrains Mono', monospace;
-}
-
+/* LINKS AND ICONS */
 .icon-link {
-    text-decoration: none; /* Remove underline */
-    display: inline-block; /* Ensures the clickable area is just the image */
+    text-decoration: none;
+    display: inline-block;
 }
 
 .icon-link img {
-    display: block; /* Ensures no extra spacing around the image */
-    border: none; /* Remove any border */
+    display: block;
+    border: none;
     height: 40px;
 }
 
@@ -191,46 +159,26 @@ body, html {
     background-color: #71C9CE;
 }
 
-.overall {
+/* CLOCK ZONE */
+.clock-zone-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-    border-radius: 20px;
+}
+
+#clock, #zone {
+    color: rgb(187, 38, 233);
+    font-size: 15px;
     font-family: 'JetBrains Mono', monospace;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.tife-more, .tife-more2 {
-    background-color: aqua;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 20px 0;
-    width: 90%;
+#clock {
+    margin-right: 5px;
 }
 
-.responsive-img {
-    width: 600px;
-    height: 300px;
-    border-radius: 20px;
-    margin-top: 20px;
-}
-
-#footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    width: 100%;
-    background-color: #71C9CE;
-    padding: 10px;
-    font-size: 1em;
-    color: #333;
-    font-family: 'JetBrains Mono', monospace;
-}
-
+/* RESPONSIVE LAYOUT */
 @media (max-width: 600px) {
-    
     .name {
         font-size: 28px;
     }
@@ -261,49 +209,29 @@ body, html {
         flex-direction: column;
         align-items: flex-start;
     }
-    
 }
 
-/* FOR PHOTOGRAPHY SECTION */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Basic styling for the body */
-body {
-    font-family: Arial, sans-serif; 
-    line-height: 1.6;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-/* Header styling */
+/* PHOTOGRAPHY SECTION */
 header {
     background-color: #333;
     color: rgb(204, 37, 37);
     text-align: center;
     padding: 1rem 0;
-    font-family:  'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
 }
 
-/* Main container styling */
 .main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Grid container styling */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with minimum item width of 250px */
-    gap: 20px; /* Gap between grid items */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-/* Individual grid item styling */
 .grid-item {
     position: relative;
     overflow: hidden;
@@ -321,7 +249,6 @@ header {
     transform: scale(1.1);
 }
 
-/* Overlay styling */
 .overlay {
     position: absolute;
     bottom: 0;
@@ -349,12 +276,12 @@ header {
     width: 100px;
     border-radius: 20px;
 }
-  
+
 #photo {
     background-color: #71C9CE;
 }
 
-/* AUDIO STUFFS */
+/* AUDIO SECTION */
 .audio-container {
     display: flex;
     align-items: center;
@@ -368,7 +295,20 @@ header {
 }
 
 .audio-circle img {
-    width: 60px; /* Set the desired width */
-    height: 60px; /* Set the desired height */
+    width: 60px;
+    height: 60px;
 }
 
+/* FOOTER */
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100%;
+    background-color: #71C9CE;
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+    font-family: 'JetBrains Mono', monospace;
+}
