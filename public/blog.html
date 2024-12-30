@@ -6,87 +6,75 @@
     <meta name="description" content="Tife's personal blog about software development, photography, and robotics.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Blog - Tife</title>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./css/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" as="style">
+    <!-- Regular resource loading -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./public/assets/images/baby.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Inline critical JavaScript -->
+    <script>
+    const blogPosts = [
+        {
+            title: "My Tech Setup",
+            date: "May 10, 2024",
+            link: "/old_web/posts/setup.html"
+        },
+        {
+            title: "Do Something Nice",
+            date: "October 19, 2024",
+            link: "/old_web/posts/nice.html"
+        },
+        {
+            title: "Thank You Konan",
+            date: "July 4, 2024",
+            link: "/old_web/posts/konan.html"
+        },
+        {
+            title: "Subnetting & CIDR Explained",
+            date: "May 10, 2023",
+            link: "/old_web/posts/subnet.html"
+        },
+    ];
+    </script>
 </head>
 <body>
-
     <div class="container">
-        <!-- Top Tabs -->
-        <div class="tabs">
+        <nav class="tabs">
             <a href="/">Home</a>
             <a href="./more.html">About</a>
             <a href="./blog.html">Blogs</a>
             <a href="./photo.html">Photography</a>
-        </div>
-        
-        <!-- Blog Post List -->
-        <div class="blog-list">
-            <h4>Blog Posts</h4>
-            <ul id="post-list"></ul> <!-- List to be populated by JavaScript -->
-        </div>
+        </nav>
+
+        <main class="blog-list">
+            <h1>Blog Posts</h1>
+            <ul id="post-list"></ul>
+        </main>
 
         <footer id="footer">&copy; Tifelabs 2024</footer>
     </div>
-   
-    <script src="./js/index.js"></script>
-    <script src="./js/oneko.js"></script>
+
+    <!-- Deferred JavaScript loading -->
     <script>
-        // Array of blog posts
-        const blogPosts = [
-            {
-                title: "Do Something Nice",
-                date: "October 19,2024",
-                link: "/old_web/posts/nice.html"
-            },
-            
-            {
-                title: 'Thank You Konan',
-                date: 'July 4, 2024',
-                link:'/old_web/posts/konan.html'
-            },
-           
+    document.addEventListener('DOMContentLoaded', () => {
+        const postListElement = document.getElementById("post-list");
+        const fragment = document.createDocumentFragment();
 
-            {
-                title: 'Subnetting & CIDR Explained',
-                date: 'May 10, 2023',
-                link:'/old_web/posts/subnet.html'
-            },
-                    
-            // Add more posts as needed
-        ];
+        blogPosts.forEach(({ title, date, link }) => {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `
+                <a href="${link}">${title}</a>
+                <span style="color: #888"> - ${date}</span>
+            `;
+            fragment.appendChild(listItem);
+        });
 
-
-       // Function to populate the blog post list
-function populateBlogPosts() {
-    const postListElement = document.getElementById("post-list");
-
-    blogPosts.forEach(post => {
-        const listItem = document.createElement("li");
-        
-        // Create the link element for the blog title
-        const link = document.createElement("a");
-        link.href = post.link; // Using the relative path for the link
-        link.textContent = post.title; // Displaying the title
-
-        // Create the date element
-        const date = document.createElement("span");
-        date.textContent = ` -  ${post.date}`; // Adding a hyphen to separate title and date
-        date.style.color = "#888"; // Optional: style the date text (light grey)
-
-        // Append both the link and the date to the list item
-        listItem.appendChild(link);
-        listItem.appendChild(date);
-
-        // Append the list item to the post list element
-        postListElement.appendChild(listItem);
+        postListElement.appendChild(fragment);
     });
-}
-
-// Call the function to populate the blog posts when the page loads
-window.onload = populateBlogPosts;
-
     </script>
+    <script src="./js/index.js" defer></script>
+    <script src="./js/oneko.js" defer></script>
 </body>
 </html>
