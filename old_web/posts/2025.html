@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,10 +42,31 @@
 </head>
 <body>
     <div class="container">
-    <h1>2025!</h1>
-    <p><em>"Greatness Awaits"</em></p>
-    <img src="./post_img/2025.jpg" alt="Richard Feynman">
-    <a href="/">~ Back to home</a>
-</div>
+        <h1>2025!</h1>
+        <p><em>"Greatness Awaits"</em></p>
+        <img src="./post_img/2025.jpg" alt="Richard Feynman">
+        <a href="/">~ Back to home</a>
+        <audio id="backgroundMusic" autoplay loop>
+            <source src="./post_img/interstellar.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        // Wait for the page to load
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('backgroundMusic');
+            
+            // Attempt to play audio
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    console.log("Autoplay prevented by browser", error);
+                    // You could add a play button here if autoplay fails
+                });
+            }
+        });
+    </script>
 </body>
 </html>
