@@ -15,7 +15,7 @@
         }
         h1, h2 {
             color: #444;
-            font-family: cursive;
+            font-family: sans-serif;
         }
         img {
             max-width: 100%;
@@ -32,32 +32,12 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .code {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            overflow-x: auto;
-        }
         a {
             color: #0066cc;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: #0066cc;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background: #004999;
         }
     </style>
 </head>
@@ -71,31 +51,20 @@
             <source src="./assets/audio/arc.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
-        <button id="playAudio" style="display: none;">Play Audio</button>
     </div>
 
     <script>
-        // Wait for the page to load
+        // Attempt to play audio when the page loads
         window.addEventListener('load', function() {
             const audio = document.getElementById('backgroundMusic');
-            const playButton = document.getElementById('playAudio');
             
             // Attempt to play audio
             const playPromise = audio.play();
-            
             if (playPromise !== undefined) {
                 playPromise.catch(function(error) {
                     console.log("Autoplay prevented by browser", error);
-                    // Show the play button if autoplay fails
-                    playButton.style.display = "inline-block";
                 });
             }
-            
-            // Play audio on button click
-            playButton.addEventListener('click', function() {
-                audio.play();
-                playButton.style.display = "none"; // Hide button after playing
-            });
         });
     </script>
 </body>
