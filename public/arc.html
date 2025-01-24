@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #444;
+            font-family: sans-serif;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HAVE A BEAUTIFUL DAY!</h1>
+        <p><em>" Thank you for stopping by! Your visit makes this space even more special. : )"</em></p>
+        <img src="../last_dance.gif" alt="Arcane: Last Dance GIF">
+        <a href="/">~ Back to home</a>
+        <audio id="backgroundMusic" autoplay loop>
+            <source src="./assets/audio/arc.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        // Attempt to play audio when the page loads
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('backgroundMusic');
+            
+            // Attempt to play audio
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    console.log("Autoplay prevented by browser", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

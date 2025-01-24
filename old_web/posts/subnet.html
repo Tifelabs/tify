@@ -3,61 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="post_css/subnet.css">
     <title>Subnetting and CIDR</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            font-family: 'Georgia', serif;
             box-sizing: border-box;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.8;
         }
         .container {
             max-width: 800px;
-            padding: 20px;
+            padding: 40px;
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             text-align: left;
             overflow-y: auto;
-            max-height: 90vh; /* Prevent content overflow */
+            max-height: 90vh;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 1em;
+            font-weight: normal;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-top: 1.5em;
+            font-weight: normal;
         }
         p {
-            white-space: pre-wrap; /* Preserve newlines and spacing */
-            line-height: 1.6;
-            margin-bottom: 15px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+            font-size: 1.1em;
+        }
+        .quote {
+            font-style: italic;
+            color: #7f8c8d;
+            border-left: 3px solid #eee;
+            padding-left: 1em;
+            margin: 2em 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #2980b9;
+        }
+        .formula {
+            background: #f8f9fa;
+            padding: 1em;
+            border-radius: 6px;
+            margin: 1.5em 0;
+            font-family: 'Courier New', monospace;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h3>Subnetting & CIDR</h1>
-        <p>
-Hello Guys, In today’s learning, We will be getting to know more about subnetting and CIDR. Imagine you have a big box of candies, but you want to share them with your friends. You could just give them all the candies, but then you might run out quickly. So instead, you decide to divide the candies into smaller groups, or sub-boxes, and give one sub-box to each friend.
+        <h1>Subnetting and CIDR</h1>
+        
+        <p>In the intricate world of network architecture, two fundamental concepts stand as pillars of efficient network design: subnetting and CIDR (Classless Inter-Domain Routing). These sophisticated mechanisms form the backbone of modern network segmentation, enabling organizations to architect their digital infrastructure with precision and elegance.</p>
 
-Subnetting is like dividing the candies into sub-boxes. It helps to organize a big group of devices, like computers, phones, or printers, into smaller sub-groups that can communicate with each other more efficiently. Each sub-group has its own unique address that is different from the others, just like each sub-box of candies has its own label.
+        <h2>The Essence of Subnetting</h2>
+        <p>Consider, if you will, the architecture of a grand estate. Just as a master architect divides spacious grounds into purposeful zones—gardens, courtyards, and private spaces—subnetting allows network architects to partition their digital domain into discrete, manageable segments. Each subnet operates as its own microcosm, with unique addressing and defined boundaries, yet remains seamlessly integrated into the greater network ecosystem.</p>
 
-CIDR, or Classless Inter-Domain Routing, is a way of describing how many sub-groups, or sub-boxes, you want to create from a big group of addresses. It is like deciding how many candies you want to put in each sub-box. With CIDR, you can make more efficient use of IP addresses by using a variable-length prefix to specify the number of bits that will be used for the network portion of the address.
+        <h2>The Refinement of CIDR</h2>
+        <p>CIDR represents the evolution of network addressing, introducing a level of sophistication that transcends traditional classification methods. Through its elegant notation system, CIDR enables precise control over network segmentation, allowing for the efficient allocation of address spaces with remarkable granularity.</p>
 
-In short, subnetting is dividing a big group of devices into smaller sub-groups, and CIDR is a way of describing how many sub-groups you want to create from a big group of addresses.
+        <div class="formula">
+            <h2>Math of Network Design</h2>
+            <p>Number of Possible Subnets = 2^(number of subnet bits)
+Number of Hosts per Subnet = 2^(number of host bits) - 2</p>
+        </div>
 
-Subnetting: To subnet an IP address, you need to create a subnet mask that will determine the network and host portions of the address. The subnet mask is a series of 1's and 0's that is used to divide the IP address into network and host portions.
+        <p>Consider a network address of 192.168.1.0/24. The "/24" notation elegantly communicates that 24 bits are dedicated to the network portion, leaving 8 bits for host addressing. This arrangement yields 254 possible host addresses—a numerical dance of binary possibilities, with the first and last addresses reserved for network and broadcast functions respectively.</p>
 
-The formula for calculating the number of possible subnets is: Number of subnets = 2^(number of subnet bits). For example, if you have an IP address of 192.168.1.0 and a subnet mask of 255.255.255.128, you have used 7 bits for the subnet portion of the address. So the number of possible subnets is: Number of subnets = 2^7 = 128. This means you can create up to 128 subnets from this IP address.
+        <div class="quote">
+            "In the art of network design, subnetting and CIDR work in concert to create a harmonious balance between efficiency and functionality, much like the interplay of form and function in classical architecture."
+        </div>
 
-CIDR: CIDR notation is a way of specifying an IP address and subnet mask in a compact form. It uses a slash (/) followed by the number of bits used for the network portion of the address.
+        <h2>Practical Applications</h2>
+        <p>In practice, this sophisticated approach to network segmentation offers numerous advantages: enhanced security through logical separation, improved network performance via optimized traffic flow, and more efficient resource utilization. Network administrators can craft bespoke solutions that precisely match their organization's requirements, from small office networks to expansive enterprise infrastructures.</p>
 
-The formula for calculating the number of possible hosts per subnet is: Number of hosts per subnet = 2^(number of host bits) - 2. For example, if you have an IP address of 192.168.1.0/24, the subnet mask is 255.255.255.0, and you have used 24 bits for the network portion. This means there are 8 bits left for the host portion, which gives you: Number of hosts per subnet = 2^8 - 2 = 254. This means you can have up to 254 hosts per subnet. The first and last IP addresses in the subnet are reserved for the network address and broadcast address, respectively, so they cannot be used as host addresses.
-
-In summary, subnetting involves dividing an IP address into smaller sub-groups, while CIDR is a way of specifying the number of bits used for the network portion of the address in a compact form. The formulas for calculating the number of possible subnets and hosts per subnet are useful for determining how to configure your network.
-        </p>
-        <a href="/">~ Back to home</a>
+        <p>Understanding these concepts thoroughly enables network architects to design systems that are not merely functional, but elegant in their efficiency and scalability. The mastery of subnetting and CIDR represents a fundamental skill in the modern network architect's repertoire.</p>
+        
+        <a href="/">← Back to Home</a>
     </div>
-   
 </body>
 </html>

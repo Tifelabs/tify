@@ -10,6 +10,24 @@ body, html {
     color: var(--text-color);
 }
 
+.gif-link img {
+    display: block;
+    margin: 20px auto; /* Centers the GIF horizontally */
+    max-width: 80%; /* Ensures it fits within the page */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px; /* Optional: Rounded corners for aesthetics */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth effects */
+    cursor: pointer; /* Shows it's clickable */
+}
+
+.gif-link img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+
+
+
 .container {
     max-width: 800px;
     margin: 0 auto;

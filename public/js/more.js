@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const playButton = document.querySelector("#play-button-more");
     const audioElement = document.querySelector("#background-more");
@@ -19,9 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Update button state on play/pause
-    ["play", "pause"].forEach(event => {
-        audioElement.addEventListener(event, () => {
-            playButton.classList.toggle("playing", !audioElement.paused);
-        });
-    });
+    const updateButtonState = () => {
+        playButton.classList.toggle("playing", !audioElement.paused);
+    };
+
+    audioElement.onplay = updateButtonState;
+    audioElement.onpause = updateButtonState;
 });
