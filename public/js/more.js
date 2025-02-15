@@ -2,18 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const playButton = document.querySelector("#play-button-more");
     const audioElement = document.querySelector("#background-more");
 
-    // Try to autoplay the audio when the page loads
-    audioElement.play().catch(() => {
-        console.info("Autoplay prevented. User interaction required.");
-    });
+    // Attempt to autoplay (browsers may block this without user interaction)
+    audioElement.play().catch(() => {}); // Silently handle autoplay errors
 
     // Toggle play/pause on button click
     playButton.addEventListener("click", () => {
-        if (audioElement.paused) {
-            audioElement.play();
-        } else {
-            audioElement.pause();
-        }
+        audioElement.paused ? audioElement.play() : audioElement.pause();
     });
 
     // Update button state on play/pause
@@ -21,6 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.classList.toggle("playing", !audioElement.paused);
     };
 
-    audioElement.onplay = updateButtonState;
-    audioElement.onpause = updateButtonState;
+    audioElement.addEventListener("play", updateButtonState);
+    audioElement.addEventListener("pause", updateButtonState);
 });
