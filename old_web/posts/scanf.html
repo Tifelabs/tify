@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figuring Out scanf in C</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #444;
+        }
+        img {
+            max-width: 100%;
+            max-height: 50%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .code {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>scanf in C</h1>
+        <img src="./post_img/Arikawa_Hime_Holding_C_Programming_Language_wp.jpg" alt="Book cover or something">
+        <p>So, <code>scanf</code> in C—kinda confusing at first, right? I was screwing around with it the other day and finally got why that <code>&</code> thing matters sometimes and not others. Turns out it’s all about what you’re grabbing—a single letter or a word. Here’s what I figured out.</p>
+
+        <h2>Letters Need an <code>&</code></h2>
+        <p>If you’re just getting one character, like an <code>A</code>, you set it up like this:</p>
+        <div class="code">
+            char ch;
+        </div>
+        <p>And then use:</p>
+        <div class="code">
+            scanf("%c", &ch);
+        </div>
+        <p>The <code>&</code> tells <code>scanf</code> where to stick that character in memory. Without it, it’s got no idea where to go—your program might just blow up. I learned that the hard way.</p>
+        <p>Here’s a quick one I tried:</p>
+        <div class="code">
+            #include <stdio.h><br>
+            int main() {<br>
+                char ch;<br>
+                printf("Gimme a letter: ");<br>
+                scanf("%c", &ch);<br>
+                printf("Got: %c\n", ch);<br>
+                return 0;<br>
+            }
+        </div>
+        <p>Type something, and it’ll show up. Forget the <code>&</code>, and good luck—crash city.</p>
+
+        <h2>Words Don’t</h2>
+        <p>Now, if you’re grabbing a word like <code>"hello"</code>, you make an array:</p>
+        <div class="code">
+            char word[100];
+        </div>
+        <p>And then:</p>
+        <div class="code">
+            scanf("%s", word);
+        </div>
+        <p>No <code>&</code> here. Arrays are weird in C—the name <code>word</code> already points to the start, so <code>scanf</code> knows where to dump the string. Adding <code>&</code> just messes it up—I tried it, and it’s a bad idea even if it sorta works sometimes.</p>
+        <p>Here’s what I ran:</p>
+        <div class="code">
+            #include <stdio.h><br>
+            int main() {<br>
+                char word[100];<br>
+                printf("Gimme a word: ");<br>
+                scanf("%99s", word);<br>
+                printf("Got: %s\n", word);<br>
+                return 0;<br>
+            }
+        </div>
+        <p>The <code>%99s</code> keeps it from overflowing the array—learned that after a few dumb mistakes.</p>
+
+        <h2>My Screw-Up</h2>
+        <p>I used to do this all the time:</p>
+        <div class="code">
+            char word[10];<br>
+            scanf("%s", &word);
+        </div>
+        <p>Thought the <code>&</code> was some magic fix. Worked half the time, crashed the other half. Turns out arrays don’t need it—total facepalm.</p>
+
+        <h2>Both Together</h2>
+        <p>Here’s one with both, just to see it in action:</p>
+        <div class="code">
+            #include <stdio.h><br>
+            int main() {<br>
+                char ch;<br>
+                char word[100];<br>
+                printf("Letter first: ");<br>
+                scanf(" %c", &ch);<br>
+                printf("Got: %c\n", ch);<br>
+                printf("Now a word: ");<br>
+                scanf("%99s", word);<br>
+                printf("Got: %s\n", word);<br>
+                return 0;<br>
+            }
+        </div>
+        <p>That space before <code>%c</code> skips the Enter key leftover—took me forever to figure that out.</p>
+
+        <h2>Why It’s Worth Knowing</h2>
+        <p>It’s not just some random rule. It’s how C deals with memory—letters need a specific spot, words get a whole chunk. Getting this down makes pointers way less scary later on.</p>
+
+        <p>So yeah, <code>&</code> for letters, skip it for words, and use <code>%99s</code> to keep things safe. Mess around with these—let me know if you hit any snags!</p>
+
+        <p>Later!</p>
+        <a href="/">~ Back to home</a>
+    </div>
+</body>
+</html>
