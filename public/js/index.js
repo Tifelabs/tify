@@ -1,27 +1,38 @@
-// Clock functionality to display current time
+// Clock functionality with better performance and formatting
+const clockElement = document.getElementById('clock'); // Cache DOM reference
+
 function updateClock() {
     const now = new Date();
-    const time = [now.getHours(), now.getMinutes(), now.getSeconds()]
-        .map(unit => String(unit).padStart(2, '0'))
-        .join(':');
-    document.getElementById('clock').textContent = time;
+    clockElement.textContent = now.toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
 }
 
-// Update the clock immediately and every second
+// Initial call and efficient interval
 updateClock();
 setInterval(updateClock, 1000);
 
-// Audio functionality for playing music on the landing page
+// Audio functionality with improved structure and error handling
 document.addEventListener("DOMContentLoaded", () => {
     const playButton = document.querySelector('#play-button');
     const audio = document.querySelector('#background-music');
 
-    // Toggle play/pause on button click
-    playButton.addEventListener('click', () => {
-        audio.paused ? audio.play() : audio.pause();
-    });
+    // Early return if elements not found
+    if (!playButton || !audio) {
+        console.warn('Audio elements not found');
+        return;
+    }
 
-    // Update button state on play/pause
-    audio.addEventListener('play', () => playButton.classList.add('playing'));
-    audio.addEventListener('pause', () => playButton.classList.remove('playing'));
+    // Toggle play/pause functionality
+    const toggleAudio = () => {
+        audio.paused ? audio.play().catch(e => console.error('Audio play failed:', e)) : audio.pause();
+    };
+
+    // Event listeners with consistent state management
+    playButton.addEventListener('click', toggleAudio);
+    audio.addEventListener('play', () => playButton.classList.toggle('playing', true));
+    audio.addEventListener('pause', () => playButton.classList.toggle('playing', false));
 });
