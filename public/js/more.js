@@ -1,20 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Cache DOM elements
     const playButton = document.querySelector("#play-button-more");
     const audioElement = document.querySelector("#background-more");
 
-    // Attempt to autoplay (browsers may block this without user interaction)
-    audioElement.play().catch(() => {}); // Silently handle autoplay errors
+    // Early return if elements not found
+    if (!playButton || !audioElement) {
+        console.warn('Audio control elements not found');
+        return;
+    }
 
-    // Toggle play/pause on button click
-    playButton.addEventListener("click", () => {
-        audioElement.paused ? audioElement.play() : audioElement.pause();
-    });
-
-    // Update button state on play/pause
-    const updateButtonState = () => {
-        playButton.classList.toggle("playing", !audioElement.paused);
+    // Audio control functions
+    const toggleAudio = () => {
+        audioElement.paused 
+            ? audioElement.play().catch(e => console.error('Audio playback failed:', e))
+            : audioElement.pause();
     };
 
+    const updateButtonState = () => {
+        playButton.classList.toggle("playing", audioElement.paused === false);
+    };
+
+    // Initial setup
+    audioElement.play().catch(() => {
+        console.log('Autoplay blocked by browser');
+        updateButtonState(); // Ensure button reflects initial state
+    });
+
+    // Event listeners
+    playButton.addEventListener("click", toggleAudio);
     audioElement.addEventListener("play", updateButtonState);
     audioElement.addEventListener("pause", updateButtonState);
 });
