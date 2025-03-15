@@ -6,3 +6,4 @@
 ___
 #### TO - DO
 >Add activity Tracker to web
+>Add interactive image to right border home page
