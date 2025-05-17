@@ -3,116 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tife's personal website showcasing software development, photography, and robotics.">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tife</title>
-    <link rel="stylesheet" href="./public/css/style.css">
-    <link rel="icon" href="./public/assets/image/baby.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Tifelabs</title>
+    <link rel="stylesheet" href="./v.0.2/css/styles.css">
+    <link rel="icon" href="./v.0.2/assets/photos/baby.png" type="image/png">
 </head>
 <body>
-    <div class="container">
-        <div class="tabs">
-            <a href="index.html">[ λ ]</a>
-            <a href="./public/more.html">About</a>
-            <a href="./public/blog.html">Blogs</a>
-            <a href="./public/photo.html">Photography</a>
+    <header>
+        <h1>Tife</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="./v.0.2/wip.html">Blog</a>
+            <a href="./v.0.2/photography.html">Photography</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About</h2>
+        <p>Hi, I'm Tife, I do systems programming. I enjoy working on retro consoles and Operating systems.</p>
+    </section>
+
+    <!-- <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <a href="https://github.com/johndoe/gameboy-emulator">GameBoy Emulator</a>: A cycle-accurate GameBoy emulator written in C, focusing on performance and compatibility.
         </div>
-
-        <!-- Name -->
-            <h1 class="name">Tife</h1> 
-        
-        <!-- Clock and Timezone -->
-            <div class="clock-zone-container">
-                <div id="clock">12:00</div>
-                <div id="zone">(ADT)</div>
-            </div> 
-
-        <!-- About -->
-        <div class="about">
-            <p>
-                Hi! I'm Tife, a software developer and vulnerability researcher. 
-                I'm interested in computer systems, hardware, jailbreaks, and exploits. I’ve worked with homebrew software on PlayStation consoles 
-                and enjoy exploring cool tech. I'm also a photographer btw.
-            </p>
-            <p>
-                Currently, I am learning more about computer science and vulnerability research, while expanding my skills in robotics.
-            </p>
-            <a href="./public/more.html"><button id="more">Read More</button></a>
+        <div class="project">
+            <a href="https://github.com/johndoe/embedded-scheduler">Embedded Scheduler</a>: A lightweight task scheduler for embedded systems, implemented in C++ with zero-allocation design.
         </div>
-        
-        <a href="./public/arc.html">Something Special>>>></a>
-
-        <div class="big-box">
-
-        <!--Favourite Links-->
-            <div class="box">
-                <h1 class="fav">Favorite Links</h1>
-                <div>
-                    <ul>
-                        <li><a href="https://near.blog/productivity-tips/">Productivity</a><em><strong> Asara Near</strong></em></li>
-                        <br>
-                        <li><a href="https://www.paulgraham.com/start.html">How to start a StartUp</a><em><strong> Paul Graham</strong></em></li>
-                        <br>
-                        <li><a href=" https://lelouch.dev/blog/you-are-probably-not-dumb/"> You Are NOT Dumb, You Just Lack the Prerequisites </a><em><strong> Lelouch</strong></em></li>
-                        <br>
-                        <li><a href="https://patrickcollison.com/advice">Advice</a><em><strong> Patrick Collison</strong></em></li> 
-                        <br>
-                        <li><a href="https://deplet.ing/#/post/3">Yet another programming resource list</a><em><strong> Gizmobly</strong></em></li> 
-                    </ul>
-                </div>
-            </div>
-
-        <!--Robots Lore-->
-            <div class="box">
-                <h1 class="pro">ROBOTICS LORE</h1>UNDER CONSTRUCTION
-                <p>👷‍♂️👷‍♀️🏗️🛠️🧱⚒️🔨🔧⛏️</p>
-            </div>
-<!-- 
-            <div class="box">
-                <h1 class="pro">Projects</h1>
-                <p><em>🚧 UNDER CONSTRUCTION 🚧</em></p>
-                <hr>
-                <br>
-                    <img src="./images/const.png" alt="" height="200px" width="300px" loading="lazy">
-            </div> -->
-           
-
+        <div class="project">
+            <a href="https://github.com/johndoe/memory-allocator">Custom Memory Allocator</a>: A high-performance memory allocator for real-time applications, optimized for low latency.
         </div>
-        <br>
-        
-        <!--Links-->
-        <h1 class="links">Links</h1>
-        <hr>
-        <div>
-            <a href="https://github.com/Tifelabs" class="icon-link">
-                <img src="./public/assets/icons/github.png" alt="GitHub">
-            </a>
-            <a href="https://ko-fi.com/tifelabs" class="icon-link">
-                <img src="./public/assets/icons/coffee.png" alt="Ko-fi">
-            </a>
-            <a href="https://x.com/tifyszn" class="icon-link">
-                <img src="./public/assets/icons/x.png" alt="X">
-            </a>
-        </div> 
-                                
-        <!-- Audio player -->
-        <div class="audio-container">
-            <div class="audio-circle" id="play-button">
-                <img src="./public/assets/icons/audio.png" alt="Audio Icon">
-            </div>
-            <audio id="background-music" class="rounded-audio" autoplay>
-                <source src="./public/assets/audio/Titanic.mp3" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="audio-text">Click to play : )</div>
-            <div class="audio-bar"></div>
-        </div>
+    </section> -->
 
-        <footer id="footer">&copy;Tifelabs 2025</footer>
-    </div>
-   
-    <script src="./public/js/index.js"></script>
-    <script src="./public/js/oneko.js"></script>
+    <section id="links">
+        <h2>Links</h2>
+        <p><a href="https://github.com/Tifelabs">GitHub</a> | <a href="https://x.com/tifyszn">Twitter</a></p>
+    </section>
+
+    <footer>
+        <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
