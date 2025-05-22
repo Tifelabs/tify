@@ -8,3 +8,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+//ALERT
+document.addEventListener('DOMContentLoaded', () => {
+    const helpLink = document.getElementById('help-link');
+    const alertBox = document.getElementById('custom-alert');
+    const closeButton = document.getElementById('close-alert');
+
+    // Show alert when [?] is clicked
+    helpLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        alertBox.style.display = 'flex'; // Show alert
+    });
+
+    // Hide alert when OK button is clicked
+    closeButton.addEventListener('click', () => {
+        alertBox.style.display = 'none'; // Hide alert
+    });
+
+    // Optional: Hide alert when clicking outside the alert content
+    alertBox.addEventListener('click', (e) => {
+        if (e.target === alertBox) {
+            alertBox.style.display = 'none';
+        }
+    });
+});
