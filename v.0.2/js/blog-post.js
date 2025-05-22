@@ -1,18 +1,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const mdFile = urlParams.get('md') || 'default.md';
 
-fetch(`./${mdFile}`)
+fetch(`../blogs/${mdFile}`)
     .then(response => {
         if (!response.ok) throw new Error('Markdown file not found');
         return response.text();
     })
     .then(text => {
         document.getElementById('post-content').innerHTML = marked.parse(text);
-        const title = text.match(/^# (.+)/m);
-        if (title) {
-            document.getElementById('post-title').textContent = title[1];
-            document.title = `Tife - ${title[1]}`;
-        }
+        const title = text.match(/^# (.+)/m) || [, 'Untitled Post'];
+        document.getElementById('post-title').textContent = title[1];
+        document.title = `Tife - ${title[1]}`;
         // Add click event to images for modal
         document.querySelectorAll('.content img').forEach(img => {
             img.addEventListener('click', () => {
