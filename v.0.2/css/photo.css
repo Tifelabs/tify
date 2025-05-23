@@ -33,6 +33,7 @@ nav a:hover {
 
 .photo {
     margin-bottom: 30px;
+    text-align: center; /* Center-align image and caption */
 }
 
 .photo img {
@@ -42,21 +43,22 @@ nav a:hover {
     border: 1px solid black;
 }
 
-/* New 3x3 grid styles */
+/* 3x3 grid styles */
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
     gap: 15px; /* Space between grid items */
     margin-bottom: 30px;
+    justify-items: center; /* Center each photo div in its grid cell */
 }
 
-.photo-grid img {
+.photo-grid .photo img {
     width: 100%;
     height: auto; /* Maintain aspect ratio */
     max-width: 250px; /* Match .photo img max-width */
     cursor: pointer;
     border: 1px solid black; /* Match .photo img border */
-    object-fit: cover; /* Ensure images fill their grid cell */
+    object-fit: cover; /* Ensure images fill their space */
 }
 
 .modal {
@@ -131,7 +133,7 @@ footer {
         gap: 10px;
     }
 
-    .photo-grid img {
+    .photo-grid .photo img {
         max-width: 100%;
     }
 
