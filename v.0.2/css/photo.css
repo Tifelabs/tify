@@ -7,33 +7,58 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 h1, h2, h3 {
     font-weight: normal;
 }
+
 h3 {
     font-size: 1.1em;
     margin-bottom: 5px;
 }
+
 nav {
     margin: 20px 0;
 }
+
 nav a {
     margin-right: 10px;
     text-decoration: none;
     color: black;
 }
+
 nav a:hover {
     text-decoration: underline;
 }
+
 .photo {
     margin-bottom: 30px;
 }
+
 .photo img {
     width: 100%;
     max-width: 250px;
     cursor: pointer;
     border: 1px solid black;
 }
+
+/* New 3x3 grid styles */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
+    gap: 15px; /* Space between grid items */
+    margin-bottom: 30px;
+}
+
+.photo-grid img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-width: 250px; /* Match .photo img max-width */
+    cursor: pointer;
+    border: 1px solid black; /* Match .photo img border */
+    object-fit: cover; /* Ensure images fill their grid cell */
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -46,11 +71,13 @@ nav a:hover {
     align-items: center;
     z-index: 1000;
 }
+
 .modal img {
     max-width: 90%;
     max-height: 80%;
     border: 1px solid white;
 }
+
 .modal-close {
     position: absolute;
     top: 15px;
@@ -59,36 +86,55 @@ nav a:hover {
     font-size: 20px;
     cursor: pointer;
 }
+
 footer {
     margin-top: 40px;
     text-align: center;
     font-size: 0.9em;
 }
+
 @media (max-width: 600px) {
     body {
         padding: 0 10px;
     }
+
     h1 {
         font-size: 1.5em;
     }
+
     h2 {
         font-size: 1.2em;
     }
+
     h3 {
         font-size: 1em;
     }
+
     nav {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
     }
+
     nav a {
         margin-right: 8px;
         font-size: 0.9em;
     }
+
     .photo img {
         max-width: 100%;
     }
+
+    /* Adjust grid for smaller screens */
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+        gap: 10px;
+    }
+
+    .photo-grid img {
+        max-width: 100%;
+    }
+
     .modal-close {
         font-size: 18px;
         top: 10px;
