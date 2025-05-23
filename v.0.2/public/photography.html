@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography</title>
+    <link rel="stylesheet" href="../css/photo.css">
+    <link rel="icon" href="../assets/photos/baby.png" type="image/png">
+</head>
+<body>
+    <header>
+        <h1>Tifelabs</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="./blog.html">Blog</a>
+            <a href="photography.html">Photography</a>
+            <a href="./kino.html">Resource</a>
+        </nav>
+    </header>
+
+    <section id="photography">
+        <h2>Photography</h2>
+        <p>I enjoy taking pictures of landscape, nature and Objects</p>
+        <div class="photo-grid">
+            <div class="photo">
+                <h3>Dandelion, 2025</h3>
+                <img src="../assets/photos/dandelion.JPG" alt="dandelion" onclick="openModal('photo1', '../assets/photos/dandelion.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Sign, 2025</h3>
+                <img src="../assets/photos/Sign 2025.JPG" alt="Sign 2025" onclick="openModal('photo2', '../assets/photos/Sign 2025.JPG')">
+            </div>
+            <div class="photo">
+                <h3>The Library, 2025</h3>
+                <img src="../assets/photos/Library.jpg" alt="Library" onclick="openModal('photo3', '../assets/photos/Library.jpg')">
+            </div>
+            <div class="photo">
+                <h3>Plane Model, 2024</h3>
+                <img src="../assets/photos/BipPlane2024.JPG" alt="Plane" onclick="openModal('photo4', '../assets/photos/BipPlane2024.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Fall, 2024</h3>
+                <img src="../assets/photos/Fall2024.JPG" alt="Fall2024" onclick="openModal('photo5', '../assets/photos/Fall2024.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Halifax Dawn, 2024</h3>
+                <img src="../assets/photos/Dawn2024.JPG" alt="Dawn 2024" onclick="openModal('photo6', '../assets/photos/Dawn2024.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Solar Eclipse, 2024</h3>
+                <img src="../assets/photos/eclipse 2024.JPG" alt="eclipse" onclick="openModal('photo7', '../assets/photos/eclipse 2024.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Cap-Pele Beach, 2024</h3>
+                <img src="../assets/photos/set.jpg" alt="Cap-Pele Beach 2024" onclick="openModal('photo8', '../assets/photos/set.jpg')">
+            </div>
+            <div class="photo">
+                <h3>After-Fall, 2023</h3>
+                <img src="../assets/photos/afterfall.JPG" alt="afterfall" onclick="openModal('photo9', '../assets/photos/afterfall.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Fall, 2023</h3>
+                <img src="../assets/photos/fall1.jpg" alt="Fall 2023" onclick="openModal('photo10', '../assets/photos/fall1.jpg')">
+            </div>
+            <div class="photo">
+                <h3>Roof Top, 2023</h3>
+                <img src="../assets/photos/roof-top.JPG" alt="Roof Top 2023" onclick="openModal('photo11', '../assets/photos/roof-top.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Moncton View, 2023</h3>
+                <img src="../assets/photos/moncton-view.JPG" alt="Moncton View 2023" onclick="openModal('photo12', '../assets/photos/moncton-view.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Red Dragon, 2023</h3>
+                <img src="../assets/photos/red-dragon.JPG" alt="Red Dragon 2023" onclick="openModal('photo13', '../assets/photos/red-dragon.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Blur, 2023</h3>
+                <img src="../assets/photos/blur.JPG" alt="Blur 2023" onclick="openModal('photo14', '../assets/photos/blur.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Stop Sign, 2023</h3>
+                <img src="../assets/photos/sign2.JPG" alt="Stop Sign 2023" onclick="openModal('photo15', '../assets/photos/sign2.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Fog, 2023</h3>
+                <img src="../assets/photos/fog.JPG" alt="Fog 2023" onclick="openModal('photo16', '../assets/photos/fog.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Highway, 2023</h3>
+                <img src="../assets/photos/highway.JPG" alt="Highway 2023" onclick="openModal('photo17', '../assets/photos/highway.JPG')">
+            </div>
+            <div class="photo">
+                <h3>Prince Edward Island, 2023</h3>
+                <img src="../assets/photos/prince edward.jpg" alt="Prince Edward Island 2023" onclick="openModal('photo18', '../assets/photos/prince edward.jpg')">
+            </div>
+            <div class="photo">
+                <h3>Dawn, 2023</h3>
+                <img src="../assets/photos/night life.JPG" alt="Dawn 2023" onclick="openModal('photo19', '../assets/photos/night life.JPG')">
+            </div>
+            <div class="photo">
+                <h3>RGB, 2023</h3>
+                <img src="../assets/photos/kebby.jpg" alt="RGB 2023" onclick="openModal('photo20', '../assets/photos/kebby.jpg')">
+            </div>
+            <div class="photo">
+                <h3>Winter, 2023</h3>
+                <img src="../assets/photos/winter2023.webp" alt="Winter" onclick="openModal('photo21', '../assets/photos/winter2023.webp')">
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <img id="modal-image" src="" alt="Enlarged photo">
+    </div>
+   
+    <footer>
+        <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
+    </footer>
+
+    <script src="../js/photo.js"></script>
+</body>
+</html>

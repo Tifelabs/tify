@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tife's Personal Page</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Modal styles from user input */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 80%;
+            border: 1px solid white;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Thumbnail style for 4chan-like rectangular image */
+        .thumbnail {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tife</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="./blog.html">Blog</a>
+            <a href="./photography.html">Photography</a>
+            <a href="./kino.html">Resource</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Personal</h2>
+            <p>
+                My passion for computers and programming began at age 11, playing 2D pixelated games on Java phones feels so luxurious at the time. At 13, my uncle gifted me a PlayStation 2 for my birthday, an incredible console and perharps that will be my first ever console. The first game I played was <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_III">Grand Theft Auto III</a>, a fantastic title that deepened my love for gaming. However, acquiring new games was challenging due to limited access to physical discs, prompting me to explore alternative ways to play games on the PS2.
+            </p>
+            <p>
+                This curiosity led me to discover the PlayStation 2’s potential as a computer. I gained hands-on experience installing homebrew software, enabling me to load games from a USB drive as ISO images using tools like <a href="https://www.psx-place.com/resources/usbutil-by-iseko-translated-by-jbliz7665.679/">USBUtil</a>. I spent most hours on <a href="https://www.psx-place.com/">PSX-Place</a>, learning about ISO images, formatting USB drives to <a href="https://en.wikipedia.org/wiki/File_Allocation_Table#FAT32">FAT32</a>, loading ISOs directly from the boot directory, and flashing ISO images onto discs. This experience ignited my interest in computing.
+            </p>
+            <p>
+                In grade 11, I was introduced to <a href="https://en.wikipedia.org/wiki/BASIC">BASIC</a> in my science class, which I thoroughly enjoyed. I also learned about <a href="https://en.wikipedia.org/wiki/Logic">logic</a> and <a href="https://en.wikipedia.org/wiki/Truth_table">truth tables</a>, which clarified complex concepts. After high school, I learned C as my first programming language, a fun and foundational experience that solidified my programming skills.
+            </p>
+            <p>
+                Since then, I’ve explored various technologies, always eager to learn something new. I experimented with a Raspberry Pi kit, building projects that were both educational and enjoyable. I’m also a big fan of <a href="https://en.wikipedia.org/wiki/Linux">Linux</a>, having used it for over three years, with <a href="https://en.wikipedia.org/wiki/Debian">Debian</a> as my favorite distribution. Using Linux taught me alot of lessons, configuring [dot]config files, compiling programs from source, and mastering the <a href="https://en.wikipedia.org/wiki/Command-line_interface">terminal</a>.
+            </p>
+            <p>
+                I’m still learning and aspire to write a kernel and a game engine someday. As Peter Drucker said, <blockquote>“We now accept the fact that learning is a lifelong process of keeping abreast of change. And the most pressing task is to teach people how to learn.”</blockquote> One of my goals is to make this website the best it can be, with a focus on improving my writing. I draw inspiration from <a href="https://www.gwern.net/">Gwern.net</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Anime</h2>
+            <p>Anime series I find interesting and inspiring:</p>
+            <ul>
+                <li>Akira</li>
+                <li>Neon Genesis Evangelion</li>
+                <li>Spirited Away</li>
+                <li>Serial Experiments Lain</li>
+                <li>Cowboy Bebop</li>
+                <li>Fate/Stay Night: Unlimited Blade Works</li>
+                <li>Death Note</li>
+                <li>Horimiya</li>
+                <li>No Game No Life</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Architecture</h2>
+            <p>
+                During high school, I dedicated significant time to studying Technical Drawing, which covered key concepts such as:
+                <ul>
+                    <li>Cycloids</li>
+                    <li>Helices</li>
+                    <li>Threads</li>
+                    <li>Isometric projections and more</li>
+                </ul>
+                These principles resonate deeply with my appreciation for the architectural design of retro technology. One of my favorite examples is the PlayStation 2’s Emotion Engine, a groundbreaking processor that exemplifies the fusion of technical precision and creative engineering.
+            </p>
+            <figure>
+                <img src="../assets/images/PS2-SCPH-30001-Motherboard.jpeg" alt="PlayStation 2 SCPH-30001 Motherboard" class="thumbnail" onclick="openModal('../assets/images/PS2-SCPH-30001-Motherboard.jpeg')">
+                <figcaption>PlayStation 2 SCPH-30001 Motherboard</figcaption>
+            </figure>
+            <p>Alot of work has too be done on this writing, and Perharps I will write a blog on the PS2 Architecture</p>
+        </section>
+
+        <!-- Modal for enlarged image -->
+        <div id="imageModal" class="modal">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Enlarged Image">
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Tife. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+      }
+    };
+
+         document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+            closeModal();
+    }
+});
+    </script>
+</body>
+</html>
