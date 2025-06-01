@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show alert when [?] is clicked
     helpLink.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default link behavior
-        alertBox.style.display = 'flex'; // Show alert
+        e.preventDefault(); 
+        alertBox.style.display = 'flex'; 
     });
 
     // Hide alert when OK button is clicked

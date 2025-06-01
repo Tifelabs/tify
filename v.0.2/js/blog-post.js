@@ -11,7 +11,7 @@ fetch(`../blogs/${mdFile}`)
         const title = text.match(/^# (.+)/m) || [, 'Untitled Post'];
         document.getElementById('post-title').textContent = title[1];
         document.title = `Tife - ${title[1]}`;
-        // Add click event to images for modal
+        // click event to images for modal
         document.querySelectorAll('.content img').forEach(img => {
             img.addEventListener('click', () => {
                 const modal = document.getElementById('modal');
