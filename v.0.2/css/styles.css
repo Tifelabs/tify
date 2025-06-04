@@ -110,6 +110,73 @@ footer {
     font-weight: 500;
 }
 
+/* Donate Button */
+.donate-button {
+    position: relative;
+    display: inline-block;
+    padding: 5px 15px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    background: linear-gradient(145deg, #ffd700, #ffeb3b);
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(255, 255, 255, 0.4),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    margin-left: 10px;
+}
+.donate-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    );
+    transform: skewX(-25deg);
+    animation: shine 2.5s infinite;
+}
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+.donate-button:hover {
+    background: linear-gradient(145deg, #ffe066, #fff59d);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 3px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+.donate-button:hover::before {
+    animation: shine 1.8s infinite;
+}
+.donate-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     body {
@@ -144,5 +211,10 @@ footer {
     .alert-content button {
         font-size: 8px;
         padding: 2px 5px;
+    }
+    .donate-button {
+        padding: 4px 12px;
+        font-size: 10px;
+        margin-left: 8px;
     }
 }
