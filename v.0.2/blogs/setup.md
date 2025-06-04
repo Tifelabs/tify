@@ -54,7 +54,7 @@ Things I use [-- HARDWARE AND SOFTWARE --]
 - Terminal [Kitty](https://github.com/kovidgoyal/kitty)
 - File Manager [Ranger](https://github.com/ranger/ranger)
 - Shell [Zsh](https://ohmyz.sh/)
-- Notes (Apple Notes) 
+- Notes (Apple Notes).
 - Pen and Paper (Cheap asf, you can get them at the dollarstore)
 - FTP Client [FilleZilla](https://filezilla-project.org/)
 
