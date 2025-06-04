@@ -13,6 +13,22 @@ Things I use [-- HARDWARE AND SOFTWARE --]
 
 - Canon 4000D
 
+```plaintext
+Lens
+├── Standard_Zoom
+│   └── Canon_EFS_18-55mm
+├── Telephoto_Zoom
+│   └── Canon_Ultrasonic_75-300mm
+├── Telephoto_Converter
+│   └── Telephoto_HD_2.2x_AF_55mm
+└── Wide_Angle_Converter
+    └── HD_0.43x_AF_Wide_Angle_55mm
+```
+
+| Side    | Front   |
+|---------|---------|
+| ![Front Cam](./blog-images/cam2.JPG) | ![Side Cam](./blog-images/cam3.JPG) |
+
 #### Peripherals
 
 - Monitor [Samsung Odyssey G5 27"](https://www.samsung.com/ca/monitors/gaming/odyssey-g5-g55c-27-inch-165hz-curved-qhd-ls27cg550enxza/)
@@ -65,4 +81,10 @@ Things I use [-- HARDWARE AND SOFTWARE --]
 #### Misc
 
 - [Raspberry Pi4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
+
+
+| Retro-Pie    | Display   |
+|---------|---------|
+| ![Front Cam](./blog-images/retro.jpg) | ![Side Cam](./blog-images/pie.jpg) |
+
 - [Watchy](https://watchy.sqfmi.com/)
