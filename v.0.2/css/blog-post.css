@@ -10,32 +10,35 @@ body {
     font-size: 16px;
 }
 h1, h2, h3 {
-    font-weight: normal;
+    font-weight: 500;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 h1 {
-    font-size: 1.8em;
+    font-size: 14px;
 }
 h2 {
-    font-size: 1.3em;
-    margin-top: 30px;
+    font-size: 12px;
+    margin-top: 20px;
 }
 nav {
-    margin: 20px 0;
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 nav a {
-    margin-right: 10px;
     text-decoration: none;
-    color: black;
-    font-size: 1em;
+    color: #0000EE;
+    font-size: 11px;
 }
 nav a:hover {
     text-decoration: underline;
 }
 .content {
-    font-size: 1em;
+    font-size: 12px;
 }
 .content img {
-    width: 100%;
+    width: 80%;
     max-width: 600px;
     display: block;
     margin: 20px auto;
@@ -56,7 +59,7 @@ nav a:hover {
 .modal img {
     max-width: 90%;
     max-height: 80%;
-    border: 1px solid white;
+    border: 1px solid black;
 }
 .modal-close {
     position: absolute;
@@ -78,25 +81,22 @@ footer {
         font-size: 12px;
     }
     h1 {
-        font-size: 1.2em;
+        font-size: 12px;
     }
     h2 {
-        font-size: 1em;
+        font-size: 12px;
     }
     h3 {
         font-size: 0.9em;
     }
     nav {
-        display: flex;
-        flex-wrap: wrap;
         gap: 8px;
     }
     nav a {
-        margin-right: 8px;
-        font-size: 0.8em;
+        font-size: 10px;
     }
     .content {
-        font-size: 0.8em;
+        font-size: 12px;
     }
     .content img {
         max-width: 100%;
@@ -107,6 +107,6 @@ footer {
         right: 10px;
     }
     footer {
-        font-size: 0.7em;
+        font-size: 9px;
     }
 }
