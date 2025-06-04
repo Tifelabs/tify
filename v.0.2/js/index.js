@@ -15,21 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const alertBox = document.getElementById('custom-alert');
     const closeButton = document.getElementById('close-alert');
 
-    // Show alert when [?] is clicked
     helpLink.addEventListener('click', (e) => {
-        e.preventDefault(); 
-        alertBox.style.display = 'flex'; 
+        e.preventDefault();
+        alertBox.classList.add('active');
     });
 
-    // Hide alert when OK button is clicked
     closeButton.addEventListener('click', () => {
-        alertBox.style.display = 'none'; // Hide alert
-    });
-
-    // Optional: Hide alert when clicking outside the alert content
-    alertBox.addEventListener('click', (e) => {
-        if (e.target === alertBox) {
-            alertBox.style.display = 'none';
-        }
+        alertBox.classList.remove('active');
     });
 });

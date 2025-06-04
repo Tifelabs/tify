@@ -1,31 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Check if the banner exists on the page
-    const banner = document.getElementById("banner");
-    if (banner) {
-        // Use the bannerImages array defined in the HTML page
-        const bannerImages = window.bannerImages || [];
-        console.log("Banner found, bannerImages:", bannerImages);
-        let currentImageIndex = 0;
-        const bannerImage = document.querySelector("#banner .banner-image");
+document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('banner');
+    const bannerImage = banner.querySelector('.banner-image');
+    const images = window.bannerImages || [];
+    
+    if (images.length === 0) return;
 
-        function changeBanner() {
-            if (bannerImages.length > 0) {
-                currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
-                bannerImage.src = bannerImages[currentImageIndex];
-                console.log("Changed to image:", bannerImages[currentImageIndex]);
-            } else {
-                console.log("No bannerImages defined");
-            }
-        }
+    const setRandomImage = () => {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        bannerImage.src = images[randomIndex];
+        bannerImage.alt = 'Banner Image';
+    };
 
-        // Start the banner cycle if there are images
-        if (bannerImages.length > 0) {
-            setInterval(changeBanner, 3000); // 
-            console.log("Banner cycle started");
-        } else {
-            console.log("No images to cycle, banner not started");
-        }
-    } else {
-        console.log("No banner element found");
-    }
+    setRandomImage(); // Set initial image
+    setInterval(setRandomImage, 3000); // Change every 3seconds
 });
