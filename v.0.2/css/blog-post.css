@@ -43,6 +43,7 @@ nav a:hover {
     display: block;
     margin: 20px auto;
     cursor: pointer;
+    border: 2px solid black;
 }
 .modal {
     display: none;
@@ -59,7 +60,7 @@ nav a:hover {
 .modal img {
     max-width: 90%;
     max-height: 80%;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 .modal-close {
     position: absolute;

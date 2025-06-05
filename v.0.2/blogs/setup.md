@@ -61,8 +61,13 @@ Lens
 
 - PSvita
 - PSP
+
+| HandHeld | Cube   |
+|---------|---------|
+| ![Handhled](./blog-images/handheld.png) | ![Cube](./blog-images/cube.JPG) |
+
+- Rubix Cube (3 x 3). You can check out some OLL's and PLL's >>> [Here](http://rubiksplace.com/speedcubing/OLL-algorithms/).
 - PS4
-- Rubix Cube (3 x 3)
 - Grass (yeah!! real grass, turn off your sceen and touch **mother earth**)
 
 #### Productivity
@@ -88,3 +93,7 @@ Lens
 | ![Front Cam](./blog-images/retro.jpg) | ![Side Cam](./blog-images/pie.jpg) |
 
 - [Watchy](https://watchy.sqfmi.com/)
+
+| E-ink  | Menu   |
+|---------|---------|
+| ![Watchy](./blog-images/w.JPG) | ![Side Cam](./blog-images/watchy.jpg) |
