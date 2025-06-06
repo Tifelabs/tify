@@ -28,12 +28,12 @@ nav {
     margin: 10px 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 nav a {
     text-decoration: none;
-    color: #0000EE;
-    font-size: 11px;
+    color: blue;
+    font-size: 12px;
 }
 nav a:hover {
     text-decoration: underline;
@@ -196,7 +196,7 @@ footer {
         gap: 8px;
     }
     nav a {
-        font-size: 10px;
+        font-size: 12px;
     }
     .project {
         font-size: 10px;
