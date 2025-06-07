@@ -59,7 +59,7 @@ Lens
 
 #### Entertainment
 
-- PSvita
+- PS Vita
 - PSP
 
 | HandHeld | Cube   |
@@ -78,10 +78,13 @@ Lens
 - Notes (Apple Notes).
 - Pen and Paper (Cheap asf, you can get them at the dollarstore)
 - FTP Client [FilleZilla](https://filezilla-project.org/)
+- Torrent Client [Transmission](https://transmissionbt.com/)
+- Color Scheme : GruvBox
+- Music [Spicetify](https://spicetify.app/)
 
 #### Finance
 
-- [WealthSimple](https://www.wealthsimple.com/en-ca) If you 're in Canada, I suggest you use this.
+- [WealthSimple](https://www.wealthsimple.com/en-ca) If you're in Canada, I suggest you use this.
 
 #### Misc
 
