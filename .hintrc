@@ -6,7 +6,7 @@
     "axe/structure": [
       "default",
       {
-        "list": "off"
+        "list": "on"
       }
     ],
     "disown-opener": "off"
