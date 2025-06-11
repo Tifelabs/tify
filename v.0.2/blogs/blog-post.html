@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs</title>
     <link rel="stylesheet" href="../css/blog-post.css">
+    <link rel="stylesheet" href="../css/theme.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -28,10 +29,20 @@
         <img id="modal-content" src="" alt="Enlarged blog image">
     </div>
 
+    <label for="style">Select Theme:</label>
+    <select name="theme" id="style" onchange="changeTheme()">
+        <option value="Plain">Plain White</option>
+        <option value="sakura">Sakura</option>
+        <option value="gruv">GruvBox</option>
+        <option value="La-noir">Noir</option>
+        <option value="Hackerman">Hackerman</option>
+    </select>
+
     <footer>
         <p>Contact: <a href="mailto:tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
     </footer>
 
     <script src="../js/blog-post.js"></script>
+    <script src="../js/theme.js"></script>
 </body>
 </html>

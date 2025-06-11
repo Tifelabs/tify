@@ -7,6 +7,7 @@
     <title>Tifelabs - Photography</title>
     <link rel="stylesheet" href="../css/photo.css">
     <link rel="stylesheet" href="../css/banner.css">
+    <link rel="stylesheet" href="../css/theme.css">
     <link rel="icon" href="../assets/photos/baby.png" type="image/png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
@@ -153,12 +154,22 @@
         <img id="modal-image" src="" alt="Enlarged photo">
     </div>
 
+    <label for="style">Select Theme:</label>
+    <select name="theme" id="style" onchange="changeTheme()">
+        <option value="Plain">Plain White</option>
+        <option value="sakura">Sakura</option>
+        <option value="gruv">GruvBox</option>
+        <option value="La-noir">Noir</option>
+        <option value="Hackerman">Hackerman</option>
+    </select>
+
     <footer>
         <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
     </footer>
 
     <script src="../js/photo.js"></script>
     <script src="../js/banner.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         window.bannerImages = [
             "../assets/banner/earth.jpg",

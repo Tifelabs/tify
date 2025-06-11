@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/theme.css">
     <link rel="icon" href="../assets/photos/baby.png" type="image/png">
     <style>
         /* Modal styles from user input */
@@ -130,10 +131,21 @@
         </div>
     </main>
 
+    <label for="style">Select Theme:</label>
+    <select name="theme" id="style" onchange="changeTheme()">
+        <option value="Plain">Plain White</option>
+        <option value="sakura">Sakura</option>
+        <option value="gruv">GruvBox</option>
+        <option value="La-noir">Noir</option>
+        <option value="Hackerman">Hackerman</option>
+    </select>
+
+
     <footer>
         <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
     </footer>
 
+    <script src="../js/theme.js"></script>
     <script>
         function openModal(imageSrc) {
             const modal = document.getElementById('imageModal');

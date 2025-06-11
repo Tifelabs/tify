@@ -6,6 +6,7 @@
     <title>Tife Blog</title>
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="../css/banner.css">
+    <link rel="stylesheet" href="../css/theme.css">
     <link rel="icon" href="../assets/photos/baby.png" type="image/png">
         <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
@@ -44,7 +45,17 @@
     <div class="blog-entry">05/10/2023: <a href="../blogs/blog-post.html?md=cidr.md">Subnetting and CIDR</a></div>
 </section>
 
+    <label for="style">Select Theme:</label>
+    <select name="theme" id="style" onchange="changeTheme()">
+        <option value="Plain">Plain White</option>
+        <option value="sakura">Sakura</option>
+        <option value="gruv">GruvBox</option>
+        <option value="La-noir">Noir</option>
+        <option value="Hackerman">Hackerman</option>
+    </select>
+
 <script src="../js/banner.js"></script>
+<script src="../js/theme.js"></script>
     <script>
         window.bannerImages = [
             "../assets/banner/earth.jpg",
