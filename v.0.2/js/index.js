@@ -27,6 +27,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //DONATION STUFF
         function handleDonate() {
-            alert("Thank you for your interest in donating!You'll be redirected to the donation page.");
             window.location.href = "https://ko-fi.com/tifelabs";
 }
