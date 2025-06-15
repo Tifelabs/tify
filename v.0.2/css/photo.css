@@ -160,7 +160,42 @@ footer {
         right: 8px;
     }
 
+    .copyright-notice {
+        font-size: 9px;
+    }
+    .copyright-notice h2 {
+        font-size: 11px;
+    }
+
     footer {
         font-size: 9px;
     }
+}
+
+
+/* Copyright Notice */
+.copyright-notice {
+    padding: 10px;
+    margin: 10px 0;
+    max-width: 600px;
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    color: black;
+    text-align: center;
+}
+.copyright-notice h2 {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+.copyright-notice p {
+    margin: 5px 0;
+}
+.copyright-notice a {
+    color: #0000EE;
+    text-decoration: none;
+}
+.copyright-notice a:hover {
+    text-decoration: underline;
 }
