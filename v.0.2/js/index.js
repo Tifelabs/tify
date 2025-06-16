@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-//DONATION STUFF
-        function handleDonate() {
-            window.location.href = "https://ko-fi.com/tifelabs";
+//DONATION BUTTON
+function handleDonate() {
+    window.location.href = "https://ko-fi.com/tifelabs";
 }

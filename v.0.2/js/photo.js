@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'block';
             modalImage.src = img.src;
             modalImage.alt = img.alt || 'Enlarged photo';
-            modalImage.focus(); // Accessibility: focus for keyboard navigation
+            modalImage.focus();
             modal.setAttribute('aria-hidden', 'false');
         });
     });
