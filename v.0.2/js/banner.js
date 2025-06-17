@@ -1,16 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const banner = document.getElementById('banner');
-    const bannerImage = banner.querySelector('.banner-image');
-    const images = window.bannerImages || [];
-    
-    if (images.length === 0) return;
+  const banner = document.getElementById('banner');
+  const bannerImage = banner?.querySelector('.banner-image');
+  const images = window.bannerImages ?? [];
 
-    const setRandomImage = () => {
-        const randomIndex = Math.floor(Math.random() * images.length);
-        bannerImage.src = images[randomIndex];
-        bannerImage.alt = 'Banner Image';
-    };
+  if (!banner || !bannerImage || images.length === 0) return;
 
-    setRandomImage(); // Set initial image
-    setInterval(setRandomImage, 3000); // Change every 3seconds
+  const setRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    bannerImage.src = images[randomIndex];
+    bannerImage.alt = `Banner Image ${randomIndex + 1}`;
+  };
+
+  setRandomImage();
+  const intervalId = setInterval(setRandomImage, 3000);
+
+  // Cleanup 
+  return () => clearInterval(intervalId);
 });
