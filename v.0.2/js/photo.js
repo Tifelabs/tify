@@ -1,32 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Cache DOM elements
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modal-image');
     const modalClose = document.querySelector('.modal-close');
-    const images = document.querySelectorAll('.photo-grid .photo img');
+    const photoGrid = document.querySelector('.photo-grid');
 
-    if (!modal || !modalImage || !modalClose) {
-        console.error('Modal elements not found');
+    // Validate DOM elements
+    if (!modal || !modalImage || !modalClose || !photoGrid) {
+        console.error('Required modal or grid elements not found');
         return;
     }
 
-    // Open modal on image click
-    images.forEach(img => {
-        img.addEventListener('click', () => {
-            modal.style.display = 'block';
-            modalImage.src = img.src;
-            modalImage.alt = img.alt || 'Enlarged photo';
-            modalImage.focus();
-            modal.setAttribute('aria-hidden', 'false');
-        });
-    });
+    // Debounce utility to prevent rapid clicks
+    const debounce = (func, wait) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
 
-    // Close modal on close button click
-    modalClose.addEventListener('click', () => {
+    // Preload image to reduce loading delay
+    const preloadImage = (src) => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    };
+
+    // Event delegation for image clicks
+    photoGrid.addEventListener('click', debounce((event) => {
+        const img = event.target.closest('img');
+        if (!img) return;
+
+        // Preload the image
+        preloadImage(img.src);
+
+        // Update modal
+        modal.style.display = 'block';
+        modalImage.src = img.src; // Set src after preload
+        modalImage.alt = img.alt || 'Enlarged photo';
+        modalImage.focus();
+        modal.setAttribute('aria-hidden', 'false');
+    }, 100));
+
+    // close button click
+    modalClose.addEventListener('click', debounce(() => {
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
-    });
+    }, 100));
 
-    // Close modal on background click
+    // background click
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
@@ -34,11 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Close modal on Escape key
+    // Escape key
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && modal.style.display === 'block') {
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
         }
     });
+
+    // low-res placeholder for smoother loading
+    modalImage.setAttribute('loading', 'lazy');
 });
