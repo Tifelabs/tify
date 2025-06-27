@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // Cache DOM elements
     const modal = document.getElementById('modal');
@@ -32,24 +33,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = event.target.closest('img');
         if (!img) return;
 
-        // Preload the image
-        preloadImage(img.src);
+        // Replace low-res path with high-res
+        let highResSrc = img.src
+            .replace('/Low_res/', '/High_res/')
+
+        // Preload the high-res image
+        preloadImage(highResSrc);
 
         // Update modal
-        modal.style.display = 'block';
-        modalImage.src = img.src; // Set src after preload
+        modal.style.display = 'flex'; 
+        modalImage.src = highResSrc; // Use high-res image
         modalImage.alt = img.alt || 'Enlarged photo';
+        modalImage.classList.add('modal-image'); 
         modalImage.focus();
         modal.setAttribute('aria-hidden', 'false');
     }, 100));
 
-    // close button click
+    // Close button click
     modalClose.addEventListener('click', debounce(() => {
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
     }, 100));
 
-    // background click
+    // Background click
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
@@ -59,12 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Escape key
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.style.display === 'block') {
+        if (event.key === 'Escape' && modal.style.display === 'flex') {
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
         }
     });
 
-    // low-res placeholder for smoother loading
+    // Lazy loading for modal image
     modalImage.setAttribute('loading', 'lazy');
 });
