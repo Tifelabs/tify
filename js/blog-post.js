@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const mdFile = urlParams.get('md') || 'default.md';
 
-fetch(`../blogs/${mdFile}`)
+fetch(`../Blog/${mdFile}`)
     .then(response => {
         if (!response.ok) throw new Error('Markdown file not found');
         return response.text();
