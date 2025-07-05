@@ -108,6 +108,10 @@ nav a:hover {
     font: 12px monospace;
 }
 
+.modal-image {
+    cursor: pointer;
+}
+
 footer {
     margin-top: 20px;
     text-align: center;
