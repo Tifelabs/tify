@@ -98,6 +98,42 @@ nav a:hover {
     border: 1px solid #fff;
 }
 
+.modal-image {
+    cursor: default;
+    position: relative; 
+}
+
+/* Navigation areas for left/right clicks */
+.modal-image::before,
+.modal-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+
+.modal-image::before {
+    left: 0;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>'), auto;
+}
+
+.modal-image::after {
+    right: 0;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>'), auto;
+}
+
+/* Hover effects for visual feedback */
+.modal-image:hover::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-image:hover::after {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .modal-close {
     position: absolute;
     top: 10px;
@@ -106,10 +142,6 @@ nav a:hover {
     font-size: 14px;
     cursor: pointer;
     font: 12px monospace;
-}
-
-.modal-image {
-    cursor: pointer;
 }
 
 footer {
