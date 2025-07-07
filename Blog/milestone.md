@@ -2,7 +2,7 @@
 
 **Posted on June 4, 2025**
 
-> *"Happiness ain’t just havin’ money. It’s ‘bout the joy of hittin’ goals and workin’ hard." – Franklin D. Roosevelt*
+> *"Happiness ain’t just having money. It’s about the joy of hitting goals and working hard." – Franklin D. Roosevelt*
 
 I used to think life would be super easy if I had tons of money. Like, a new iPhone, a dope JDM car, a nice apartment, or a trip to Japan. But I’m in my early twenties, and I learned money isn't the answer. It’s about being smart with it and not drownin’ in debt that messes you up later.
 
