@@ -26,8 +26,7 @@ Savin’ cash is tough. Especially when you’re makin’ minimum wage or livin�
 Alot of micro-transactions eat up the savings, (**I'm guilty of this**) , spending cash on little things. Like a Starbucks coffee every mornin’ or a Red Bull from the gas station (Based on calculations I found out I spent $500 a year on energy drinks!). Streaming services, snacks, all that jazz—it adds up. Imagine spending $3,000 a year on coffee! Those microtransactions kill your savings.
 
 
-
-- **Budgets**: Keep an eye on your cash.Apps like YNAB or better still a notebook and a pen.
+- **Budgets**: Keep an eye on your cash. Use Apps like YNAB or better still get a notebook and a pen for natural jottings.
 - **Skipping the Small Stuff**: Pass on the daily coffee or gas station drink. Saves a ton. You can as well make your coffee at home... and maybe limit buying from the gas-station once per month, Best bet,just buy from Walmart or better store.
 Gas Stations and Convenience stores are so expensive.
 
