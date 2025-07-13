@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modal-image');
     const modalClose = document.querySelector('.modal-close');
+    const modalPrev = document.querySelector('.modal-prev');
+    const modalNext = document.querySelector('.modal-next');
     const photoGrid = document.querySelector('.photo-grid');
 
     // Validate DOM elements
-    if (!modal || !modalImage || !modalClose || !photoGrid) {
+    if (!modal || !modalImage || !modalClose || !modalPrev || !modalNext || !photoGrid) {
         console.error('Required modal or grid elements not found');
         return;
     }
@@ -24,63 +26,92 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    // Preload image to reduce loading delay
+    // Preload image and handle load errors
     const preloadImage = (src) => {
-        const img = new Image();
-        img.src = src;
-        return img;
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+        });
     };
 
     // Update modal with image at given index
-    const updateModalImage = (index) => {
+    const updateModalImage = async (index) => {
         if (index < 0 || index >= images.length) return;
-        
+
         currentImageIndex = index;
         const img = images[index];
-        let highResSrc = img.src.replace('/Low_res/', '/High_res/');
-        
-        preloadImage(highResSrc);
-        modalImage.src = highResSrc;
-        modalImage.alt = img.alt || 'Enlarged photo';
-        modalImage.classList.add('modal-image');
-        modalImage.focus();
+        let highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
+
+        try {
+            await preloadImage(highResSrc);
+            modalImage.src = highResSrc;
+            modalImage.alt = img.alt || `Photo ${index + 1}`;
+            modalImage.classList.add('modal-image');
+            modalImage.focus();
+
+            // Update navigation button visibility
+            modalPrev.style.display = currentImageIndex > 0 ? 'block' : 'none';
+            modalNext.style.display = currentImageIndex < images.length - 1 ? 'block' : 'none';
+        } catch (error) {
+            console.error(error.message);
+            modalImage.alt = 'Image failed to load';
+            modalImage.src = ''; // Clear image to avoid broken image icon
+        }
     };
 
     // Event delegation for image clicks
-    photoGrid.addEventListener('click', debounce((event) => {
+    photoGrid.addEventListener('click', debounce(async (event) => {
         const img = event.target.closest('img');
         if (!img) return;
 
         // Find index of clicked image
         currentImageIndex = images.findIndex(image => image === img);
-        
-        // Replace low-res path with high-res
-        let highResSrc = img.src.replace('/Low_res/', '/High_res/');
+        let highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
 
-        // Preload the high-res image
-        preloadImage(highResSrc);
+        try {
+            await preloadImage(highResSrc);
+            modal.style.display = 'flex';
+            modalImage.src = highResSrc;
+            modalImage.alt = img.alt || `Photo ${currentImageIndex + 1}`;
+            modalImage.classList.add('modal-image');
+            modalImage.focus();
+            modal.setAttribute('aria-hidden', 'false');
 
-        // Update modal
-        modal.style.display = 'flex';
-        modalImage.src = highResSrc;
-        modalImage.alt = img.alt || 'Enlarged photo';
-        modalImage.classList.add('modal-image');
-        modalImage.focus();
-        modal.setAttribute('aria-hidden', 'false');
+            // Update navigation button visibility
+            modalPrev.style.display = currentImageIndex > 0 ? 'block' : 'none';
+            modalNext.style.display = currentImageIndex < images.length - 1 ? 'block' : 'none';
+        } catch (error) {
+            console.error(error.message);
+            modalImage.alt = 'Image failed to load';
+            modalImage.src = '';
+        }
     }, 100));
 
     // Navigation click handler for modal image
     modalImage.addEventListener('click', debounce((event) => {
-        // Calculate click position (left or right half)
         const rect = modalImage.getBoundingClientRect();
         const clickX = event.clientX - rect.left;
         const halfWidth = rect.width / 2;
 
         if (clickX < halfWidth && currentImageIndex > 0) {
-            // Clicked left half - go to previous image
             updateModalImage(currentImageIndex - 1);
         } else if (clickX >= halfWidth && currentImageIndex < images.length - 1) {
-            // Clicked right half - go to next image
+            updateModalImage(currentImageIndex + 1);
+        }
+    }, 100));
+
+    // Previous button click
+    modalPrev.addEventListener('click', debounce(() => {
+        if (currentImageIndex > 0) {
+            updateModalImage(currentImageIndex - 1);
+        }
+    }, 100));
+
+    // Next button click
+    modalNext.addEventListener('click', debounce(() => {
+        if (currentImageIndex < images.length - 1) {
             updateModalImage(currentImageIndex + 1);
         }
     }, 100));
@@ -90,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         currentImageIndex = -1;
+        modalPrev.style.display = 'block'; // Reset button visibility
+        modalNext.style.display = 'block';
     }, 100));
 
     // Background click
@@ -98,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
             currentImageIndex = -1;
+            modalPrev.style.display = 'block'; // Reset button visibility
+            modalNext.style.display = 'block';
         }
     });
 
@@ -109,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
             currentImageIndex = -1;
+            modalPrev.style.display = 'block'; // Reset button visibility
+            modalNext.style.display = 'block';
         } else if (event.key === 'ArrowLeft' && currentImageIndex > 0) {
             updateModalImage(currentImageIndex - 1);
         } else if (event.key === 'ArrowRight' && currentImageIndex < images.length - 1) {
