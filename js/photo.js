@@ -13,146 +13,127 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Store all images for navigation
+    // Store images and initialize state
     const images = Array.from(photoGrid.querySelectorAll('img'));
     let currentImageIndex = -1;
 
-    // Debounce utility to prevent rapid clicks
+    // Optimized debounce function
     const debounce = (func, wait) => {
         let timeout;
         return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), wait);
         };
     };
 
-    // Preload image and handle load errors
+    // Preload image with promise
     const preloadImage = (src) => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.src = src;
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+            img.onload = () => resolve();
+            img.onerror = () => reject(`Failed to load image: ${src}`);
         });
     };
 
-    // Update modal with image at given index
+    // Preload adjacent images for faster navigation
+    const preloadAdjacentImages = (index) => {
+        const prevIndex = index - 1;
+        const nextIndex = index + 1;
+        if (prevIndex >= 0) preloadImage(images[prevIndex].src.replace('/assets/Low_res/', '/assets/High_res/'));
+        if (nextIndex < images.length) preloadImage(images[nextIndex].src.replace('/assets/Low_res/', '/assets/High_res/'));
+    };
+
+    // Update modal image
     const updateModalImage = async (index) => {
         if (index < 0 || index >= images.length) return;
 
         currentImageIndex = index;
         const img = images[index];
-        let highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
+        const highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
 
         try {
             await preloadImage(highResSrc);
             modalImage.src = highResSrc;
             modalImage.alt = img.alt || `Photo ${index + 1}`;
             modalImage.classList.add('modal-image');
+
+            // Batch DOM updates for navigation buttons
+            modalPrev.style.display = index > 0 ? 'block' : 'none';
+            modalNext.style.display = index < images.length - 1 ? 'block' : 'none';
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
             modalImage.focus();
 
-            // Update navigation button visibility
-            modalPrev.style.display = currentImageIndex > 0 ? 'block' : 'none';
-            modalNext.style.display = currentImageIndex < images.length - 1 ? 'block' : 'none';
+            // Preload adjacent images
+            preloadAdjacentImages(index);
         } catch (error) {
-            console.error(error.message);
+            console.error(error);
+            modalImage.src = '';
             modalImage.alt = 'Image failed to load';
-            modalImage.src = ''; // Clear image to avoid broken image icon
         }
     };
 
-    // Event delegation for image clicks
-    photoGrid.addEventListener('click', debounce(async (event) => {
-        const img = event.target.closest('img');
-        if (!img) return;
-
-        // Find index of clicked image
-        currentImageIndex = images.findIndex(image => image === img);
-        let highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
-
-        try {
-            await preloadImage(highResSrc);
-            modal.style.display = 'flex';
-            modalImage.src = highResSrc;
-            modalImage.alt = img.alt || `Photo ${currentImageIndex + 1}`;
-            modalImage.classList.add('modal-image');
-            modalImage.focus();
-            modal.setAttribute('aria-hidden', 'false');
-
-            // Update navigation button visibility
-            modalPrev.style.display = currentImageIndex > 0 ? 'block' : 'none';
-            modalNext.style.display = currentImageIndex < images.length - 1 ? 'block' : 'none';
-        } catch (error) {
-            console.error(error.message);
-            modalImage.alt = 'Image failed to load';
-            modalImage.src = '';
-        }
+    // Event delegation for photo grid
+    photoGrid.addEventListener('click', debounce(async (e) => {
+        if (e.target.tagName !== 'IMG') return;
+        const index = images.indexOf(e.target);
+        if (index === -1) return;
+        await updateModalImage(index);
     }, 100));
 
-    // Navigation click handler for modal image
-    modalImage.addEventListener('click', debounce((event) => {
+    // Modal image click for navigation
+    modalImage.addEventListener('click', debounce((e) => {
         const rect = modalImage.getBoundingClientRect();
-        const clickX = event.clientX - rect.left;
+        const clickX = e.clientX - rect.left;
         const halfWidth = rect.width / 2;
-
-        if (clickX < halfWidth && currentImageIndex > 0) {
-            updateModalImage(currentImageIndex - 1);
-        } else if (clickX >= halfWidth && currentImageIndex < images.length - 1) {
-            updateModalImage(currentImageIndex + 1);
-        }
+        const newIndex = clickX < halfWidth ? currentImageIndex - 1 : currentImageIndex + 1;
+        updateModalImage(newIndex);
     }, 100));
 
-    // Previous button click
-    modalPrev.addEventListener('click', debounce(() => {
-        if (currentImageIndex > 0) {
-            updateModalImage(currentImageIndex - 1);
-        }
-    }, 100));
+    // Navigation buttons
+    modalPrev.addEventListener('click', debounce(() => updateModalImage(currentImageIndex - 1), 100));
+    modalNext.addEventListener('click', debounce(() => updateModalImage(currentImageIndex + 1), 100));
 
-    // Next button click
-    modalNext.addEventListener('click', debounce(() => {
-        if (currentImageIndex < images.length - 1) {
-            updateModalImage(currentImageIndex + 1);
-        }
-    }, 100));
-
-    // Close button click
-    modalClose.addEventListener('click', debounce(() => {
+    // Close modal
+    const closeModal = () => {
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         currentImageIndex = -1;
-        modalPrev.style.display = 'block'; // Reset button visibility
+        modalPrev.style.display = 'block';
         modalNext.style.display = 'block';
-    }, 100));
+    };
 
-    // Background click
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
-            currentImageIndex = -1;
-            modalPrev.style.display = 'block'; // Reset button visibility
-            modalNext.style.display = 'block';
-        }
+    modalClose.addEventListener('click', debounce(closeModal, 100));
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
     });
 
     // Keyboard navigation
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', (e) => {
         if (modal.style.display !== 'flex') return;
-
-        if (event.key === 'Escape') {
-            modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
-            currentImageIndex = -1;
-            modalPrev.style.display = 'block'; // Reset button visibility
-            modalNext.style.display = 'block';
-        } else if (event.key === 'ArrowLeft' && currentImageIndex > 0) {
-            updateModalImage(currentImageIndex - 1);
-        } else if (event.key === 'ArrowRight' && currentImageIndex < images.length - 1) {
-            updateModalImage(currentImageIndex + 1);
-        }
+        if (e.key === 'Escape') closeModal();
+        else if (e.key === 'ArrowLeft') updateModalImage(currentImageIndex - 1);
+        else if (e.key === 'ArrowRight') updateModalImage(currentImageIndex + 1);
     });
 
-    // Lazy loading for modal image
-    modalImage.setAttribute('loading', 'lazy');
+    // Lazy load grid images with Intersection Observer
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                obs.unobserve(img);
+            }
+        });
+    }, { rootMargin: '0px 0px 100px 0px' });
+
+    images.forEach(img => {
+        if (!img.src) {
+            img.dataset.src = img.getAttribute('src');
+            img.src = '';
+            observer.observe(img);
+        }
+    });
 });
