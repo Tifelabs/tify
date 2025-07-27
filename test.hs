@@ -9,11 +9,11 @@ import Control.Monad.IO.Class (liftIO)
 
 main :: IO ()
 main = do
-    -- Initialize a visitor counter using IORef for in-memory storage
+
     counter <- newIORef (0 :: Int)
     scotty 3000 $ do
         get "/" $ do
-            -- Increment visitor count
+
             count <- liftIO $ atomicModifyIORef' counter (\c -> (c + 1, c + 1))
             -- Render HTML
             html $ renderHtml $ do
