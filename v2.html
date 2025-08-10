@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tifelabs: Personal website of Tife, a systems programmer working on operating systems.">
+    <title>Tifelabs</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/banner.css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="icon" href="./assets/images/baby.png" type="image/png" title="Tifelabs Favicon">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W3CM55WK3Y');
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Tife</h1>
+        <nav>
+            <a href="/">[Home]</a>
+            <a href="/Blog/">[Blog]</a>
+            <a href="/Photography/">[Photography]</a>
+            <a href="/Resource/">[Resource]</a>
+            <a href="#" id="help-link" aria-label="Show help information">[?]</a>
+        </nav>
+        <hr>
+    </header>
+
+    <div class="banner" id="banner">
+        <img src="./v.0.2/assets/banner/earth.jpg" alt="Banner Image" class="banner-image">
+    </div>
+    <hr>
+
+    <div id="custom-alert" class="alert-box" role="alertdialog" aria-labelledby="alert-title">
+        <div class="alert-content">
+            <p id="alert-title">I try to make this webpage Minimal: [HTML + CSS + Vanilla JS]</p>
+            <button id="close-alert">CLOSE</button>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2>About</h2>
+        <p>Hi, I'm Tife, I do systems programming. I enjoy working on retro consoles and Operating systems.</p>
+        <p>More on <a href="./Personal/">personal</a></p>
+        <p>Cool Domains I Own >> <a href="./Domain/">[D]</a></p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <a href="https://github.com/Tifelabs/chip-8">CHIP-8 Emulator</a>: A Virtual Machine written in C.<br>
+            <a href="https://github.com/Tifelabs/pi_snake">PI SNAKE</a>: A snake game that runs on raspberry pi using of 16 x 2 LCD Screen.<br>
+            <a href="https://github.com/Tifelabs/ceaser_cipher">CEASER CIPHER</a>: A program that decrypts and encrypts texts.
+        </div>
+    </section>
+
+    <section id="in-progress">
+        <h4>In Progress...</h4>
+        <p>I'm currently studying and practicing deep down of operating systems and system exploits:</p>
+        <p><a href="https://github.com/Tifelabs/system_prog">System Programming</a>: My public repo of OSTEP and Hacking the art of exploitation practice.</p>
+    </section>
+
+    <section id="misc">
+        <h4>Misc</h4>
+        <p>
+            <a href="https://youtu.be/i2gNx4-REIA?si=H0BpQwEwLptq6CgP">Daddy Chill</a>
+            <a href="https://youtu.be/aSO9lfWf2wM?si=WV9TdRjphFpGE2hS">Math all day</a>
+            <a href="https://youtu.be/gyO5zhBI9U8?si=k4_1C46BvOfQAVeY">21 Cars</a>
+            <a href="https://youtu.be/od_PmtmMDV0?si=uuH7eec7LQqBLAg_">Banana Store</a>
+            <a href="https://youtu.be/C65oaIHsdYM?si=8-t8ViwLUAy63wxY">I am Kira</a>
+            <a href="https://youtu.be/UnktCDi-BVs?si=UdR3KNUAydoL3q6U">Oh My Gah</a>
+            <a href="https://youtu.be/7N8IDv8viZk?si=HDlpzgAWjJNwOMx0">1 Sec</a>
+        </p>
+    </section>
+
+    <section id="links">
+        <h2>Links</h2>
+        <p>
+            <a href="https://github.com/Tifelabs">GitHub</a> | 
+            <button class="donate-button" onclick="handleDonate()" aria-label="Support Tife with a donation">Donate</button>   
+        </p>
+    </section>
+
+    <label for="style">Select Theme:</label>
+    <select name="theme" id="style" onchange="changeTheme()">
+        <option value="Plain">Plain White</option>
+        <option value="sakura">Sakura</option>
+        <option value="gruv">GruvBox</option>
+        <option value="La-noir">Noir</option>
+        <option value="Hackerman">Hackerman</option>
+    </select>
+
+    <footer>
+        This page <a href="https://tifelabs.com/">Tifelabs</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+        <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./js/banner.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/theme.js"></script>
+    <script src="./js/banner_path.js"></script>
+</body>
+</html>
