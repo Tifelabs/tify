@@ -1,13 +1,12 @@
 # Things I Use
 
-**Posted on December 20, 2024**
-
-Things I use [-- HARDWARE AND SOFTWARE --]
+[-- HARDWARE AND SOFTWARE --]
 
 #### Laptop
 
 - Dell Latitude 5520
 - Lenovo IdeaPad B590 (the screen is broken). I just use it headlessly with a cheap monitor I got from a pawn shop to play kino PS2 games.
+<br>
 
 #### Camera
 
@@ -29,6 +28,8 @@ Lens
 |---------|---------|
 | ![Front Cam](./blog-images/cam2.JPG) | ![Side Cam](./blog-images/cam3.JPG) |
 
+<br>
+
 #### Peripherals
 
 - Monitor [Samsung Odyssey G5 27"](https://www.samsung.com/ca/monitors/gaming/odyssey-g5-g55c-27-inch-165hz-curved-qhd-ls27cg550enxza/)
@@ -36,26 +37,36 @@ Lens
 - Earpiece/HeadPhone - Some wired earphone I got a walmart.
 - Mouse - **Walmart wireless mouse**
 
+<br>
+
 #### Editor
 
 - [VSCode](https://code.visualstudio.com/)
 - [Vim](https://www.vim.org/) Quick File (mostly **.config* files) Edit and for ssh
 - [Sublime Text](https://www.sublimetext.com/) For Reading code
 
+<br>
+
 #### Search Engine
 
 - [Yandex](https://yandex.com/)
 - [DuckDuckGo](https://duckduckgo.com/) - It became retarded sometime ago
+
+<br>
 
 #### Browser
 
 - [Brave](https://brave.com/download/)
 - Firefox (due to some recent happenings with privacy. I'll give it 50% trust)
 
+<br>
+
 #### Websites
 
 - [NameCheap](https://www.namecheap.com/)
 - [PorkBun](https://porkbun.com/)
+
+<br>
 
 #### Entertainment
 
@@ -70,6 +81,8 @@ Lens
 - PS4
 - Grass (yeah!! real grass, turn off your sceen and touch **mother earth**)
 
+<br>
+
 #### Productivity
 
 - Terminal [Kitty](https://github.com/kovidgoyal/kitty)
@@ -82,9 +95,13 @@ Lens
 - Color Scheme : GruvBox
 - Music [Spicetify](https://spicetify.app/)
 
+<br>
+
 #### Finance
 
 - [WealthSimple](https://www.wealthsimple.com/en-ca) If you're in Canada, I suggest you use this.
+
+<br>
 
 #### Misc
 

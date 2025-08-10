@@ -1,88 +1,219 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/banner.css">
-    <link rel="stylesheet" href="../css/theme.css">
-    <link rel="icon" href="../assets/photos/baby.png" type="image/png">
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources - Tifelabs</title>
+<style>
+* {
+ margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+font-size: 14px;
+line-height: 1.5;
+color: #333;
+background: #fff;
+max-width: 700px;
+margin: 0 auto;
+padding: 40px 18px;
+}
+header {
+margin-bottom: 40px;
+}
+h1 {
+font-size: 24px;
+font-weight: 400;
+color: #000;
+margin-bottom: 6px;
+}
+.subtitle {
+font-size: 14px;
+color: #666;
+font-weight: 300;
+}
+nav {
+margin-bottom: 50px;
+}
+nav ul {
+list-style: none;
+display: flex;
+gap: 25px;
+border-bottom: 1px solid #eee;
+}
+nav a {
+color: #999;
+text-decoration: none;
+font-size: 14px;
+font-weight: 400;
+padding: 0 0 14px 0;
+transition: color 0.2s;
+}
+nav a.active,
+nav a:hover {
+color: #000;
+border-bottom: 2px solid #000;
+}
+.intro {
+font-size: 16px;
+line-height: 1.6;
+color: #000;
+margin-bottom: 40px;
+font-weight: 300;
+}
+.contact {
+margin-top: 40px;
+font-size: 14px;
+color: #666;
+line-height: 1.6;
+}
+.contact a {
+color: #000;
+text-decoration: none;
+}
+.contact a:hover {
+text-decoration: underline;
+}
 
-    gtag('config', 'G-W3CM55WK3Y');
-</script>
+.resources-section {
+  margin-bottom: 35px;
+}
+
+.resources-section h2 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.link-item {
+  margin-bottom: 20px;
+}
+
+.link-item a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline;
+  margin-right: 8px;
+}
+
+.link-item a:hover {
+  opacity: 0.6;
+}
+
+.link-description {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.4;
+  display: inline;
+}
+
+@media (max-width: 600px) {
+body {
+padding: 25px 12px;
+font-size: 13px;
+}
+h1 {
+font-size: 20px;
+}
+.subtitle {
+font-size: 12px;
+}
+.intro {
+font-size: 14px;
+}
+nav ul {
+gap: 14px;
+}
+nav a {
+font-size: 13px;
+padding: 0 0 12px 0;
+}
+.contact {
+font-size: 13px;
+}
+header {
+margin-bottom: 30px;
+}
+nav {
+margin-bottom: 35px;
+}
+  
+  .resources-section h2 {
+    font-size: 15px;
+  }
+  
+  .link-description {
+    font-size: 12px;
+  }
+}
+</style>
 </head>
-
 <body>
-    <header>
-        <h1>Tife</h1>
-        <nav>
-            <a href="/">[Home]</a>
-            <a href="/Blog/">[Blog]</a>
-            <a href="/Photography/">[Photography]</a>
-            <a href="/Resource/">[Resource]</a>
-        </nav>
-        <hr>
-    </header>
-
-    <div class="banner" id="banner">
-        <img src="../assets/banner/sr-71.jpg" alt="Banner Image" class="banner-image">
+  <header>
+    <h1>Tifelabs</h1>
+    <div class="subtitle">Systems Engineer</div>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../blogs/">Writing</a></li>
+      <li><a href="../Photography/">Photography</a></li>
+      <li><a href="../Resource/" class="active">Resources</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <div class="intro">
+      Curated links and resources that I find helpful and interesting.
     </div>
-    <hr>
-
-    <h3>Resources | Helpful Links</h3>
-    <p>I curated a list of links and Resources that I find Helpful and Interesting</p>
-    <p>100% worth Reading</p>
-
-    <div>
-        <ul>
-            <li><a href="https://youtu.be/3hYSnyVLmGE?si=XlOPTF4dwSFmWVeu">The Insane Engineering of the  SR-71 Blackbird</a><em><strong> Real Engineering</strong></em></li>
-            <li><a href="https://gwern.net/death-note-anonymity">Death-note Anonymity</a><em><strong> Gwern</strong></em></li>
-            <li><a href="https://near.blog/productivity-tips/">Productivity</a><em><strong> Asara Near</strong></em></li>
-            <li><a href="https://www.paulgraham.com/start.html">How to start a StartUp</a><em><strong> Paul Graham</strong></em></li> 
-            <li><a href=" https://lelouch.dev/blog/you-are-probably-not-dumb/"> You Are NOT Dumb, You Just Lack the Prerequisites </a><em><strong> Lelouch</strong></em></li>
-            <li><a href="https://patrickcollison.com/advice">Advice</a><em><strong> Patrick Collison</strong></em></li> 
-            <li><a href="https://deplet.ing/#/post/3">Yet another programming resource list</a><em><strong> Gizmobly</strong></em></li> 
-            <li><a href="https://serenityos.org/happy/1st/">Serenity OS</a><em><strong> Andreas Kling</strong></em></li>
-            <li><a href="https://motherfuckingwebsite.com/">Just Use HTML</a><em><strong> motherfuckingwebsite</strong></em></li>
-        </ul>
+    
+    <div class="resources-section">
+      <h2>Writings & Videos</h2>
+      
+      <div class="link-item">
+        <a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank">Real Engineering</a>
+        <span class="link-description">— The Insane Engineering of the SR-71 Blackbird</span>
+      </div>
+      
+      <div class="link-item">
+        <a href="https://serenityos.org/happy/1st/" target="_blank">Serenity OS</a>
+        <span class="link-description">— SerenityOS: From zero to HTML in a year</span>
+      </div>
+      
+      <div class="link-item">
+        <a href="https://gwern.net/death-note-anonymity" target="_blank">Death Note</a>
+        <span class="link-description">— Death Note: L, Anonymity & Eluding Entropy</span>
+      </div>
     </div>
-    <script src="../js/banner.js"></script>
-    <script src="../js/theme.js"></script>
-    <script>
-        window.bannerImages = [
-            "../assets/banner/sr-71.jpg",
-            "../assets/banner/blackbird.jpg",
-            "../assets/banner/earth.jpg",
-            "../assets/banner/sa-h.jpg",
-            "../assets/banner/sa.jpg",
-            "../assets/banner/planets.jpg",
-            "../assets/banner/aya.jpg",
-            "../assets/banner/rd.png",
-            "../assets/banner/spike.jpg",
-            "../assets/banner/nice.jpg",
-            "../assets/banner/Emotion.png",
-            "../assets/banner/pirate.gif",
-            "../assets/banner/ps2.gif"
-        ];
-    </script>
+
+    <div class="resources-section">
+      <h2>Programming</h2>
+      
+      <div class="link-item">
+        <a href="https://craftinginterpreters.com/" target="_blank">Crafting Interpreters</a>
+        <span class="link-description">— A handbook for making programming languages</span>
+      </div>
+      
+    </div>
+
+    <div class="resources-section">
+      <h2>Systems</h2>
+      
+      <div class="link-item">
+        <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Operating Systems: Three Easy Pieces</a>
+        <span class="link-description">— Free online operating systems book</span>
+      </div>
+      
+      <div class="link-item">
+        <a href="https://beej.us/guide/bgnet/" target="_blank">Beej's Guide to Network Programming</a>
+        <span class="link-description">— Socket programming guide using Internet sockets</span>
+      </div>
+    </div>
+  </main>
 </body>
-
-    <label for="style">Select Theme:</label>
-    <select name="theme" id="style" onchange="changeTheme()">
-        <option value="Plain">Plain White</option>
-        <option value="sakura">Sakura</option>
-        <option value="gruv">GruvBox</option>
-        <option value="La-noir">Noir</option>
-        <option value="Hackerman">Hackerman</option>
-    </select>
-
-    <footer>
-        <p>Contact: <a href="mailto:Tifelabs@gmail.com">Tifelabs</a> | © 2025 Tifelabs</p>
-    </footer>
 </html>
