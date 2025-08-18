@@ -1,139 +1,179 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Cache DOM elements
-    const modal = document.getElementById('modal');
-    const modalImage = document.getElementById('modal-image');
-    const modalClose = document.querySelector('.modal-close');
-    const modalPrev = document.querySelector('.modal-prev');
-    const modalNext = document.querySelector('.modal-next');
-    const photoGrid = document.querySelector('.photo-grid');
+// Cache DOM elements once
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modal-image');
+const modalClose = document.querySelector('.modal-close');
+const modalPrev = document.querySelector('.modal-prev');
+const modalNext = document.querySelector('.modal-next');
+const modalCaption = document.getElementById('modal-caption');
+const images = document.querySelectorAll('.photo img');
 
-    // Validate DOM elements
-    if (!modal || !modalImage || !modalClose || !modalPrev || !modalNext || !photoGrid) {
-        console.error('Required modal or grid elements not found');
-        return;
+// State management
+let currentIndex = -1;
+let isModalOpen = false;
+let imageCache = new Map();
+let isNavigating = false;
+
+// Ultra-fast image preloader with caching
+const preloadImage = (src) => {
+  if (imageCache.has(src)) return Promise.resolve();
+  
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      imageCache.set(src, img);
+      resolve();
+    };
+    img.onerror = () => resolve(); // Don't block on errors
+    img.src = src;
+  });
+};
+
+// Batch preload adjacent images
+const preloadAdjacent = (index) => {
+  requestIdleCallback(() => {
+    const prev = index - 1;
+    const next = index + 1;
+    if (prev >= 0) {
+      const prevSrc = images[prev].src.replace('/Low_res/', '/High_res/');
+      preloadImage(prevSrc);
     }
+    if (next < images.length) {
+      const nextSrc = images[next].src.replace('/Low_res/', '/High_res/');
+      preloadImage(nextSrc);
+    }
+  });
+};
 
-    // Store images and initialize state
-    const images = Array.from(photoGrid.querySelectorAll('img'));
-    let currentImageIndex = -1;
+// Optimized modal display
+const showModal = (index) => {
+  if (isNavigating || index < 0 || index >= images.length) return;
+  
+  isNavigating = true;
+  currentIndex = index;
+  isModalOpen = true;
+  
+  const img = images[index];
+  const highResSrc = img.src.replace('/Low_res/', '/High_res/');
+  
+  // Use cached image if available
+  if (imageCache.has(highResSrc)) {
+    modalImage.src = highResSrc;
+  } else {
+    modalImage.src = img.src; // Show low-res immediately
+    preloadImage(highResSrc).then(() => {
+      if (currentIndex === index && isModalOpen) {
+        modalImage.src = highResSrc;
+      }
+    });
+  }
+  
+  modalImage.alt = img.alt;
+  modalCaption.textContent = img.nextElementSibling?.textContent || '';
+  
+  // Batch DOM updates
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  
+  // Update navigation visibility
+  modalPrev.style.display = index > 0 ? 'block' : 'none';
+  modalNext.style.display = index < images.length - 1 ? 'block' : 'none';
+  
+  preloadAdjacent(index);
+  
+  requestAnimationFrame(() => {
+    modalImage.focus();
+    isNavigating = false;
+  });
+};
 
-    // Optimized debounce function
-    const debounce = (func, wait) => {
-        let timeout;
-        return (...args) => {
-            if (timeout) clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), wait);
-        };
-    };
+// Fast navigation
+const navigate = (direction) => {
+  if (isNavigating) return;
+  const newIndex = currentIndex + direction;
+  if (newIndex >= 0 && newIndex < images.length) {
+    showModal(newIndex);
+  }
+};
 
-    // Preload image with promise
-    const preloadImage = (src) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => resolve();
-            img.onerror = () => reject(`Failed to load image: ${src}`);
-        });
-    };
+// Close modal
+const closeModal = () => {
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  isModalOpen = false;
+  currentIndex = -1;
+};
 
-    // Preload adjacent images for faster navigation
-    const preloadAdjacentImages = (index) => {
-        const prevIndex = index - 1;
-        const nextIndex = index + 1;
-        if (prevIndex >= 0) preloadImage(images[prevIndex].src.replace('/assets/Low_res/', '/assets/High_res/'));
-        if (nextIndex < images.length) preloadImage(images[nextIndex].src.replace('/assets/Low_res/', '/assets/High_res/'));
-    };
+// Event listeners with passive optimization
+document.addEventListener('DOMContentLoaded', () => {
+  // Photo grid click handler with event delegation
+  document.querySelector('.photo-grid').addEventListener('click', (e) => {
+    if (e.target.tagName !== 'IMG') return;
+    const index = Array.from(images).indexOf(e.target);
+    if (index !== -1) showModal(index);
+  }, { passive: true });
 
-    // Update modal image
-    const updateModalImage = async (index) => {
-        if (index < 0 || index >= images.length) return;
+  // Modal navigation
+  modalPrev.addEventListener('click', () => navigate(-1));
+  modalNext.addEventListener('click', () => navigate(1));
+  modalClose.addEventListener('click', closeModal);
 
-        currentImageIndex = index;
-        const img = images[index];
-        const highResSrc = img.src.replace('/assets/Low_res/', '/assets/High_res/');
+  // Click outside to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  }, { passive: true });
 
-        try {
-            await preloadImage(highResSrc);
-            modalImage.src = highResSrc;
-            modalImage.alt = img.alt || `Photo ${index + 1}`;
-            modalImage.classList.add('modal-image');
+  // Image click navigation (left/right halves)
+  modalImage.addEventListener('click', (e) => {
+    const rect = modalImage.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const direction = clickX < rect.width / 2 ? -1 : 1;
+    navigate(direction);
+  }, { passive: true });
 
-            // Batch DOM updates for navigation buttons
-            modalPrev.style.display = index > 0 ? 'block' : 'none';
-            modalNext.style.display = index < images.length - 1 ? 'block' : 'none';
-            modal.style.display = 'flex';
-            modal.setAttribute('aria-hidden', 'false');
-            modalImage.focus();
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!isModalOpen) return;
+    
+    switch(e.key) {
+      case 'Escape':
+        closeModal();
+        break;
+      case 'ArrowLeft':
+        navigate(-1);
+        break;
+      case 'ArrowRight':
+        navigate(1);
+        break;
+    }
+  });
 
-            // Preload adjacent images
-            preloadAdjacentImages(index);
-        } catch (error) {
-            console.error(error);
-            modalImage.src = '';
-            modalImage.alt = 'Image failed to load';
+  // Optimized intersection observer for lazy loading
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
         }
-    };
-
-    // Event delegation for photo grid
-    photoGrid.addEventListener('click', debounce(async (e) => {
-        if (e.target.tagName !== 'IMG') return;
-        const index = images.indexOf(e.target);
-        if (index === -1) return;
-        await updateModalImage(index);
-    }, 100));
-
-    // Modal image click for navigation
-    modalImage.addEventListener('click', debounce((e) => {
-        const rect = modalImage.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const halfWidth = rect.width / 2;
-        const newIndex = clickX < halfWidth ? currentImageIndex - 1 : currentImageIndex + 1;
-        updateModalImage(newIndex);
-    }, 100));
-
-    // Navigation buttons
-    modalPrev.addEventListener('click', debounce(() => updateModalImage(currentImageIndex - 1), 100));
-    modalNext.addEventListener('click', debounce(() => updateModalImage(currentImageIndex + 1), 100));
-
-    // Close modal
-    const closeModal = () => {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        currentImageIndex = -1;
-        modalPrev.style.display = 'block';
-        modalNext.style.display = 'block';
-    };
-
-    modalClose.addEventListener('click', debounce(closeModal, 100));
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
+      });
+    }, { 
+      rootMargin: '50px',
+      threshold: 0.1
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (modal.style.display !== 'flex') return;
-        if (e.key === 'Escape') closeModal();
-        else if (e.key === 'ArrowLeft') updateModalImage(currentImageIndex - 1);
-        else if (e.key === 'ArrowRight') updateModalImage(currentImageIndex + 1);
-    });
+    images.forEach(img => observer.observe(img));
+  }
 
-    // Lazy load grid images with Intersection Observer
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                obs.unobserve(img);
-            }
-        });
-    }, { rootMargin: '0px 0px 100px 0px' });
-
-    images.forEach(img => {
-        if (!img.src) {
-            img.dataset.src = img.getAttribute('src');
-            img.src = '';
-            observer.observe(img);
-        }
-    });
+  // Preload first few high-res images on idle
+  requestIdleCallback(() => {
+    const preloadCount = Math.min(3, images.length);
+    for (let i = 0; i < preloadCount; i++) {
+      const highResSrc = images[i].src.replace('/Low_res/', '/High_res/');
+      preloadImage(highResSrc);
+    }
+  });
 });
