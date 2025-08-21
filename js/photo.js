@@ -13,6 +13,17 @@ let isModalOpen = false;
 let imageCache = new Map();
 let isNavigating = false;
 
+// Touch handling state
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+let isTouchDevice = false;
+
+// Detect touch capability
+const detectTouch = () => {
+    isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
+
 // Ultra-fast image preloader with caching
 const preloadImage = (src) => {
     if (imageCache.has(src)) return Promise.resolve();
@@ -30,18 +41,20 @@ const preloadImage = (src) => {
 
 // Batch preload adjacent images
 const preloadAdjacent = (index) => {
-    requestIdleCallback(() => {
-        const prev = index - 1;
-        const next = index + 1;
-        if (prev >= 0) {
-            const prevSrc = images[prev].src.replace('/Low_res/', '/High_res/');
-            preloadImage(prevSrc);
-        }
-        if (next < images.length) {
-            const nextSrc = images[next].src.replace('/Low_res/', '/High_res/');
-            preloadImage(nextSrc);
-        }
-    });
+    if (window.requestIdleCallback) {
+        requestIdleCallback(() => {
+            const prev = index - 1;
+            const next = index + 1;
+            if (prev >= 0) {
+                const prevSrc = images[prev].src.replace('/Low_res/', '/High_res/');
+                preloadImage(prevSrc);
+            }
+            if (next < images.length) {
+                const nextSrc = images[next].src.replace('/Low_res/', '/High_res/');
+                preloadImage(nextSrc);
+            }
+        });
+    }
 };
 
 // Optimized modal display
@@ -68,12 +81,13 @@ const showModal = (index) => {
     }
     
     modalImage.alt = img.alt;
-    // Use previous בין h3 של התמונה ככותרת
+    // Use h3 text as caption
     modalCaption.textContent = img.parentElement.querySelector('h3')?.textContent || img.alt;
     
-    // Batch DOM updates
+    // Show modal
     modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
     
     // Update navigation visibility
     modalPrev.style.display = index > 0 ? 'block' : 'none';
@@ -100,73 +114,151 @@ const navigate = (direction) => {
 const closeModal = () => {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = ''; // Restore scrolling
     isModalOpen = false;
     currentIndex = -1;
 };
 
-// Event listeners with passive optimization
-document.addEventListener('DOMContentLoaded', () => {
-    // Photo grid click handler with event delegation
-    document.querySelector('.photo-grid').addEventListener('click', (e) => {
-        if (e.target.tagName !== 'IMG') return;
-        const index = Array.from(images).indexOf(e.target);
-        if (index !== -1) showModal(index);
-    }, { passive: true });
+// Handle image clicks/taps
+const handleImageInteraction = (target) => {
+    if (target.tagName !== 'IMG') return;
+    const index = Array.from(images).indexOf(target);
+    if (index !== -1) showModal(index);
+};
 
-    // Modal navigation with touch events for better mobile support
+// Touch event handlers for images
+const handleTouchStart = (e) => {
+    if (e.target.tagName !== 'IMG') return;
+    
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+};
+
+const handleTouchEnd = (e) => {
+    if (e.target.tagName !== 'IMG') return;
+    
+    const touchEndTime = Date.now();
+    const touchDuration = touchEndTime - touchStartTime;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    
+    // Calculate touch movement
+    const deltaX = Math.abs(touchEndX - touchStartX);
+    const deltaY = Math.abs(touchEndY - touchStartY);
+    
+    // Only trigger if it's a quick tap with minimal movement (not a scroll/swipe)
+    if (touchDuration < 300 && deltaX < 10 && deltaY < 10) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleImageInteraction(e.target);
+    }
+};
+
+// Modal touch navigation
+let modalTouchStartX = 0;
+const handleModalTouchStart = (e) => {
+    modalTouchStartX = e.touches[0].clientX;
+};
+
+const handleModalTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchEndX - modalTouchStartX;
+    
+    // Swipe threshold
+    if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && currentIndex > 0) {
+            navigate(-1); // Swipe right = previous
+        } else if (deltaX < 0 && currentIndex < images.length - 1) {
+            navigate(1); // Swipe left = next
+        }
+    }
+};
+
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    detectTouch();
+    
+    const photoGrid = document.querySelector('.photo-grid');
+    
+    if (isTouchDevice) {
+        // Touch events for mobile
+        photoGrid.addEventListener('touchstart', handleTouchStart, { passive: true });
+        photoGrid.addEventListener('touchend', handleTouchEnd, { passive: false });
+        
+        // Modal swipe navigation
+        modalImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
+        modalImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
+    } else {
+        // Click events for desktop
+        photoGrid.addEventListener('click', (e) => {
+            handleImageInteraction(e.target);
+        });
+    }
+    
+    // Modal navigation buttons
     modalPrev.addEventListener('click', (e) => {
         e.stopPropagation();
         navigate(-1);
-    }, { passive: true });
+    });
+    
     modalNext.addEventListener('click', (e) => {
         e.stopPropagation();
         navigate(1);
-    }, { passive: true });
+    });
+    
     modalClose.addEventListener('click', (e) => {
         e.stopPropagation();
         closeModal();
-    }, { passive: true });
-
-    // Touch events for mobile
-    modalPrev.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        navigate(-1);
-    }, { passive: false });
-    modalNext.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        navigate(1);
-    }, { passive: false });
-    modalClose.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        closeModal();
-    }, { passive: false });
-
+    });
+    
+    // Touch events for modal buttons (better mobile support)
+    if (isTouchDevice) {
+        modalPrev.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navigate(-1);
+        });
+        
+        modalNext.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navigate(1);
+        });
+        
+        modalClose.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+    }
+    
     // Click outside to close
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
-    }, { passive: true });
-
+    });
+    
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!isModalOpen) return;
         
         switch(e.key) {
             case 'Escape':
+                e.preventDefault();
                 closeModal();
                 break;
             case 'ArrowLeft':
+                e.preventDefault();
                 navigate(-1);
                 break;
             case 'ArrowRight':
+                e.preventDefault();
                 navigate(1);
                 break;
         }
-    }, { passive: true });
-
-    // Optimized intersection observer for lazy loading
+    });
+    
+    // Intersection observer for lazy loading
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -186,13 +278,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         images.forEach(img => observer.observe(img));
     }
-
-    // Preload first few high-res images on idle
-    requestIdleCallback(() => {
-        const preloadCount = Math.min(3, images.length);
-        for (let i = 0; i < preloadCount; i++) {
-            const highResSrc = images[i].src.replace('/Low_res/', '/High_res/');
-            preloadImage(highResSrc);
+    
+    // Preload first few high-res images
+    if (window.requestIdleCallback) {
+        requestIdleCallback(() => {
+            const preloadCount = Math.min(3, images.length);
+            for (let i = 0; i < preloadCount; i++) {
+                const highResSrc = images[i].src.replace('/Low_res/', '/High_res/');
+                preloadImage(highResSrc);
+            }
+        });
+    }
+    
+    // Prevent context menu on long press for images
+    photoGrid.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
         }
     });
 });
