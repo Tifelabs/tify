@@ -286,10 +286,14 @@ nav a:hover {
     margin-top: 60px;
   }
 
+  .modal-image {
+    max-width: calc(100% - 130px);
+  }
+
   .modal-prev,
   .modal-next {
-    width: 50px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     top: 50%;
     transform: translateY(-50%);
   }
