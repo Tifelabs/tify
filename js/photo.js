@@ -112,18 +112,45 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index !== -1) showModal(index);
   }, { passive: true });
 
-  // Modal navigation
-  modalPrev.addEventListener('click', () => navigate(-1));
-  modalNext.addEventListener('click', () => navigate(1));
-  modalClose.addEventListener('click', closeModal);
+  // Modal navigation with touch events for better mobile support
+  modalPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navigate(-1);
+  });
+  modalNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navigate(1);
+  });
+  modalClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeModal();
+  });
+
+  // Touch events for mobile
+  modalPrev.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(-1);
+  }, { passive: false });
+  modalNext.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(1);
+  }, { passive: false });
+  modalClose.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeModal();
+  }, { passive: false });
 
   // Click outside to close
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   }, { passive: true });
 
-  // Image click navigation (left/right halves)
+  // Simplified image click navigation (disabled on mobile)
   modalImage.addEventListener('click', (e) => {
+    if (window.innerWidth <= 600) return; // Skip on mobile
     const rect = modalImage.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const direction = clickX < rect.width / 2 ? -1 : 1;
