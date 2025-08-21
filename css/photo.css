@@ -157,35 +157,50 @@ nav a:hover {
 .modal-next {
   position: absolute;
   color: #fff;
-  font-size: 24px;
-  font-weight: 300;
   cursor: pointer;
   background: rgba(0, 0, 0, 0.7);
   border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 0.15s ease;
+  z-index: 1001;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .modal-close {
-  top: 24px;
-  right: 24px;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.modal-prev,
+.modal-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 80px;
+  border-radius: 8px;
 }
 
 .modal-prev {
-  top: 50%;
-  left: 24px;
-  transform: translateY(-50%);
+  left: 20px;
 }
 
 .modal-next {
-  top: 50%;
-  right: 24px;
-  transform: translateY(-50%);
+  right: 20px;
+}
+
+.modal-prev span,
+.modal-next span {
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1;
 }
 
 .modal-close:hover, 
@@ -269,5 +284,34 @@ nav a:hover {
   
   .copyright-notice {
     margin-top: 60px;
+  }
+
+  .modal-prev,
+  .modal-next {
+    width: 80px;
+    height: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .modal-prev {
+    left: 10px;
+  }
+
+  .modal-next {
+    right: 10px;
+  }
+
+  .modal-prev span,
+  .modal-next span {
+    font-size: 40px;
+  }
+
+  .modal-close {
+    width: 50px;
+    height: 50px;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
   }
 }
