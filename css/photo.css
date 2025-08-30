@@ -57,10 +57,10 @@ nav a:hover {
 }
 
 .intro {
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.5;
   color: #000;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   font-weight: 300;
 }
 
@@ -282,7 +282,6 @@ nav a:hover {
   font-size: 13px;
   color: #8e8e93;
   line-height: 2;
-  text-align: center;
 }
 
 .contact a {
