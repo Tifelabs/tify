@@ -1,3 +1,33 @@
+// Global variables - properly declared
+let currentCategory = 'general';
+let currentImages = [];
+
+function showCategory(category) {
+    console.log(`Attempting to show category: ${category}`);
+    
+    // Update button states
+    const buttons = document.querySelectorAll('.toggle-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Hide all sections
+    const sections = document.querySelectorAll('.photo-section');
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Show selected section
+    const targetSection = document.getElementById(`${category}-section`);
+    if (!targetSection) {
+        console.error(`Section with ID ${category}-section not found`);
+        return;
+    }
+    targetSection.classList.add('active');
+
+    // Update current category and images for modal navigation
+    currentCategory = category;
+    currentImages = document.querySelectorAll(`#${category}-section .photo img`);
+    console.log(`Found ${currentImages.length} images in #${category}-section`);
+}
+
 // Cache DOM elements once
 const modal = document.getElementById('modal');
 const modalImage = document.getElementById('modal-image');
@@ -5,7 +35,6 @@ const modalClose = document.querySelector('.modal-close');
 const modalPrev = document.querySelector('.modal-prev');
 const modalNext = document.querySelector('.modal-next');
 const modalCaption = document.getElementById('modal-caption');
-const images = document.querySelectorAll('.photo img');
 
 // State management
 let currentIndex = -1;
@@ -39,19 +68,31 @@ const preloadImage = (src) => {
     });
 };
 
+// Get active images based on current category
+const getActiveImages = () => {
+    if (currentImages.length > 0) {
+        return currentImages;
+    }
+    // Fallback to all images in active section
+    const activeSection = document.querySelector('.photo-section.active');
+    return activeSection ? activeSection.querySelectorAll('.photo img') : document.querySelectorAll('.photo img');
+};
+
 // Batch preload adjacent images
 const preloadAdjacent = (index) => {
     if (window.requestIdleCallback) {
         requestIdleCallback(() => {
+            const activeImages = getActiveImages();
             const prev = index - 1;
             const next = index + 1;
-            if (prev >= 0) {
-                const prevSrc = images[prev].src.replace('/Low_res/', '/High_res/');
-                preloadImage(prevSrc);
+            if (prev >= 0 && activeImages[prev]) {
+                // Try high-res first, fallback to current src
+                const prevSrc = activeImages[prev].src.replace('/Low_res/', '/High_res/');
+                preloadImage(prevSrc).catch(() => preloadImage(activeImages[prev].src));
             }
-            if (next < images.length) {
-                const nextSrc = images[next].src.replace('/Low_res/', '/High_res/');
-                preloadImage(nextSrc);
+            if (next < activeImages.length && activeImages[next]) {
+                const nextSrc = activeImages[next].src.replace('/Low_res/', '/High_res/');
+                preloadImage(nextSrc).catch(() => preloadImage(activeImages[next].src));
             }
         });
     }
@@ -59,24 +100,30 @@ const preloadAdjacent = (index) => {
 
 // Optimized modal display
 const showModal = (index) => {
-    if (isNavigating || index < 0 || index >= images.length) return;
+    const activeImages = getActiveImages();
+    if (isNavigating || index < 0 || index >= activeImages.length) return;
     
     isNavigating = true;
     currentIndex = index;
     isModalOpen = true;
     
-    const img = images[index];
+    const img = activeImages[index];
+    // Try to load high-res version, fallback to current src
     const highResSrc = img.src.replace('/Low_res/', '/High_res/');
     
     // Use cached image if available
     if (imageCache.has(highResSrc)) {
         modalImage.src = highResSrc;
     } else {
-        modalImage.src = img.src; // Show low-res immediately
+        modalImage.src = img.src; // Show current resolution immediately
+        // Try to load high-res in background
         preloadImage(highResSrc).then(() => {
             if (currentIndex === index && isModalOpen) {
                 modalImage.src = highResSrc;
             }
+        }).catch(() => {
+            // High-res doesn't exist, stick with current
+            console.log('High-res version not available for:', img.src);
         });
     }
     
@@ -90,8 +137,8 @@ const showModal = (index) => {
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
     
     // Update navigation visibility
-    modalPrev.style.display = index > 0 ? 'block' : 'none';
-    modalNext.style.display = index < images.length - 1 ? 'block' : 'none';
+    modalPrev.style.display = index > 0 ? 'flex' : 'none';
+    modalNext.style.display = index < activeImages.length - 1 ? 'flex' : 'none';
     
     preloadAdjacent(index);
     
@@ -104,8 +151,9 @@ const showModal = (index) => {
 // Fast navigation
 const navigate = (direction) => {
     if (isNavigating) return;
+    const activeImages = getActiveImages();
     const newIndex = currentIndex + direction;
-    if (newIndex >= 0 && newIndex < images.length) {
+    if (newIndex >= 0 && newIndex < activeImages.length) {
         showModal(newIndex);
     }
 };
@@ -122,7 +170,8 @@ const closeModal = () => {
 // Handle image clicks/taps
 const handleImageInteraction = (target) => {
     if (target.tagName !== 'IMG') return;
-    const index = Array.from(images).indexOf(target);
+    const activeImages = getActiveImages();
+    const index = Array.from(activeImages).indexOf(target);
     if (index !== -1) showModal(index);
 };
 
@@ -164,12 +213,13 @@ const handleModalTouchStart = (e) => {
 const handleModalTouchEnd = (e) => {
     const touchEndX = e.changedTouches[0].clientX;
     const deltaX = touchEndX - modalTouchStartX;
+    const activeImages = getActiveImages();
     
     // Swipe threshold
     if (Math.abs(deltaX) > 50) {
         if (deltaX > 0 && currentIndex > 0) {
             navigate(-1); // Swipe right = previous
-        } else if (deltaX < 0 && currentIndex < images.length - 1) {
+        } else if (deltaX < 0 && currentIndex < activeImages.length - 1) {
             navigate(1); // Swipe left = next
         }
     }
@@ -179,20 +229,34 @@ const handleModalTouchEnd = (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     detectTouch();
     
+    // Initialize current images for default category
+    currentImages = document.querySelectorAll('#general-section .photo img');
+    
     const photoGrid = document.querySelector('.photo-grid');
     
     if (isTouchDevice) {
         // Touch events for mobile
-        photoGrid.addEventListener('touchstart', handleTouchStart, { passive: true });
-        photoGrid.addEventListener('touchend', handleTouchEnd, { passive: false });
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) {
+                handleTouchStart(e);
+            }
+        }, { passive: true });
+        
+        document.addEventListener('touchend', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) {
+                handleTouchEnd(e);
+            }
+        }, { passive: false });
         
         // Modal swipe navigation
         modalImage.addEventListener('touchstart', handleModalTouchStart, { passive: true });
         modalImage.addEventListener('touchend', handleModalTouchEnd, { passive: true });
     } else {
         // Click events for desktop
-        photoGrid.addEventListener('click', (e) => {
-            handleImageInteraction(e.target);
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) {
+                handleImageInteraction(e.target);
+            }
         });
     }
     
@@ -258,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Intersection observer for lazy loading
+    // Initialize intersection observer for lazy loading (optional)
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -276,23 +340,13 @@ document.addEventListener('DOMContentLoaded', () => {
             threshold: 0.1
         });
 
-        images.forEach(img => observer.observe(img));
-    }
-    
-    // Preload first few high-res images
-    if (window.requestIdleCallback) {
-        requestIdleCallback(() => {
-            const preloadCount = Math.min(3, images.length);
-            for (let i = 0; i < preloadCount; i++) {
-                const highResSrc = images[i].src.replace('/Low_res/', '/High_res/');
-                preloadImage(highResSrc);
-            }
-        });
+        // Only observe images with data-src attribute
+        document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));
     }
     
     // Prevent context menu on long press for images
-    photoGrid.addEventListener('contextmenu', (e) => {
-        if (e.target.tagName === 'IMG') {
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) {
             e.preventDefault();
         }
     });
