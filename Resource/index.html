@@ -6,13 +6,14 @@
 <title>Resources - Tifelabs</title>
 <style>
 * {
- margin: 0;
+margin: 0;
 padding: 0;
 box-sizing: border-box;
 }
+
 body {
-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-font-size: 14px;
+font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+font-size: 15px;
 line-height: 1.6;
 color: #1a1a1a;
 background: #ffffff;
@@ -20,204 +21,208 @@ max-width: 580px;
 margin: 0 auto;
 padding: 80px 24px;
 }
+
 header {
 margin-bottom: 48px;
 }
-h1 {
-font-size: 24px;
-font-weight: 300;
-color: #000;
-margin-bottom: 4px;
-letter-spacing: -0.02em;
-}
+
 .subtitle {
-font-size: 14px;
+font-size: 18px;
 color: #666;
-font-weight: 300;
+font-weight: 400;
 }
+
 nav {
 margin-bottom: 80px;
 }
+
 nav ul {
 list-style: none;
 display: flex;
 gap: 32px;
 }
+
 nav a {
-color: #999;
+color: #8e8e93;
 text-decoration: none;
 font-size: 14px;
 font-weight: 400;
-padding: 0 0 14px 0;
 transition: color 0.15s ease;
+position: relative;
 }
-nav a.active,
-nav a:hover {
+
+nav a.active {
 color: #000;
 }
-.intro {
-font-size: 16px;
-line-height: 1.6;
-color: #000;
-margin-bottom: 40px;
-font-weight: 300;
+
+nav a.active::after {
+content: '';
+position: absolute;
+bottom: -25px;
+left: 0;
+right: 0;
+height: 2px;
+background: #000;
 }
-.contact {
-margin-top: 60px;
+
+nav a:hover:not(.active) {
+color: #000;
+}
+
+.resources {
+margin-bottom: 80px;
+}
+
+.category-section {
+margin-bottom: 50px;
+}
+
+.category-header {
 font-size: 13px;
-color: #8e8e93;
-line-height: 2;
-}
-.contact a {
-color: #000;
-text-decoration: none;
-}
-.contact a:hover {
-text-decoration: underline;
-}
-
-.resources-section {
-  margin-bottom: 35px;
-}
-
-.resources-section h2 {
-  font-size: 16px;
-  font-weight: 500;
-  color: #000;
-  margin-bottom: 16px;
+color: #a8a8a8;
+font-weight: 400;
+margin-bottom: 20px;
+padding-bottom: 8px;
+border-bottom: 1px solid #f0f0f0;
+letter-spacing: 0.02em;
 }
 
 .link-item {
-  margin-bottom: 20px;
+display: grid;
+grid-template-columns: auto 1fr;
+gap: 8px;
+margin-bottom: 14px;
+align-items: baseline;
 }
 
 .link-item a {
-  color: #000;
-  text-decoration: none;
-  font-weight: 400;
-  display: inline;
-  margin-right: 8px;
+color: #2563eb;
+text-decoration: none;
+font-size: 14px;
+font-weight: 400;
+transition: color 0.2s ease;
 }
 
 .link-item a:hover {
-  opacity: 0.6;
+color: #1d4ed8;
+text-decoration: underline;
 }
 
 .link-description {
-  font-size: 13px;
-  color: #999;
-  line-height: 1.4;
-  display: inline;
+font-size: 13px;
+color: #8a8a8a;
+line-height: 1.4;
+}
+
+.link-description::before {
+content: "— ";
+}
+
+.contact {
+margin-top: 65%;
+font-size: 13px;
+color: #888;
+line-height: 2;
+}
+
+.contact a {
+color: #000;
+text-decoration: none;
+transition: opacity 0.15s ease;
+}
+
+.contact a:hover {
+opacity: 0.6;
 }
 
 @media (max-width: 600px) {
 body {
-padding: 25px 12px;
+padding: 60px 20px;
+}
+
+nav ul {
+gap: 24px;
+}
+
+.link-item {
+gap: 6px;
+margin-bottom: 16px;
+}
+
+.link-item a {
 font-size: 13px;
 }
-h1 {
-font-size: 20px;
-}
-.subtitle {
+
+.link-description {
 font-size: 12px;
 }
-.intro {
-font-size: 14px;
-}
-nav ul {
-gap: 14px;
-}
-nav a {
-font-size: 13px;
-padding: 0 0 12px 0;
-}
-.contact {
-font-size: 13px;
-}
-header {
-margin-bottom: 30px;
-}
-nav {
-margin-bottom: 35px;
-}
-  
-  .resources-section h2 {
-    font-size: 15px;
-  }
-  
-  .link-description {
-    font-size: 12px;
-  }
 }
 </style>
 </head>
 <body>
-  <header>
-    <div class="subtitle">Resources</div>
-  </header>
-  
-  <nav>
-    <ul>
-      <li><a href="../index.html">λ</a></li>
-      <li><a href="../blogs/">Writing</a></li>
-      <li><a href="../Photography/">Photography</a></li>
-      <li><a href="../Resource/" class="active">Resources</a></li>
-    </ul>
-  </nav>
-  
-  <main>
-    <div class="intro">
-      Curated links and resources that I find helpful and interesting.
-    </div>
-    
-    <div class="resources-section">
-      <h2>Writings & Videos</h2>
-      
-      <div class="link-item">
-        <a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank">Real Engineering</a>
-        <span class="link-description">— The Insane Engineering of the SR-71 Blackbird</span>
-      </div>
-      
-      <div class="link-item">
-        <a href="https://serenityos.org/happy/1st/" target="_blank">Serenity OS</a>
-        <span class="link-description">— SerenityOS: From zero to HTML in a year</span>
-      </div>
-      
-      <div class="link-item">
-        <a href="https://gwern.net/death-note-anonymity" target="_blank">Death Note</a>
-        <span class="link-description">— Death Note: L, Anonymity & Eluding Entropy</span>
-      </div>
-    </div>
+<header>
+<div class="subtitle">Resources</div>
+</header>
 
-    <div class="resources-section">
-      <h2>Programming</h2>
-      
-      <div class="link-item">
-        <a href="https://craftinginterpreters.com/" target="_blank">Crafting Interpreters</a>
-        <span class="link-description">— A handbook for making programming languages</span>
-      </div>
-      
-    </div>
+<nav>
+<ul>
+<li><a href="../index.html">λ</a></li>
+<li><a href="../blogs/">Writing</a></li>
+<li><a href="../Photography/">Photography</a></li>
+<li><a href="../Resource/" class="active">Resources</a></li>
+</ul>
+</nav>
 
-    <div class="resources-section">
-      <h2>Systems</h2>
-      
-      <div class="link-item">
-        <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Operating Systems: Three Easy Pieces</a>
-        <span class="link-description">— Free online operating systems book</span>
-      </div>
-      
-      <div class="link-item">
-        <a href="https://beej.us/guide/bgnet/" target="_blank">Beej's Guide to Network Programming</a>
-        <span class="link-description">— Socket programming guide using Internet sockets</span>
-      </div>
-    </div>
+<main>
+<section class="resources">
+<div class="category-section">
+<div class="category-header">Writings & Videos</div>
 
-    <footer class="contact">
-      <div>newbruswick, ca</div>
-      <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-      <div><a href="https://github.com/tifelabs">github</a></div>
-    </footer>
-  </main>
+<div class="link-item">
+<a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank">Real Engineering</a>
+<span class="link-description">The Insane Engineering of the SR-71 Blackbird</span>
+</div>
+
+<div class="link-item">
+<a href="https://serenityos.org/happy/1st/" target="_blank">Serenity OS</a>
+<span class="link-description">SerenityOS: From zero to HTML in a year</span>
+</div>
+
+<div class="link-item">
+<a href="https://gwern.net/death-note-anonymity" target="_blank">Death Note</a>
+<span class="link-description">Death Note: L, Anonymity & Eluding Entropy</span>
+</div>
+</div>
+
+<div class="category-section">
+<div class="category-header">Programming</div>
+
+<div class="link-item">
+<a href="https://craftinginterpreters.com/" target="_blank">Crafting Interpreters</a>
+<span class="link-description">A handbook for making programming languages</span>
+</div>
+</div>
+
+<div class="category-section">
+<div class="category-header">Systems</div>
+
+<div class="link-item">
+<a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Operating Systems: Three Easy Pieces</a>
+<span class="link-description">Free online operating systems book</span>
+</div>
+
+<div class="link-item">
+<a href="https://beej.us/guide/bgnet/" target="_blank">Beej's Guide to Network Programming</a>
+<span class="link-description">Socket programming guide using Internet sockets</span>
+</div>
+</div>
+</section>
+
+<footer class="contact">
+<div>newbrunswick, ca</div>
+<div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+<div><a href="https://github.com/tifelabs">github</a></div>
+</footer>
+</main>
 </body>
 </html>
