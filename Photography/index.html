@@ -1,186 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tife Photography: nature, landscapes, and objects.">
-    <meta property="og:title" content="Tifelabs - Photography">
-    <meta property="og:image" content="/assets/Low_res/crabapple.JPG">
-    <meta property="og:url" content="https://tifelabs.com/Photography/">
-    <meta name="twitter:card" content="summary_large_image">
-    <title>Tifelabs - Photography</title>
-    <link rel="stylesheet" href="../css/photo.css">
-    <link rel="icon" href="../assets/Low_res/dandelion.JPG" type="image/png" title="Tifelabs Favicon">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-W3CM55WK3Y');
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tife Photography: nature, landscapes, and objects.">
+<meta property="og:title" content="Tifelabs - Photography">
+<meta property="og:image" content="/assets/Low_res/crabapple.JPG">
+<meta property="og:url" content="https://tifelabs.com/Photography/">
+<title>Tifelabs - Photography</title>
+<link rel="icon" href="../assets/images/baby.png">
+<link rel="preload" as="script" href="../js/photo.js">
+<link rel="stylesheet" href="../css/photo.css">
 </head>
 <body>
-    <header>
-        <div class="subtitle">Photography</div>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="/index.html" class="active">λ</a></li>
-            <li><a href="../blogs/">Writing</a></li>
-            <li><a href="../Photography/">Photography</a></li>
-            <li><a href="../Resource/">Resources</a></li>
-        </ul>
-    </nav>
+<header>
+  <div class="subtitle">Photography</div>
+</header>
 
-    <main>
-        <section class="intro">
-            <p>I enjoy taking pictures of nature, landscapes, and objects.</p>
-            <p>Camera Specs <a href="../blogs/blog-post.html?md=setup.md">[here]</a>.</p>
-        </section>
+<nav>
+  <ul>
+    <li><a href="../index.html">λ</a>
+    <li><a href="../blogs/">Writing</a>
+    <li><a href="../Photography/" class="active">Photography</a>
+    <li><a href="../Resource/">Resources</a>
+  </ul>
+</nav>
 
-        <div class="category-toggle">
-            <button class="toggle-btn active" onclick="showCategory('general')">General Photos</button>
-            <button class="toggle-btn" onclick="showCategory('cars')">Car Photos</button>
-        </div>
+<main>
+  <section class="intro">
+    <p>I enjoy taking pictures of nature, landscapes, and objects.</p>
+    <p>Camera Specs <a href="../blogs/blog-post.html?md=setup.md">[here]</a>.</p>
+  </section>
 
-        <section id="general-section" class="photo-section active">
-            <div class="photo-grid">
-                <div class="photo">
-                    <h3>Crabapple, 2025</h3>
-                    <img src="../assets/Low_res/crabapple.JPG" alt="Crabapple tree in bloom, 2025">
-                </div>
-                <div class="photo">
-                    <h3>Blossom, 2025</h3>
-                    <img src="../assets/Low_res/blossom.JPG" alt="Close-up of blossoms, 2025">
-                </div>
-                <div class="photo">
-                    <h3>Dandelion, 2025</h3>
-                    <img src="../assets/Low_res/dandelion.JPG" alt="Dandelion in a field, 2025">
-                </div>
-                <div class="photo">
-                    <h3>Sign, 2025</h3>
-                    <img src="../assets/Low_res/Sign 2025.JPG" alt="Street sign, 2025">
-                </div>
-                <div class="photo">
-                    <h3>The Library, 2025</h3>
-                    <img src="../assets/Low_res/Library.jpg" alt="Library exterior, 2025">
-                </div>
-                <div class="photo">
-                    <h3>Plane Model, 2024</h3>
-                    <img src="../assets/Low_res/BipPlane2024.JPG" alt="Model biplane, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Fall, 2024</h3>
-                    <img src="../assets/Low_res/Fall2024.JPG" alt="Autumn landscape, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Windmills, 2024</h3>
-                    <img src="../assets/Low_res/mills.JPG" alt="Windmills in a field, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Landscape, 2024</h3>
-                    <img src="../assets/Low_res/scape1.JPG" alt="Scenic landscape, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Landscape Like XP, 2024</h3>
-                    <img src="../assets/Low_res/scape2.JPG" alt="Scenic landscape, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Halifax Dawn, 2024</h3>
-                    <img src="../assets/Low_res/Dawn2024.JPG" alt="Dawn in Halifax, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Solar Eclipse, 2024</h3>
-                    <img src="../assets/Low_res/eclipse 2024.JPG" alt="Solar eclipse, 2024">
-                </div>
-                <div class="photo">
-                    <h3>Cap-Pele Beach, 2024</h3>
-                    <img src="../assets/Low_res/set.jpg" alt="Cap-Pele Beach at sunset, 2024">
-                </div>
-                <div class="photo">
-                    <h3>After-Fall, 2023</h3>
-                    <img src="../assets/Low_res/afterfall.JPG" alt="Post-autumn landscape, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Fall, 2023</h3>
-                    <img src="../assets/Low_res/fall1.jpg" alt="Autumn foliage, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Roof Top, 2023</h3>
-                    <img src="../assets/Low_res/roof-top.JPG" alt="Rooftop view, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Mountain Road, 2023</h3>
-                    <img src="../assets/Low_res/mountain road.JPG" alt="Mountain road, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Moncton View, 2023</h3>
-                    <img src="../assets/Low_res/moncton-view.JPG" alt="Moncton city view, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Red Dragon, 2023</h3>
-                    <img src="../assets/Low_res/red-dragon.JPG" alt="Red dragon statue, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Fog, 2023</h3>
-                    <img src="../assets/Low_res/fog.JPG" alt="Foggy landscape, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Prince Edward Island, 2023</h3>
-                    <img src="../assets/Low_res/prince edward.jpg" alt="Prince Edward Island coast, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Dawn, 2023</h3>
-                    <img src="../assets/Low_res/night life.JPG" alt="Dawn scene, 2023">
-                </div>
-                <div class="photo">
-                    <h3>Winter, 2023</h3>
-                    <img src="../assets/Low_res/winter2023.webp" alt="Winter landscape, 2023">
-                </div>
-            </div>
-        </section>
+  <div class="category-toggle">
+    <button class="toggle-btn active" onclick="showCategory('general')">General Photos</button>
+    <button class="toggle-btn" onclick="showCategory('cars')">Car Photos</button>
+  </div>
 
-        <section id="cars-section" class="photo-section">
-            <div class="photo-grid">
-                <div class="photo">
-                    <h3>Cardillac</h3>
-                    <img src="../assets/Low_res/A.JPG" alt="Cardillac">
-                </div>
-                <div class="photo">
-                    <h3>Ford</h3>
-                    <img src="../assets/Low_res/B.JPG" alt="Ford">
-                </div>
-                <div class="photo">
-                    <h3>Corvette</h3>
-                    <img src="../assets/Low_res/C.JPG" alt="Corvette">
-                </div>
+  <section id="general-section" class="photo-section active">
+    <div class="photo-grid">
+      <div class="photo">
+        <h3>Crabapple, 2025</h3>
+        <img src="../assets/Low_res/crabapple.JPG" alt="Crabapple tree in bloom, 2025" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Blossom, 2025</h3>
+        <img src="../assets/Low_res/blossom.JPG" alt="Close-up of blossoms, 2025" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Dandelion, 2025</h3>
+        <img src="../assets/Low_res/dandelion.JPG" alt="Dandelion in a field, 2025" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Sign, 2025</h3>
+        <img src="../assets/Low_res/Sign 2025.JPG" alt="Street sign, 2025" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>The Library, 2025</h3>
+        <img src="../assets/Low_res/Library.jpg" alt="Library exterior, 2025" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Plane Model, 2024</h3>
+        <img src="../assets/Low_res/BipPlane2024.JPG" alt="Model biplane, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Fall, 2024</h3>
+        <img src="../assets/Low_res/Fall2024.JPG" alt="Autumn landscape, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Windmills, 2024</h3>
+        <img src="../assets/Low_res/mills.JPG" alt="Windmills in a field, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Landscape, 2024</h3>
+        <img src="../assets/Low_res/scape1.JPG" alt="Scenic landscape, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Landscape Like XP, 2024</h3>
+        <img src="../assets/Low_res/scape2.JPG" alt="Scenic landscape, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Halifax Dawn, 2024</h3>
+        <img src="../assets/Low_res/Dawn2024.JPG" alt="Dawn in Halifax, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Solar Eclipse, 2024</h3>
+        <img src="../assets/Low_res/eclipse 2024.JPG" alt="Solar eclipse, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Cap-Pele Beach, 2024</h3>
+        <img src="../assets/Low_res/set.jpg" alt="Cap-Pele Beach at sunset, 2024" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>After-Fall, 2023</h3>
+        <img src="../assets/Low_res/afterfall.JPG" alt="Post-autumn landscape, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Fall, 2023</h3>
+        <img src="../assets/Low_res/fall1.jpg" alt="Autumn foliage, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Roof Top, 2023</h3>
+        <img src="../assets/Low_res/roof-top.JPG" alt="Rooftop view, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Mountain Road, 2023</h3>
+        <img src="../assets/Low_res/mountain road.JPG" alt="Mountain road, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Moncton View, 2023</h3>
+        <img src="../assets/Low_res/moncton-view.JPG" alt="Moncton city view, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Red Dragon, 2023</h3>
+        <img src="../assets/Low_res/red-dragon.JPG" alt="Red dragon statue, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Fog, 2023</h3>
+        <img src="../assets/Low_res/fog.JPG" alt="Foggy landscape, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Prince Edward Island, 2023</h3>
+        <img src="../assets/Low_res/prince edward.jpg" alt="Prince Edward Island coast, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Dawn, 2023</h3>
+        <img src="../assets/Low_res/night life.JPG" alt="Dawn scene, 2023" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Winter, 2023</h3>
+        <img src="../assets/Low_res/winter2023.webp" alt="Winter landscape, 2023" loading="lazy" width="400" height="300">
+      </div>
+    </div>
+  </section>
 
-                <div class="photo">
-                    <h3>Dodge</h3>
-                    <img src="../assets/Low_res/mopar.JPG" alt="Dodge">
-                </div>
-            </div>
+  <section id="cars-section" class="photo-section">
+    <div class="photo-grid">
+      <div class="photo">
+        <h3>Cadillac</h3>
+        <img src="../assets/Low_res/A.JPG" alt="Cadillac" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Ford</h3>
+        <img src="../assets/Low_res/B.JPG" alt="Ford" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Corvette</h3>
+        <img src="../assets/Low_res/C.JPG" alt="Corvette" loading="lazy" width="400" height="300">
+      </div>
+      <div class="photo">
+        <h3>Dodge</h3>
+        <img src="../assets/Low_res/mopar.JPG" alt="Dodge" loading="lazy" width="400" height="300">
+      </div>
+    </div>
+  </section>
 
-            <p>WIP -> I have more car JPEGS TO ADD && I HAVE SOME STUFFS TO FIX ON THIS PAGE, THIS IS JUST A TEST....</p>
-        </section>
+  <div id="modal" class="modal" role="dialog" aria-labelledby="modal-caption" aria-hidden="true">
+    <span class="modal-close" aria-label="Close modal">⚔️</span>
+    <button class="modal-prev" aria-label="Previous image">‹</button>
+    <img id="modal-image" src="" alt="Enlarged photo">
+    <button class="modal-next" aria-label="Next image">›</button>
+    <p id="modal-caption"></p>
+  </div>
 
-        <div id="modal" class="modal" role="dialog" aria-labelledby="modal-caption">
-            <span class="modal-close" aria-label="Close modal">⚔️</span>
-            <button class="modal-prev" aria-label="Previous image">‹</button>
-            <img id="modal-image" src="" alt="Enlarged photo">
-            <button class="modal-next" aria-label="Next image">›</button>
-            <p id="modal-caption"></p>
-        </div>
+  <footer class="contact">
+    <div>newbrunswick, ca</div>
+    <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+    <div><a href="https://github.com/tifelabs">github</a></div>
+  </footer>
+</main>
 
-        <footer class="contact">
-            <div>newbrunswick, ca</div>
-            <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-            <div><a href="https://github.com/tifelabs">github</a></div>
-        </footer>
-    </main>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments)}
+gtag('js',new Date());
+gtag('config','G-W3CM55WK3Y');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
+<script src="../js/photo.js"></script>
 
-    <script src="../js/photo.js"></script>
 </body>
 </html>
