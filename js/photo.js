@@ -1,3 +1,4 @@
+/* ======= TIFELABS ======= */
 'use strict';
 
 const CFG = {CACHE:50, SWIPE:50, TAP:300, NAV_COOL:100};
