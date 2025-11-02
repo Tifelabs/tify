@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Blog post by Tife.">
-<meta property="og:title" content="Tife - Blog Post">
-<meta property="og:description" content="Read the latest blog post by Tife.">
-<meta property="og:image" content="/assets/Low_res/crabapple.JPG">
-<meta property="og:url" content="https://tifelabs.com/blogs/blog-post.html">
-<meta name="twitter:card" content="summary_large_image">
-<title>Tife - Blog Post</title>
-<link rel="stylesheet" href="../css/blog.css">
-<link rel="icon" href="../assets/images/baby.png">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments)}
-gtag('js',new Date());
-gtag('config','G-W3CM55WK3Y');
-</script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Blog post by Tife.">
+    <meta property="og:title" content="Tife - Blog Post">
+    <meta property="og:description" content="Read the latest blog post by Tife.">
+    <meta property="og:image" content="/assets/Low_res/crabapple.JPG">
+    <meta property="og:url" content="https://tifelabs.com/blogs/blog-post.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Tife - Blog Post</title>
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="icon" href="../assets/images/baby.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
+    <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js',new Date());
+    gtag('config','G-W3CM55WK3Y');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 <header>
-<h1>Tife</h1>
-<div class="subtitle">Writing</div>
+    <h1>Tife</h1>
+    <div class="subtitle">Writing</div>
 </header>
-<nav>
-<ul>
-<li><a href="../index.html">λ</a>
-<li><a href="index.html" class="active">Writing</a>
-<li><a href="../Photography/">Photography</a>
-<li><a href="index.html">&larr; Back to Blogs</a>
-</ul>
+    <nav>
+    <ul>
+        <li><a href="../index.html">λ</a>
+        <li><a href="index.html" class="active">Writing</a>
+        <li><a href="../Photography/">Photography</a>
+        <li><a href="index.html">&larr; Back to Blogs</a>
+    </ul>
 </nav>
 <section id="content" class="content">
-<h2 id="post-title">Blog Post</h2>
-<div id="post-content"></div>
+    <h2 id="post-title">Blog Post</h2>
+    <div id="post-content"></div>
 </section>
 <div id="modal" class="modal">
-<span class="modal-close" onclick="closeModal()">⚔️</span>
-<img id="modal-content" src="" alt="Enlarged blog image">
+    <span class="modal-close" onclick="closeModal()">⚔️</span>
+    <img id="modal-content" src="" alt="Enlarged blog image">
 </div>
 <footer>
-<p>&copy; 2025 Tife. All rights reserved.</p>
+    <p>&copy; 2025 Tife. All rights reserved.</p>
 </footer>
-<script>
-const mdFile=(new URLSearchParams(location.search).get('md')||'default.md').split('/').pop();
+    <script>
+    const mdFile=(new URLSearchParams(location.search).get('md')||'default.md').split('/').pop();
 
-fetch(`/blogs/posts/${mdFile}`)
-    .then(r=>r.ok?r.text():Promise.reject(`${r.status} ${r.statusText}`))
-    .then(text=>{
-const titleMatch=text.match(/^# (.+)/m);
-const title=titleMatch?titleMatch[1]:'Untitled Post';
-const content=titleMatch?text.replace(/^# .+\n+/,''):text;
-  
-document.getElementById('post-content').innerHTML=marked.parse(content);
-document.getElementById('post-title').textContent=title;
-document.title=`Tife - ${title}`;
+    fetch(`/blogs/posts/${mdFile}`)
+        .then(r=>r.ok?r.text():Promise.reject(`${r.status} ${r.statusText}`))
+        .then(text=>{
+    const titleMatch=text.match(/^# (.+)/m);
+    const title=titleMatch?titleMatch[1]:'Untitled Post';
+    const content=titleMatch?text.replace(/^# .+\n+/,''):text;
+    
+    document.getElementById('post-content').innerHTML=marked.parse(content);
+    document.getElementById('post-title').textContent=title;
+    document.title=`Tife - ${title}`;
 
-document.querySelectorAll('.content img').forEach(img=>{
-    img.onclick=()=>{
-        const modal=document.getElementById('modal');
-        const modalImg=document.getElementById('modal-content');
-        modal.style.display='flex';
-        modalImg.src=img.src;
-        modalImg.alt=img.alt;
+    document.querySelectorAll('.content img').forEach(img=>{
+        img.onclick=()=>{
+            const modal=document.getElementById('modal');
+            const modalImg=document.getElementById('modal-content');
+            modal.style.display='flex';
+            modalImg.src=img.src;
+            modalImg.alt=img.alt;
+        };
+    });
+    })
+    .catch(err=>{
+        document.getElementById('post-content').innerHTML=`<p>Error loading blog post: ${err}. Please check the file path or try again later.</p>`;
+        console.error('Fetch error:',err);
+    });
+
+    function closeModal(){
+        document.getElementById('modal').style.display='none';
+    }
+
+    window.onclick=e=>{
+        if(e.target.id==='modal')closeModal();
     };
-  });
-})
-.catch(err=>{
-    document.getElementById('post-content').innerHTML=`<p>Error loading blog post: ${err}. Please check the file path or try again later.</p>`;
-    console.error('Fetch error:',err);
-});
 
-function closeModal(){
-    document.getElementById('modal').style.display='none';
-}
-
-window.onclick=e=>{
-    if(e.target.id==='modal')closeModal();
-};
-
-document.onkeydown=e=>{
-    if(e.key==='Escape')closeModal();
-};
-</script>
+    document.onkeydown=e=>{
+        if(e.key==='Escape')closeModal();
+    };
+    </script>
 </body>
 </html>
