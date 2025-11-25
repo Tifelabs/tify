@@ -1,7 +1,7 @@
 /* ======= TIFELABS ======= */
 'use strict';
 
-const CFG = {CACHE:50, SWIPE:50, TAP:300, NAV_COOL:100};
+const CFG = {CACHE:50, SWIPE:60, TAP:300, NAV_COOL:150};
 
 const $ = {
   cat: 'general',
@@ -59,16 +59,17 @@ const load = (s) => {
   return p;
 };
 
-// Smart preloader
+// Smart preloader with enhanced lookahead
 const preload = (() => {
   let id;
   return (i) => {
     if (id) cancelIdleCallback(id);
     const cb = () => {
       const imgs = getImgs();
-      [i-1, i+1, i+2].forEach(n => {
-        if (n >= 0 && n < imgs.length) {
-          load(hiRes(imgs[n].src)).catch(() => load(imgs[n].src).catch(() => {}));
+      [-2, -1, 1, 2, 3].forEach(n => {
+        const idx = i + n;
+        if (idx >= 0 && idx < imgs.length) {
+          load(hiRes(imgs[idx].src)).catch(() => load(imgs[idx].src).catch(() => {}));
         }
       });
     };
@@ -89,15 +90,34 @@ const cacheImgs = (c) => {
 
 const getImgs = () => cacheImgs($.cat);
 
-// Category switch
+// Smooth category switch with fade
 const switchCat = (c, btn) => {
   if (c === $.cat) return;
   const sec = document.getElementById(`${c}-section`);
   if (!sec) return;
   
+  const oldSec = document.querySelector('.photo-section.active');
+  
   requestAnimationFrame(() => {
     document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b === btn));
-    document.querySelectorAll('.photo-section').forEach(s => s.classList.toggle('active', s === sec));
+    
+    if (oldSec) {
+      oldSec.style.opacity = '0';
+      setTimeout(() => {
+        oldSec.classList.remove('active');
+        oldSec.style.opacity = '';
+        sec.classList.add('active');
+        sec.style.opacity = '0';
+        requestAnimationFrame(() => {
+          sec.style.transition = 'opacity 0.3s ease';
+          sec.style.opacity = '1';
+          setTimeout(() => sec.style.transition = '', 300);
+        });
+      }, 150);
+    } else {
+      sec.classList.add('active');
+    }
+    
     $.cat = c;
     cacheImgs(c);
   });
@@ -105,7 +125,7 @@ const switchCat = (c, btn) => {
 
 window.showCategory = (c) => switchCat(c, event?.target);
 
-// Modal
+// Modal with smooth transitions
 const show = (i) => {
   const imgs = getImgs();
   const now = Date.now();
@@ -121,8 +141,17 @@ const show = (i) => {
   const {mi, mc, mp, mn, m} = $.dom;
   
   const cached = cache.get(h);
+  mi.style.opacity = '0';
   mi.src = cached ? h : img.src;
-  if (!cached) load(h).then(() => { if ($.idx === i && $.open) mi.src = h; }).catch(() => {});
+  
+  if (!cached) {
+    load(h).then(() => { 
+      if ($.idx === i && $.open) {
+        mi.style.transition = 'opacity 0.3s ease';
+        mi.src = h;
+      }
+    }).catch(() => {});
+  }
   
   mi.alt = img.alt;
   mc.textContent = img.closest('.photo')?.querySelector('h3')?.textContent || img.alt;
@@ -133,30 +162,46 @@ const show = (i) => {
     document.body.style.overflow = 'hidden';
     mp.style.display = i > 0 ? 'flex' : 'none';
     mn.style.display = i < imgs.length - 1 ? 'flex' : 'none';
-    mi.focus();
-    $.nav = false;
-    preload(i);
+    
+    requestAnimationFrame(() => {
+      mi.style.transition = 'opacity 0.4s ease';
+      mi.style.opacity = '1';
+      mi.focus();
+      $.nav = false;
+      preload(i);
+    });
   });
 };
 
 const nav = (d) => {
   if (!$.nav) {
     const n = $.idx + d;
-    if (n >= 0 && n < getImgs().length) show(n);
+    if (n >= 0 && n < getImgs().length) {
+      $.dom.mi.style.transition = 'opacity 0.2s ease';
+      $.dom.mi.style.opacity = '0';
+      setTimeout(() => show(n), 200);
+    }
   }
 };
 
 const close = () => {
+  $.dom.m.style.opacity = '0.98';
   requestAnimationFrame(() => {
-    $.dom.m.classList.remove('active');
-    $.dom.m.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    $.dom.m.style.transition = 'opacity 0.25s ease';
+    $.dom.m.style.opacity = '0';
+    setTimeout(() => {
+      $.dom.m.classList.remove('active');
+      $.dom.m.setAttribute('aria-hidden', 'true');
+      $.dom.m.style.opacity = '';
+      $.dom.m.style.transition = '';
+      document.body.style.overflow = '';
+    }, 250);
   });
   $.open = false;
   $.idx = -1;
 };
 
-// Events
+// Events with enhanced touch handling
 const click = (t) => {
   if (t.tagName !== 'IMG' || !t.closest('.photo-grid')) return;
   const i = $.imgIdx.get(t);
@@ -184,10 +229,44 @@ const tEnd = (e) => {
   }
 };
 
-const mStart = (e) => $.touch.mx = e.touches[0].clientX;
+const mStart = (e) => {
+  $.touch.mx = e.touches[0].clientX;
+  $.dom.mi.style.transition = 'none';
+};
+
 const mEnd = (e) => {
   const dx = e.changedTouches[0].clientX - $.touch.mx;
+  $.dom.mi.style.transition = '';
   if (Math.abs(dx) > CFG.SWIPE) nav(dx > 0 ? -1 : 1);
+};
+
+// Lazy loading with fade-in
+const setupLazyLoad = () => {
+  if (!('IntersectionObserver' in window)) return;
+  
+  const obs = new IntersectionObserver((es) => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        const img = e.target;
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.4s ease';
+        
+        const loadImg = () => {
+          img.src = img.dataset.src || img.src;
+          img.removeAttribute('data-src');
+          requestAnimationFrame(() => {
+            img.style.opacity = '1';
+          });
+          obs.unobserve(img);
+        };
+        
+        if (img.complete) loadImg();
+        else img.onload = loadImg;
+      }
+    });
+  }, {rootMargin: '150px', threshold: 0.01});
+  
+  document.querySelectorAll('.photo img').forEach(i => obs.observe(i));
 };
 
 // Init
@@ -204,6 +283,7 @@ const init = () => {
   if (!$.dom.m || !$.dom.mi) return;
   
   cacheImgs($.cat);
+  setupLazyLoad();
   
   const touch = 'ontouchstart' in window;
   
@@ -224,30 +304,17 @@ const init = () => {
   $.dom.mn.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
   $.dom.mx.addEventListener('click', (e) => { e.stopPropagation(); close(); });
   $.dom.m.addEventListener('click', (e) => { if (e.target === $.dom.m) close(); });
+  
   document.addEventListener('keydown', (e) => {
     if ($.open) {
       const a = {'Escape': close, 'ArrowLeft': () => nav(-1), 'ArrowRight': () => nav(1)};
       if (a[e.key]) { e.preventDefault(); a[e.key](); }
     }
   });
+  
   document.addEventListener('contextmenu', (e) => {
     if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) e.preventDefault();
   });
-  
-  // Lazy load
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((es) => {
-      es.forEach(e => {
-        if (e.isIntersecting && e.target.dataset.src) {
-          e.target.src = e.target.dataset.src;
-          e.target.removeAttribute('data-src');
-          obs.unobserve(e.target);
-        }
-      });
-    }, {rootMargin: '100px', threshold: 0.01});
-    
-    document.querySelectorAll('img[data-src]').forEach(i => obs.observe(i));
-  }
 };
 
 document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
