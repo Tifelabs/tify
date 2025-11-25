@@ -32,3 +32,5 @@ Using a network address of 192.168.1.0/24. The "/24" notation explains that 24 b
 **If there is need for adjustment and Corrections feel free to send me a mail tifelabs[at]gmail[dot]com*
 
 Thanks
+
+<p style="text-align: center;">--- END ---</p>

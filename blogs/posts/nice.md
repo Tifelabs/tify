@@ -23,3 +23,5 @@ I was able to see the big lake separating ***Hillborough*** from ***Sackville***
 Before heading back to the city, we got ourselves some German bread at the bakery, feeling grateful for the time spent in nature.
 
 *YOLO!*
+
+<p style="text-align: center;">--- END ---</p>
