@@ -72,7 +72,7 @@ Lens
 - Music: [Spicetify](https://spicetify.app/)
 
 #### Finance
-- [WealthSimple](https://www.wealthsimple.com/en-ca) - If you're in Canada, I suggest you use this
+- [WealthSimple](https://www.wealthsimple.com/invite/TQBPQW) - If you're in Canada, I suggest you use this
 
 #### Misc
 [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
