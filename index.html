@@ -17,7 +17,13 @@ nav{margin-bottom:80px}
 nav ul{list-style:none;display:flex;gap:32px}
 nav a{color:#8e8e93;text-decoration:none;font-size:14px;transition:color .15s}
 nav a.active,nav a:hover{color:#000}
-.intro{font-size:17px;color:#000;margin-bottom:80px;font-weight:300}
+.highlight {
+    position: relative;
+    padding: 2px 4px;
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 235, 59, 0.5) 60%);
+}
+.intro{font-size:13px;color:#000;margin-bottom:80px;font-weight:300}
+.intro h1{margin-bottom:16px}
 .contact{margin-top:80px;font-size:13px;color:#8e8e93;line-height:2}
 .contact a{color:#000;text-decoration:none;transition:opacity .15s}
 .contact a:hover{opacity:.6}
@@ -44,7 +50,10 @@ nav ul{gap:24px}
         </ul>
     </nav>
     <main>
-        <section class="intro">Hi, I'm Tife.</section>
+        <section class="intro">
+            <h1>Hi, I'm Tife.</h1>
+            <p>I'm into <span class="highlight">low-level programming</span> and <span class="highlight">photography</span>. I write about C/C++, operating systems, and share photos I take.</p>
+        </section>
         <footer class="contact">
             <div>alberta, ca</div>
             <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
