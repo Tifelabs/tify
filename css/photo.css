@@ -12,6 +12,7 @@ nav a.active,nav a:hover{color:#000}
 .intro{font-size:14px;line-height:1.5;color:#000;margin-bottom:40px;font-weight:300}
 .intro a{color:#000;text-decoration:none;transition:opacity .15s}
 .intro a:hover{opacity:.6}
+.intro p a{color: blue;}
 
 .category-toggle{display:flex;gap:12px;margin-bottom:80px;justify-content:center}
 .toggle-btn{background:#fff;border:1px solid #e0e0e0;color:#666;font-size:13px;font-weight:500;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all .2s;letter-spacing:0.3px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
