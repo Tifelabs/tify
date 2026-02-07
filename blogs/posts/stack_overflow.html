@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Understanding stack buffer overflow vulnerabilities in C - Tifelabs">
+    <title>The Stack Buffer Overflow - Tifelabs</title>
+    <link rel="icon" href="../assets/images/baby.png">
+    <link rel="stylesheet" href="../css/blog.css">
+    <script src="../js/blog.js" defer></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html">λ</a></li>
+            <li><a href="../blogs/" class="active">Writing</a></li>
+            <li><a href="../Photography/">Photography</a></li>
+            <li><a href="../Resource/">Resources</a></li>
+        </ul>
+    </nav>
+
+    <a href="../b" class="back-link">Back to posts</a>
+
+    <article>
+        <h1>The Stack Buffer Overflow</h1>
+        <div class="post-meta">Posted on November 25, 2025</div>
+
+        <p>I was reading through some common buffer overflows in C, I found one which caught my interest.</p>
+
+        <p>This is the stack buffer overflow. If you are reading this I assume you know what a stack memory is. It is one of the most important aspects in the computer architecture.</p>
+
+        <blockquote>
+            The Stack is a region where data is being added or removed in LIFO style (Last In First Out). The stack also stores and remembers all of the passed variables and functions. You can check out this for more understanding → <a href="https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">Stack info</a>
+        </blockquote>
+
+        <p>Back to main post, The stack buffer overflow will happen when we corrupt the memory to control the execution flow of the program. I wrote a simple password checker to demonstrate this process. Returns Access Granted if it the right one and returns Denied if it's the wrong pass.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Snippet</th>
+                    <th>Positive OUT</th>
+                    <th>Negative OUT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="../blog-images/pass.png" alt="Password Snippet"></td>
+                    <td><img src="../blog-images/positive.png" alt="Positive"></td>
+                    <td><img src="../blog-images/negative.png" alt="Negative"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="end-marker">— END —</div>
+    </article>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Understanding subnetting and CIDR in network architecture - Tifelabs">
+    <title>Subnetting and CIDR - Tifelabs</title>
+    <link rel="icon" href="../assets/images/baby.png">
+    <link rel="stylesheet" href="../css/blog.css">
+    <script src="../js/blog.js" defer></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html">λ</a></li>
+            <li><a href="../blogs/" class="active">Writing</a></li>
+            <li><a href="../Photography/">Photography</a></li>
+            <li><a href="../Resource/">Resources</a></li>
+        </ul>
+    </nav>
+
+    <a href="../" class="back-link">Back to posts</a>
+
+    <article>
+        <h1>Subnetting and CIDR</h1>
+        <div class="post-meta">Posted on May 10, 2023</div>
+
+        <p>In network architecture, two fundamental concepts stand as pillars of efficient network design: subnetting and CIDR (Classless Inter-Domain Routing). These mechanisms form the backbone of modern network segmentation, enabling organizations to architect their digital infrastructure with precision and elegance.</p>
+
+        <h2>The Essence of Subnetting</h2>
+        <p>Each subnet operates as its own microcosm, with unique addressing and defined boundaries, yet remains seamlessly integrated into the greater network ecosystem.</p>
+
+        <h2>The Refinement of CIDR</h2>
+        <p>CIDR represents the evolution of network addressing, introducing a level of sophistication that transcends traditional classification methods. Through its elegant notation system, CIDR enables precise control over network segmentation, allowing for the efficient allocation of address spaces with remarkable granularity.</p>
+
+        <h2>Math of Network Design</h2>
+        <pre><code>Number of Possible Subnets = 2^(number of subnet bits)
+Number of Hosts per Subnet = 2^(number of host bits) - 2</code></pre>
+
+        <img src="../blog-images/subnet.png" alt="Subnet diagram">
+        <p style="font-size: 13px; color: #8e8e93; margin-top: -16px;"><em>Image from <a href="https://en.wikipedia.org/w/resources/src/jquery.tablesorter.styles/images/sort_both.svg?0e440">Wiki</a></em></p>
+
+        <p>Using a network address of 192.168.1.0/24. The "/24" notation explains that 24 bits are dedicated to the network portion, leaving 8 bits for host addressing. This arrangement yields 254 possible host addresses—a numerical dance of binary possibilities, with the first and last addresses reserved for network and broadcast functions respectively.</p>
+
+        <blockquote>
+            "In the art of network design, subnetting and CIDR work in concert to create a harmonious balance between efficiency and functionality, much like the interplay of form and function in classical architecture."
+        </blockquote>
+
+        <p><strong>If there is need for adjustment and Corrections feel free to send me a mail tifelabs[at]gmail[dot]com</strong></p>
+
+        <p>Thanks</p>
+
+        <div class="end-marker">— END —</div>
+    </article>
+</body>
+</html>
