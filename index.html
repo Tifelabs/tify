@@ -1,34 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Tifelabs — systems programmer">
-    <title>Tifelabs</title>
-    <link rel="icon" href="./assets/images/baby.png">
-    <link rel="preload" as="image" href="./assets/banner/School_of_Athens.webp">
-    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-size:14px;line-height:1.6;color:#1a1a1a;max-width:560px;margin:0 auto;padding:80px 24px;background:#f4f1ea}img{width:100%;height:140px;object-fit:cover;display:block;margin-bottom:48px}nav{margin-bottom:72px}nav ul{list-style:none;display:flex;gap:28px}nav a{color:#8e8e93;text-decoration:none;font-size:13px}nav a.active,nav a:hover{color:#000}h1{margin-bottom:12px}p{font-size:13px;font-weight:300;margin-bottom:72px}mark{background:linear-gradient(180deg,transparent 60%,rgba(255,235,59,.5) 60%);padding:0 2px}footer{font-size:13px;color:#8e8e93;line-height:2}footer a{color:#000;text-decoration:none}footer a:hover{opacity:.6}@media(max-width:600px){body{padding:52px 20px}img{height:120px;margin-bottom:32px}nav{margin-bottom:52px}}</style>
-  </head>
-  <body>
-    <img src="./assets/banner/School_of_Athens.webp" alt="The School of Athens" fetchpriority="high">
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">λ</a></li>
-        <li><a href="./blogs/">Writing</a></li>
-        <li><a href="./Photography/">Photography</a></li>
-        <li><a href="./Resource/">Resources</a></li>
-      </ul>
-    </nav>
-    <main>
-      <h1>Hi, I'm Tife.</h1>
-      <p>I'm into <mark>low-level programming and high performance computing</mark> and also a <mark>photography enthusiast.</mark></p>
-      <footer>
-        <div>alberta, ca</div>
-        <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-        <div><a href="https://github.com/tifelabs">github</a></div>
-      </footer>
-    </main>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tifelabs — systems programmer">
+<title>Tifelabs</title>
+<link rel="icon" href="./assets/images/baby.png">
+<link rel="preload" as="image" href="./assets/banner/School_of_Athens.webp">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-size:14px;line-height:1.6;color:#1a1a1a;max-width:560px;margin:0 auto;padding:80px 24px;background:#f4f1ea}
+.banner{width:100%;height:140px;object-fit:cover;display:block;margin-bottom:48px}
+nav{margin-bottom:72px}
+nav ul{list-style:none;display:flex;gap:28px}
+nav a{color:#8e8e93;text-decoration:none;font-size:13px}
+nav a.active,nav a:hover{color:#000}
+h1{margin-bottom:12px}
+p{font-size:13px;font-weight:300;margin-bottom:72px}
+mark{background:linear-gradient(180deg,transparent 60%,rgba(255,235,59,.5) 60%);padding:0 2px}
+footer{font-size:13px;color:#8e8e93;line-height:2}
+footer a{color:#000;text-decoration:none}
+footer a:hover{opacity:.6}
+
+/* Projects */
+.projects{margin-bottom:72px}
+.projects h2{font-size:13px;font-weight:500;color:#8e8e93;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
+.project-list{display:flex;flex-direction:column}
+.project-entry{display:flex;flex-direction:column}
+.project-item{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;padding:8px 0}
+.project-thumb{width:64px;height:44px;object-fit:cover;border-radius:3px;background:#e0dcd4;flex-shrink:0;cursor:pointer;display:block;margin:0;transition:opacity .15s ease}
+.project-thumb:hover{opacity:.8}
+.project-info{display:flex;flex-direction:column}
+.project-name{font-size:13px;font-weight:500;color:#1a1a1a}
+.project-desc{font-size:12px;font-weight:300;color:#8e8e93}
+
+/* expanded state on the thumb itself */
+.project-thumb.expanded{width:100%;max-width:320px;height:auto;object-fit:contain;border-radius:4px;background:#1a1a1a;box-shadow:0 6px 24px rgba(0,0,0,.18);margin-bottom:8px;cursor:pointer}
+
+@media(max-width:600px){
+  body{padding:52px 20px}
+  .banner{height:120px;margin-bottom:32px}
+  nav{margin-bottom:52px}
+  .project-thumb.expanded{max-width:100%}
+}
+</style>
+</head>
+<body>
+<img class="banner" src="./assets/banner/School_of_Athens.webp" alt="The School of Athens" fetchpriority="high">
+<nav>
+<ul>
+<li><a href="index.html" class="active">&#955;</a></li>
+<li><a href="./blogs/">Writing</a></li>
+<li><a href="./Photography/">Photography</a></li>
+<li><a href="./Resource/">Resources</a></li>
+</ul>
+</nav>
+<main>
+<h1>Hi, I'm Tife.</h1>
+<p>I'm into <mark>low-level programming and high performance computing</mark> and also a <mark>photography enthusiast.</mark></p>
+
+<section class="projects">
+  <h2>Projects</h2>
+  <div class="project-list">
+
+    <div class="project-entry">
+      <a href="https://github.com/tifelabs/gpulite" class="project-item" target="_blank" rel="noopener">
+        <img class="project-thumb" src="./assets/images/gpulite.png" alt="gpulite" onerror="this.style.visibility='hidden'">
+        <div class="project-info">
+          <span class="project-name">gpulite</span>
+          <span class="project-desc">C++ &middot; lightweight GPU monitor for macOS</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+<div>alberta, ca</div>
+<div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+<div><a href="https://github.com/tifelabs">github</a></div>
+</footer>
+</main>
+
+<script>
+document.querySelectorAll('.project-thumb').forEach(function(thumb) {
+  thumb.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var entry = this.closest('.project-entry');
+    var isOpen = this.classList.contains('expanded');
+
+    // collapse all
+    document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
+      t.classList.remove('expanded');
+      // move thumb back inside its .project-item
+      var item = t.closest('.project-item') || t.parentElement.querySelector('.project-item');
+      if (t.parentElement === t.closest('.project-entry')) {
+        item.prepend(t);
+      }
+    });
+
+    if (!isOpen) {
+      // move thumb out of the flex row, place it before the entry's next sibling
+      entry.insertBefore(this, entry.querySelector('.project-item').nextSibling);
+      this.classList.add('expanded');
+    }
+  });
+});
+
+document.addEventListener('click', function() {
+  document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
+    t.classList.remove('expanded');
+    var entry = t.closest('.project-entry');
+    entry.querySelector('.project-item').prepend(t);
+  });
+});
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>
+</body>
 </html>
