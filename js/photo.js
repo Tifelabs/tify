@@ -1,347 +1,295 @@
-/* ======= TIFELABS ======= */
 'use strict';
 
-const CFG = Object.freeze({
-  CACHE: 50,
-  SWIPE: 60,
-  TAP: 300,
-  NAV_COOL: 150,
-  FADE_IN: 400,
-  FADE_NAV: 200,
-  FADE_CLOSE: 250,
-  FADE_CAT: 300
-});
-
-/* LRU CACHE */
-class LRU {
-  #n; #m;
-  constructor(n) { this.#n = n; this.#m = new Map(); }
-  get(k) {
-    if (!this.#m.has(k)) return null;
-    const v = this.#m.get(k);
-    this.#m.delete(k);
-    this.#m.set(k, v);
-    return v;
-  }
-  set(k, v) {
-    if (this.#m.has(k)) this.#m.delete(k);
-    else if (this.#m.size >= this.#n) this.#m.delete(this.#m.keys().next().value);
-    this.#m.set(k, v);
-  }
-  has(k) { return this.#m.has(k); }
-}
-
-/* State */
-const $ = {
-  cat: 'general',
-  idx: -1,
-  open: false,
-  nav: false,
-  lastNav: 0,
-  dom: {},
-  imgs: new Map(),
-  imgIdx: new WeakMap(),
-  touch: { x: 0, y: 0, t: 0, mx: 0 }
+const STATE = {
+  idx: -1, items: [], allItems: [],
+  cat: 'all', layout: 'masonry', open: false,
 };
+const DOM = {};
+const qs  = (s, r = document) => r.querySelector(s);
+const qsa = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-/* Image Loading */
-const cache    = new LRU(CFG.CACHE);
-const urlCache = new Map();
-const promises = new Map();
-
-const hiRes = (u) => {
-  if (urlCache.has(u)) return urlCache.get(u);
-  const h = u.replace('/Low_res/', '/High_res/');
-  urlCache.set(u, h);
-  return h;
-};
-
-const load = (s) => {
-  if (cache.has(s)) return Promise.resolve();
-  if (promises.has(s)) return promises.get(s);
-  const p = new Promise((res, rej) => {
-    const i = new Image();
-    i.onload  = () => { cache.set(s, i); promises.delete(s); res(); };
-    i.onerror = () => { promises.delete(s); rej(new Error(`Failed to load: ${s}`)); };
-    i.src = s;
+/* Cursor */
+const initCursor = () => {
+  const cursor = qs('#cursor');
+  if (!cursor || window.matchMedia('(hover: none)').matches) return;
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  }, { passive: true });
+  document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+  document.addEventListener('mouseup',   () => cursor.classList.remove('clicking'));
+  const hoverEls = 'a, button, .gitem, .lb-thumb, .ftab, .lbtn';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverEls)) cursor.classList.add('hover');
   });
-  promises.set(s, p);
-  return p;
-};
-
-/* Preloader */
-// Priority queue: adjacent images first, then lookahead
-const preload = (() => {
-  let id;
-  return (i) => {
-    if (id) cancelIdleCallback(id);
-    const schedule = window.requestIdleCallback
-      ? (cb) => requestIdleCallback(cb, { timeout: 1000 })
-      : (cb) => setTimeout(cb, 0);
-
-    id = schedule(() => {
-      const imgs = getImgs();
-      // Sorted by proximity: [+1, -1, +2, -2, +3]
-      [1, -1, 2, -2, 3].forEach(n => {
-        const idx = i + n;
-        if (idx >= 0 && idx < imgs.length) {
-          load(hiRes(imgs[idx].src)).catch(() => load(imgs[idx].src).catch(() => {}));
-        }
-      });
-    });
-  };
-})();
-
-// ── Category image cache ──────────────────────────────────────────────────────
-const cacheImgs = (c) => {
-  if ($.imgs.has(c)) return $.imgs.get(c);
-  const s = document.getElementById(`${c}-section`);
-  if (!s) return [];
-  const imgs = [...s.querySelectorAll('.photo img')];
-  imgs.forEach((img, i) => $.imgIdx.set(img, i));
-  $.imgs.set(c, imgs);
-  return imgs;
-};
-
-const getImgs = () => cacheImgs($.cat);
-
-// ── Category switch ───────────────────────────────────────────────────────────
-const switchCat = (c, btn) => {
-  if (c === $.cat) return;
-  const sec = document.getElementById(`${c}-section`);
-  if (!sec) return;
-
-  const oldSec = document.querySelector('.photo-section.active');
-
-  // Pure CSS-class-driven fade — no nested setTimeout/rAF thrash
-  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b === btn));
-
-  const activate = () => {
-    sec.classList.add('active');
-    // Force reflow in a single read, then write
-    void sec.offsetWidth;
-    sec.classList.add('visible');
-  };
-
-  if (oldSec) {
-    oldSec.classList.remove('visible');
-    oldSec.addEventListener('transitionend', () => {
-      oldSec.classList.remove('active');
-      activate();
-    }, { once: true });
-  } else {
-    activate();
-  }
-
-  $.cat = c;
-  cacheImgs(c);
-};
-
-window.showCategory = (c, btn) => switchCat(c, btn);
-/* Modal */
-const show = (i) => {
-  const imgs  = getImgs();
-  const now   = Date.now();
-
-  if ($.nav || i < 0 || i >= imgs.length || now - $.lastNav < CFG.NAV_COOL) return;
-
-  $.lastNav = now;
-  $.idx     = i;
-  $.open    = true;
-
-  const { mi, mc, mp, mn, m } = $.dom;
-  const img = imgs[i];
-  const h   = hiRes(img.src);
-
-  // Batch DOM reads before writes
-  const caption = img.closest('.photo')?.querySelector('h3')?.textContent ?? img.alt;
-  const hasPrev = i > 0;
-  const hasNext = i < imgs.length - 1;
-
-  // Single write batch
-  mi.style.opacity = '0';
-  mi.src           = cache.has(h) ? h : img.src;
-  mi.alt           = caption;
-  mc.textContent   = caption;
-  mp.style.display = hasPrev ? 'flex' : 'none';
-  mn.style.display = hasNext ? 'flex' : 'none';
-
-  if (!cache.has(h)) {
-    load(h)
-      .then(() => {
-        if ($.idx === i && $.open) {
-          mi.style.transition = `opacity ${CFG.FADE_IN}ms ease`;
-          mi.src = h;
-        }
-      })
-      .catch(() => {});
-  }
-
-  $.nav = true;
-
-  requestAnimationFrame(() => {
-    m.classList.add('active');
-    m.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-
-    requestAnimationFrame(() => {
-      mi.style.transition = `opacity ${CFG.FADE_IN}ms ease`;
-      mi.style.opacity    = '1';
-      mi.focus();
-      $.nav = false;
-      preload(i);
-    });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverEls)) cursor.classList.remove('hover');
   });
 };
 
-const nav = (d) => {
-  if ($.nav) return;
-  const n = $.idx + d;
-  if (n < 0 || n >= getImgs().length) return;
-
-  const { mi } = $.dom;
-  mi.style.transition = `opacity ${CFG.FADE_NAV}ms ease`;
-  mi.style.opacity    = '0';
-  setTimeout(() => show(n), CFG.FADE_NAV);
-};
-
-const close = () => {
-  const { m } = $.dom;
-  m.style.transition = `opacity ${CFG.FADE_CLOSE}ms ease`;
-  m.style.opacity    = '0';
-
-  m.addEventListener('transitionend', () => {
-    m.classList.remove('active');
-    m.setAttribute('aria-hidden', 'true');
-    m.style.opacity    = '';
-    m.style.transition = '';
-    document.body.style.overflow = '';
-  }, { once: true });
-
-  $.open = false;
-  $.idx  = -1;
-};
-
-// ── Touch & click ─────────────────────────────────────────────────────────────
-const getPhotoImg = (t) =>
-  t.tagName === 'IMG' && t.closest('.photo-grid') ? t : null;
-
-const click = (t) => {
-  const img = getPhotoImg(t);
-  if (!img) return;
-  const i = $.imgIdx.get(img);
-  if (i !== undefined) show(i);
-};
-
-const tStart = (e) => {
-  if (!getPhotoImg(e.target)) return;
-  const { clientX: x, clientY: y } = e.touches[0];
-  $.touch = { x, y, t: Date.now(), mx: 0 };
-};
-
-const tEnd = (e) => {
-  if (!getPhotoImg(e.target)) return;
-  const { clientX, clientY } = e.changedTouches[0];
-  const d  = Date.now() - $.touch.t;
-  const dx = Math.abs(clientX - $.touch.x);
-  const dy = Math.abs(clientY - $.touch.y);
-  if (d < CFG.TAP && dx < 10 && dy < 10) {
-    e.preventDefault();
-    e.stopPropagation();
-    click(e.target);
+/* Intersection reveal */
+const revealItems = () => {
+  if (!('IntersectionObserver' in window)) {
+    qsa('.gitem:not(.hidden)').forEach(el => el.classList.add('visible'));
+    return;
   }
-};
-
-const mStart = (e) => {
-  $.touch.mx = e.touches[0].clientX;
-  $.dom.mi.style.transition = 'none';
-};
-
-const mEnd = (e) => {
-  const dx = e.changedTouches[0].clientX - $.touch.mx;
-  $.dom.mi.style.transition = '';
-  if (Math.abs(dx) > CFG.SWIPE) nav(dx > 0 ? -1 : 1);
-};
-
-// ── Lazy load ─────────────────────────────────────────────────────────────────
-const setupLazyLoad = () => {
-  if (!('IntersectionObserver' in window)) return;
-
   const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
+    entries.forEach((e, i) => {
       if (!e.isIntersecting) return;
-      const img = e.target;
-
-      const reveal = () => {
-        img.style.opacity    = '0';
-        img.style.transition = `opacity ${CFG.FADE_IN}ms ease`;
-        img.src = img.dataset.src || img.src;
-        img.removeAttribute('data-src');
-        requestAnimationFrame(() => { img.style.opacity = '1'; });
-        obs.unobserve(img);
-      };
-
-      img.complete ? reveal() : (img.onload = reveal);
+      setTimeout(() => e.target.classList.add('visible'), i * 40);
+      obs.unobserve(e.target);
     });
-  }, { rootMargin: '150px', threshold: 0.01 });
-
-  document.querySelectorAll('.photo img').forEach(i => obs.observe(i));
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+  qsa('.gitem:not(.hidden)').forEach(el => obs.observe(el));
 };
 
-// ── Keyboard map ──────────────────────────────────────────────────────────────
-const KEYS = {
-  Escape:     () => close(),
-  ArrowLeft:  () => nav(-1),
-  ArrowRight: () => nav(1)
+/* Filter */
+const initFilter = () => {
+  STATE.allItems = qsa('.gitem');
+  qsa('.ftab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      if (cat === STATE.cat) return;
+      STATE.cat = cat;
+      qsa('.ftab').forEach(b => {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+      const grid = qs('#gallery-grid');
+      grid.style.opacity = '0';
+      grid.style.transform = 'translateY(8px)';
+      grid.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      setTimeout(() => {
+        STATE.allItems.forEach(item => {
+          const show = cat === 'all' || item.dataset.cat === cat;
+          item.classList.toggle('hidden', !show);
+          if (show) item.classList.remove('visible');
+        });
+        STATE.items = STATE.allItems.filter(i => !i.classList.contains('hidden'));
+        grid.style.opacity = '1';
+        grid.style.transform = 'translateY(0)';
+        setTimeout(revealItems, 20);
+      }, 260);
+    });
+  });
+  STATE.items = STATE.allItems;
 };
 
-// ── Init ──────────────────────────────────────────────────────────────────────
-const init = () => {
-  $.dom = {
-    m:  document.getElementById('modal'),
-    mi: document.getElementById('modal-image'),
-    mc: document.getElementById('modal-caption'),
-    mp: document.querySelector('.modal-prev'),
-    mn: document.querySelector('.modal-next'),
-    mx: document.querySelector('.modal-close')
+/* Layout switch */
+const initLayout = () => {
+  const grid = qs('#gallery-grid');
+  const btnM = qs('#btn-masonry');
+  const btnG = qs('#btn-grid');
+  if (!grid || !btnM || !btnG) return;
+  const setLayout = (l) => {
+    STATE.layout = l;
+    grid.className = `gallery-grid ${l}`;
+    btnM.classList.toggle('active', l === 'masonry');
+    btnG.classList.toggle('active', l === 'grid');
+    qsa('.gitem:not(.hidden)').forEach(el => el.classList.remove('visible'));
+    setTimeout(revealItems, 50);
   };
+  btnM.addEventListener('click', () => setLayout('masonry'));
+  btnG.addEventListener('click', () => setLayout('grid'));
+};
 
-  if (!$.dom.m || !$.dom.mi) return;
+/* Lightbox */
+const initLightbox = () => {
+  DOM.lb      = qs('#lightbox');
+  DOM.lbImg   = qs('#lb-img');
+  DOM.lbTitle = qs('#lb-title');
+  DOM.lbYear  = qs('#lb-year');
+  DOM.lbRes   = qs('#lb-res');
+  DOM.lbCount = qs('#lb-count');
+  DOM.lbClose = qs('#lb-close');
+  DOM.lbPrev  = qs('#lb-prev');
+  DOM.lbNext  = qs('#lb-next');
+  DOM.lbSpin  = qs('#lb-spinner');
+  DOM.lbStrip = qs('#lb-filmstrip-inner');
+  if (!DOM.lb) return;
 
-  cacheImgs($.cat);
-  setupLazyLoad();
-
-  const isTouch = 'ontouchstart' in window;
-
-  if (isTouch) {
-    document.addEventListener('touchstart', tStart, { passive: true });
-    document.addEventListener('touchend',   tEnd,   { passive: false });
-    $.dom.mi.addEventListener('touchstart', mStart, { passive: true });
-    $.dom.mi.addEventListener('touchend',   mEnd,   { passive: true });
-
-    const tap = (el, fn) =>
-      el.addEventListener('touchend', (e) => { e.preventDefault(); e.stopPropagation(); fn(); });
-
-    tap($.dom.mp, () => nav(-1));
-    tap($.dom.mn, () => nav(1));
-    tap($.dom.mx, close);
-  } else {
-    document.addEventListener('click', (e) => {
-      if (e.target.tagName === 'IMG') click(e.target);
-    });
-  }
-
-  $.dom.mp.addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
-  $.dom.mn.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
-  $.dom.mx.addEventListener('click', (e) => { e.stopPropagation(); close(); });
-  $.dom.m.addEventListener('click',  (e) => { if (e.target === $.dom.m) close(); });
-
-  document.addEventListener('keydown', (e) => {
-    if ($.open && KEYS[e.key]) { e.preventDefault(); KEYS[e.key](); }
+  document.addEventListener('click', e => {
+    const item = e.target.closest('.gitem');
+    if (!item || item.classList.contains('hidden')) return;
+    const vis = STATE.allItems.filter(el => !el.classList.contains('hidden'));
+    const idx = vis.indexOf(item);
+    if (idx !== -1) openLightbox(idx, vis);
   });
 
-  document.addEventListener('contextmenu', (e) => {
-    if (e.target.tagName === 'IMG' && e.target.closest('.photo-grid')) e.preventDefault();
+  document.addEventListener('keydown', e => {
+    if (!STATE.open) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+
+  DOM.lbClose.addEventListener('click', closeLightbox);
+  DOM.lbPrev.addEventListener('click',  () => navigate(-1));
+  DOM.lbNext.addEventListener('click',  () => navigate(1));
+  qs('.lb-bg')?.addEventListener('click', closeLightbox);
+  DOM.lbImg.addEventListener('contextmenu', e => e.preventDefault());
+  DOM.lbImg.addEventListener('dragstart',   e => e.preventDefault());
+
+  let tx = 0, tt = 0;
+  DOM.lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; tt = Date.now(); }, { passive: true });
+  DOM.lb.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50 && Date.now() - tt < 400) navigate(dx > 0 ? -1 : 1);
+  }, { passive: true });
+};
+
+const buildFilmstrip = (items, activeIdx) => {
+  if (!DOM.lbStrip) return;
+  DOM.lbStrip.innerHTML = '';
+  items.forEach((item, i) => {
+    const img   = item.querySelector('img');
+    const thumb = document.createElement('div');
+    thumb.className = 'lb-thumb' + (i === activeIdx ? ' active' : '');
+    thumb.innerHTML = `<img src="${img.src}" alt="${img.alt}" loading="lazy">`;
+    thumb.addEventListener('click', () => navigate(i - STATE.idx));
+    DOM.lbStrip.appendChild(thumb);
+  });
+  scrollStrip(activeIdx);
+};
+
+const scrollStrip = (idx) => {
+  const thumbs = qsa('.lb-thumb', DOM.lbStrip.parentElement);
+  thumbs.forEach((t, i) => t.classList.toggle('active', i === idx));
+  const thumb = thumbs[idx];
+  if (!thumb) return;
+  const strip  = DOM.lbStrip.parentElement;
+  const offset = thumb.offsetLeft - strip.clientWidth / 2 + thumb.offsetWidth / 2;
+  DOM.lbStrip.style.transform = `translateX(${-Math.max(0, offset)}px)`;
+};
+
+const openLightbox = (idx, items) => {
+  STATE.items = items;
+  STATE.open  = true;
+  DOM.lb.classList.add('open');
+  DOM.lb.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  buildFilmstrip(items, idx);
+  showImage(idx);
+};
+
+const showImage = (idx) => {
+  idx = clamp(idx, 0, STATE.items.length - 1);
+  STATE.idx = idx;
+  const item = STATE.items[idx];
+  const img  = item.querySelector('img');
+  DOM.lbTitle.textContent = item.dataset.title || '';
+  DOM.lbYear.textContent  = item.dataset.year  || '—';
+  DOM.lbRes.textContent   = item.dataset.res   || '';
+  DOM.lbCount.textContent = `${idx + 1} / ${STATE.items.length}`;
+  DOM.lbPrev.style.visibility = idx === 0                       ? 'hidden' : 'visible';
+  DOM.lbNext.style.visibility = idx === STATE.items.length - 1 ? 'hidden' : 'visible';
+  DOM.lbImg.classList.remove('loaded');
+  DOM.lbSpin.classList.add('show');
+
+  const hi  = img.src.replace('/Low_res/', '/High_res/');
+  const tmp = new Image();
+  const done = (src) => {
+    if (STATE.idx !== idx) return;
+    DOM.lbImg.src = src;
+    DOM.lbImg.alt = img.alt;
+    DOM.lbImg.classList.add('loaded');
+    DOM.lbSpin.classList.remove('show');
+    scrollStrip(idx);
+    preload(idx);
+  };
+  tmp.onload  = () => done(hi);
+  tmp.onerror = () => {
+    const fb = new Image();
+    fb.onload  = () => done(img.src);
+    fb.onerror = () => DOM.lbSpin.classList.remove('show');
+    fb.src = img.src;
+  };
+  tmp.src = hi;
+};
+
+const navigate = (delta) => {
+  if (!STATE.open) return;
+  const next = clamp(STATE.idx + delta, 0, STATE.items.length - 1);
+  if (next === STATE.idx) return;
+  const dir = delta > 0 ? -1 : 1;
+  DOM.lbImg.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+  DOM.lbImg.style.opacity    = '0';
+  DOM.lbImg.style.transform  = `translateX(${dir * -24}px)`;
+  setTimeout(() => {
+    DOM.lbImg.style.transition = 'none';
+    DOM.lbImg.style.transform  = `translateX(${dir * 20}px)`;
+    showImage(next);
+    requestAnimationFrame(() => {
+      DOM.lbImg.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+      DOM.lbImg.style.opacity    = '';
+      DOM.lbImg.style.transform  = 'translateX(0)';
+    });
+  }, 180);
+};
+
+const closeLightbox = () => {
+  STATE.open = false;
+  DOM.lb.classList.remove('open');
+  DOM.lb.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  setTimeout(() => { DOM.lbImg.src = ''; DOM.lbImg.classList.remove('loaded'); }, 400);
+};
+
+const preload = (idx) => {
+  const go = window.requestIdleCallback
+    ? cb => requestIdleCallback(cb, { timeout: 1000 })
+    : cb => setTimeout(cb, 0);
+  go(() => {
+    [-1, 1, -2, 2].forEach(d => {
+      const img = STATE.items[idx + d]?.querySelector('img');
+      if (img) new Image().src = img.src.replace('/Low_res/', '/High_res/');
+    });
+  });
+};
+/* Guards */
+const blockContextMenu = () => {
+  document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG' && (
+      e.target.closest('.gallery-grid') || e.target.closest('#lightbox')
+    )) e.preventDefault();
+  });
+};
+/* Init */
+const init = () => {
+  // Decorate cards
+  qsa('.gitem').forEach((item, i) => {
+    const badge = document.createElement('span');
+    badge.className = 'gi-index';
+    badge.textContent = String(i + 1).padStart(2, '0');
+    item.appendChild(badge);
+    const res = item.dataset.res;
+    if (res) {
+      const cap = item.querySelector('figcaption');
+      if (cap) {
+        const el = document.createElement('span');
+        el.className = 'gi-res';
+        el.textContent = res + ' px';
+        cap.appendChild(el);
+      }
+    }
+  });
+
+  initCursor();
+  initFilter();
+  initLayout();
+  initLightbox();
+  blockContextMenu();
+  revealItems();
+
+  // Focus trap inside lightbox
+  document.addEventListener('keydown', e => {
+    if (!STATE.open || e.key !== 'Tab') return;
+    const els = qsa('button:not([disabled])', DOM.lb);
+    if (!els.length) return;
+    const first = els[0], last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 };
 
