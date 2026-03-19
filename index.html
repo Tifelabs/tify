@@ -6,48 +6,251 @@
 <meta name="description" content="Tifelabs — systems programmer">
 <title>Tifelabs</title>
 <link rel="icon" href="./assets/images/baby.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="./assets/banner/School_of_Athens.webp">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-size:14px;line-height:1.6;color:#1a1a1a;max-width:560px;margin:0 auto;padding:80px 24px;background:#f4f1ea}
-.banner{width:100%;height:140px;object-fit:cover;display:block;margin-bottom:48px}
-nav{margin-bottom:72px}
-nav ul{list-style:none;display:flex;gap:28px}
-nav a{color:#8e8e93;text-decoration:none;font-size:13px}
-nav a.active,nav a:hover{color:#000}
-h1{font-size:14px;margin-bottom:12px}
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-.intro{font-size:13px;font-weight:300;margin-bottom:72px}
+  :root {
+    --bg:       #f2ede4;
+    --ink:      #1c1917;
+    --muted:    #9c9589;
+    --accent:   #2d6a4f;
+    --rule:     #ddd8ce;
+    --thumb-bg: #e4dfd6;
+  }
 
-mark{background:linear-gradient(180deg,transparent 60%,rgba(255,235,59,.5) 60%);padding:0 2px}
-footer{font-size:13px;color:#8e8e93;line-height:2}
-footer a{color:#000;text-decoration:none}
-footer a:hover{opacity:.6}
+  html { scroll-behavior: smooth; }
 
-/* Projects */
-.projects{margin-bottom:72px}
-.projects h2{font-size:13px;font-weight:500;color:#8e8e93;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
-.project-list{display:flex;flex-direction:column}
-.project-entry{display:flex;flex-direction:column}
-.project-item{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;padding:8px 0}
-.project-thumb{width:64px;height:44px;object-fit:cover;border-radius:3px;background:#e0dcd4;flex-shrink:0;cursor:pointer;display:block;margin:0;transition:opacity .15s ease}
-.project-thumb:hover{opacity:.8}
-.project-info{display:flex;flex-direction:column}
-.project-name{font-size:13px;font-weight:500;color:#3b82f6;text-decoration:underline;text-underline-offset:2px}
-.project-item:hover .project-name{color:#2563eb}
-.project-desc{font-size:12px;font-weight:300;color:#8e8e93}
-.project-thumb.expanded{width:100%;max-width:320px;height:auto;object-fit:contain;border-radius:4px;background:#1a1a1a;box-shadow:0 6px 24px rgba(0,0,0,.18);margin-bottom:8px;cursor:pointer}
+  body {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    background: var(--bg);
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 72px 28px 96px;
+    opacity: 0;
+    animation: fadein .55s ease forwards;
+  }
 
-@media(max-width:600px){
-  body{padding:52px 20px}
-  .banner{height:120px;margin-bottom:32px}
-  nav{margin-bottom:52px}
-  .project-thumb.expanded{max-width:100%}
-}
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
+  /* Banner */
+  .banner {
+    width: 100%;
+    height: 148px;
+    object-fit: cover;
+    object-position: center 38%;
+    display: block;
+    margin-bottom: 52px;
+    border-radius: 2px;
+  }
+
+  /* Nav */
+  nav {
+    margin-bottom: 80px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    align-items: baseline;
+  }
+
+  nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .03em;
+    transition: color .18s;
+  }
+
+  nav a.active,
+  nav a:hover {
+    color: var(--ink);
+  }
+
+  nav a.active {
+    font-weight: 400;
+  }
+
+  /* Intro */
+  h1 {
+    font-family: 'Spectral', serif;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: .01em;
+  }
+
+  .intro {
+    font-size: 14px;
+    font-weight: 300;
+    color: #3d3933;
+    margin-bottom: 80px;
+    max-width: 460px;
+  }
+
+  mark {
+    background: linear-gradient(180deg, transparent 58%, rgba(180,210,160,.55) 58%);
+    padding: 0 1px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* Projects */
+  .projects {
+    margin-bottom: 80px;
+  }
+
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+
+  .project-entry {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .project-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: inherit;
+    padding: 14px 0;
+    transition: opacity .15s;
+  }
+
+  .project-item:hover {
+    opacity: .82;
+  }
+
+  .project-thumb {
+    width: 68px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 2px;
+    background: var(--thumb-bg);
+    flex-shrink: 0;
+    cursor: pointer;
+    display: block;
+    transition: opacity .18s;
+  }
+
+  .project-thumb:hover {
+    opacity: .75;
+  }
+
+  .project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .project-name {
+    font-family: 'Spectral', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(45,106,79,.35);
+    text-underline-offset: 3px;
+  }
+
+  .project-item:hover .project-name {
+    text-decoration-color: var(--accent);
+  }
+
+  .project-desc {
+    font-size: 12.5px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .project-desc em {
+    font-style: normal;
+    color: #6b6560;
+  }
+
+  /* Expanded thumb */
+  .project-thumb.expanded {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 3px;
+    background: #1a1a18;
+    box-shadow: 0 8px 28px rgba(0,0,0,.16);
+    margin: 4px 0 12px;
+    cursor: pointer;
+  }
+
+  /* Footer */
+  footer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 2.1;
+    letter-spacing: .02em;
+  }
+
+  footer a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: border-color .18s, opacity .18s;
+  }
+
+  footer a:hover {
+    opacity: .6;
+    border-color: var(--ink);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    body        { padding: 48px 20px 72px; }
+    .banner     { height: 112px; margin-bottom: 36px; }
+    nav         { margin-bottom: 56px; }
+    .intro      { margin-bottom: 56px; }
+    .projects   { margin-bottom: 56px; }
+    .project-thumb.expanded { max-width: 100%; }
+  }
 </style>
 </head>
 <body>
+
 <img class="banner" src="./assets/banner/School_of_Athens.webp" alt="The School of Athens" fetchpriority="high">
+
 <nav>
   <ul>
     <li><a href="index.html" class="active">&#955;</a></li>
@@ -56,12 +259,16 @@ footer a:hover{opacity:.6}
     <li><a href="./Resource/">Resources</a></li>
   </ul>
 </nav>
+
 <main>
   <h1>Hi, I'm Tife.</h1>
-  <p class="intro">I'm into <mark>low-level programming and high performance computing</mark> and also a <mark>photography enthusiast.</mark></p>
+  <p class="intro">
+    I'm into <mark>low-level programming and high-performance computing</mark>
+    and also a <mark>photography enthusiast.</mark>
+  </p>
 
   <section class="projects">
-    <h2>Projects</h2>
+    <p class="section-label">Projects</p>
     <div class="project-list">
 
       <div class="project-entry">
@@ -74,52 +281,64 @@ footer a:hover{opacity:.6}
         </a>
       </div>
 
+      <div class="project-entry">
+        <a href="https://github.com/Tifelabs/system_prog/tree/main/EXPLOIT" class="project-item" target="_blank" rel="noopener">
+          <img class="project-thumb" src="./assets/images/htoe.png" alt="system exploits" onerror="this.style.visibility='hidden'">
+          <div class="project-info">
+            <span class="project-name">system exploits</span>
+            <span class="project-desc">C &middot; asm &middot; Studied <em>Hacking: The Art of Exploitation, 2nd Edition</em> cover-to-cover, manually implementing every code sample and exploit to build hands-on intuition for low-level security and systems concepts.</span>
+          </div>
+        </a>
+      </div>
+
     </div>
   </section>
 
   <footer>
     <div>alberta, ca</div>
     <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-    <div><a href="https://github.com/tifelabs">github</a></div>
+    <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener">github</a></div>
   </footer>
 </main>
 
 <script>
-document.querySelectorAll('.project-thumb').forEach(function(thumb) {
-  thumb.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  document.querySelectorAll('.project-thumb').forEach(function(thumb) {
+    thumb.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    var entry = this.closest('.project-entry');
-    var isOpen = this.classList.contains('expanded');
+      var entry = this.closest('.project-entry');
+      var isOpen = this.classList.contains('expanded');
 
-    document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
-      t.classList.remove('expanded');
-      var item = t.closest('.project-item') || t.parentElement.querySelector('.project-item');
-      if (t.parentElement === t.closest('.project-entry')) {
-        item.prepend(t);
+
+      document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
+        t.classList.remove('expanded');
+        var ownerItem = t.closest('.project-item');
+        if (ownerItem) ownerItem.prepend(t);
+      });
+
+      if (!isOpen) {
+        var item = entry.querySelector('.project-item');
+        entry.insertBefore(this, item.nextSibling);
+        this.classList.add('expanded');
       }
     });
-
-    if (!isOpen) {
-      entry.insertBefore(this, entry.querySelector('.project-item').nextSibling);
-      this.classList.add('expanded');
-    }
   });
-});
 
 
-document.addEventListener('click', function(e) {
-  if (e.target.closest('.project-thumb')) return;
-  document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
-    t.classList.remove('expanded');
-    var entry = t.closest('.project-entry');
-    entry.querySelector('.project-item').prepend(t);
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.project-thumb')) return;
+    document.querySelectorAll('.project-thumb.expanded').forEach(function(t) {
+      t.classList.remove('expanded');
+      var ownerItem = t.closest('.project-item');
+      if (ownerItem) ownerItem.prepend(t);
+    });
   });
-});
 </script>
 
+<!-- Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>
+
 </body>
 </html>
