@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tifelabs — Camera Notes">
+<title>Camera Notes - Tifelabs</title>
+<link rel="icon" href="../../assets/images/baby.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:    #f2ede4;
+  --ink:   #1c1917;
+  --muted: #9c9589;
+  --rule:  #e0ddd7;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Spectral',Georgia,serif;
+  font-size:14px;line-height:1.6;
+  color:var(--ink);background:var(--bg);
+  max-width:580px;margin:0 auto;padding:80px 24px 96px;
+  opacity:0;animation:fadein .5s ease forwards;
+}
+@keyframes fadein{to{opacity:1}}
+nav{margin-bottom:80px}
+nav ul{list-style:none;display:flex;gap:32px}
+nav a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:300;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:.03em;transition:color .15s;
+}
+nav a.active,nav a:hover{color:var(--ink)}
+header{margin-bottom:48px}
+.subtitle{font-family:'Spectral',serif;font-size:15px;font-weight:400;color:var(--ink)}
+.post-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:300;
+  color:var(--muted);letter-spacing:.04em;
+  margin-bottom:48px;
+}
+.section-header{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:400;
+  color:var(--muted);letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid var(--rule);
+}
+section{margin-bottom:48px}
+.spec-table{width:100%;border-collapse:collapse}
+.spec-table td{
+  font-family:'Spectral',serif;
+  font-size:13.5px;font-weight:300;
+  padding:6px 0;vertical-align:top;
+  border-bottom:1px solid var(--rule);color:var(--ink);
+}
+.spec-table td:first-child{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;font-weight:300;
+  color:var(--muted);width:38%;padding-right:16px;letter-spacing:.02em;
+}
+.spec-table tr:last-child td{border-bottom:none}
+pre{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:300;line-height:1.75;
+  color:var(--ink);background:transparent;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+code{font-family:inherit}
+.cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cam-grid figure{margin:0}
+.cam-grid img{
+  width:100%;height:170px;
+  object-fit:cover;display:block;
+  background:var(--rule);
+  cursor:zoom-in;
+  transition:opacity .15s;
+}
+.cam-grid img:hover{opacity:.88}
+.cam-grid figcaption{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:300;
+  color:var(--muted);letter-spacing:.04em;margin-top:7px;
+}
+p{
+  font-family:'Spectral',serif;
+  font-size:13.5px;font-weight:300;
+  color:var(--ink);line-height:1.75;margin-bottom:14px;
+}
+p:last-child{margin-bottom:0}
+p em{font-style:italic;color:var(--muted)}
+footer{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;font-weight:300;
+  color:var(--muted);line-height:2.1;letter-spacing:.02em;
+  padding-top:48px;border-top:1px solid var(--rule);
+}
+footer a{
+  color:var(--ink);text-decoration:none;
+  border-bottom:1px solid var(--rule);padding-bottom:1px;
+  transition:border-color .18s,opacity .18s;
+}
+footer a:hover{opacity:.6;border-color:var(--ink)}
+
+/* ── Lightbox ──────────────────────────────────── */
+#img-lightbox{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:999;
+  background:rgba(18,15,12,0.93);
+  align-items:center;justify-content:center;
+  animation:lbfade .2s ease;
+}
+#img-lightbox.open{display:flex}
+@keyframes lbfade{from{opacity:0}to{opacity:1}}
+#lb-full{
+  max-width:92vw;max-height:90vh;
+  object-fit:contain;
+  box-shadow:0 8px 48px rgba(0,0,0,0.5);
+  animation:lbscale .22s ease;
+  cursor:zoom-out;
+}
+@keyframes lbscale{from{transform:scale(0.96)}to{transform:scale(1)}}
+#lb-caption{
+  position:absolute;bottom:24px;left:50%;
+  transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:300;
+  color:rgba(255,255,255,0.4);letter-spacing:.08em;
+  pointer-events:none;white-space:nowrap;
+}
+#lb-close-btn{
+  position:absolute;top:20px;right:20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:300;letter-spacing:.06em;
+  color:rgba(255,255,255,0.35);
+  background:none;border:none;cursor:pointer;
+  transition:color .15s;
+  -webkit-tap-highlight-color:transparent;
+  padding:8px;
+}
+#lb-close-btn:hover{color:rgba(255,255,255,0.8)}
+
+@media(max-width:600px){
+  body{padding:60px 20px 72px}
+  nav{margin-bottom:56px}
+  nav ul{gap:24px}
+  .cam-grid img{height:130px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="subtitle">Camera Notes</div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">&#955;</a></li>
+    <li><a href="../../Photography/">Photography</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <p class="post-meta">Dec 20, 2024</p>
+
+  <section>
+    <div class="section-header">Body</div>
+    <table class="spec-table">
+      <tbody>
+        <tr><td>camera</td><td>Canon EOS 4000D</td></tr>
+        <tr><td>sensor</td><td>18 MP APS-C CMOS</td></tr>
+        <tr><td>processor</td><td>DIGIC 4+</td></tr>
+        <tr><td>autofocus</td><td>9-point AF</td></tr>
+        <tr><td>iso range</td><td>100–6400</td></tr>
+        <tr><td>shutter</td><td>1/4000s – 30s + Bulb</td></tr>
+        <tr><td>video</td><td>Full HD 1080p 30fps</td></tr>
+        <tr><td>mount</td><td>Canon EF-S</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="section-header">Lenses</div>
+    <pre><code>Lens
+├── Standard_Zoom
+│   └── Canon_EFS_18-55mm
+├── Telephoto_Zoom
+│   └── Canon_Ultrasonic_75-300mm
+├── Telephoto_Converter
+│   └── Telephoto_HD_2.2x_AF_55mm
+└── Wide_Angle_Converter
+    └── HD_0.43x_AF_Wide_Angle_55mm</code></pre>
+  </section>
+
+  <section>
+    <div class="section-header">Camera :: Canon 4000D</div>
+    <div class="cam-grid">
+      <figure>
+        <img src="../assets/images/top_cam.webp" alt="Camera top view">
+        <figcaption>top</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/images/ventral_cam.webp" alt="Camera front view">
+        <figcaption>front</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/images/side_cam.webp" alt="Camera side view">
+        <figcaption>side</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">Notes</div>
+    <p>Mostly shot in <em>Av</em> (aperture priority) and <em>M</em> Manual on low ISO,  I adjust the ISO manually when the light gets complicated.</p>
+    <p>The 18-55mm handles most of what I shoot day to day. The 75-300mm comes out for anything that needs reach;  windmills, wildlife, anything across a field.</p>
+    <p>The wide-angle and telephoto converters screw onto the front via the 55mm filter thread. Not optically perfect but light and they travel well.</p>
+  </section>
+
+  <footer>
+    <div>alberta, ca</div>
+    <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+    <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener">github</a></div>
+  </footer>
+
+</main>
+
+<!-- Lightbox -->
+<div id="img-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="lb-close-btn" aria-label="Close">esc</button>
+  <img id="lb-full" src="" alt="">
+  <span id="lb-caption"></span>
+</div>
+
+<script>
+(function(){
+  var lb    = document.getElementById('img-lightbox');
+  var lbImg = document.getElementById('lb-full');
+  var lbCap = document.getElementById('lb-caption');
+  var lbBtn = document.getElementById('lb-close-btn');
+
+  document.querySelectorAll('.cam-grid img').forEach(function(img){
+    img.addEventListener('click', function(){
+      lbImg.src = this.src;
+      lbImg.alt = this.alt;
+      var fig = this.closest('figure');
+      var cap = fig ? fig.querySelector('figcaption') : null;
+      lbCap.textContent = cap ? cap.textContent.trim() : '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbBtn.addEventListener('click', close);
+  lbImg.addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
+
+</body>
+</html>
