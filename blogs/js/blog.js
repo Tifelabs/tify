@@ -1,21 +1,17 @@
-// 4chan-style image expansion
 (function() {
     'use strict';
     
-    // Wait for DOM to load
     document.addEventListener('DOMContentLoaded', function() {
         
-        // Get all images in the article (excluding already expanded ones)
         const images = document.querySelectorAll('article img, table img');
         
         images.forEach(function(img) {
-            // Skip if already has click handler
+
             if (img.dataset.expandable) return;
             
             img.dataset.expandable = 'true';
             img.style.cursor = 'zoom-in';
             
-            // Add click handler
             img.addEventListener('click', function(e) {
                 e.preventDefault();
                 expandImage(this);
