@@ -1,58 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Understanding stack buffer overflow vulnerabilities in C - Tifelabs">
-    <title>The Stack Buffer Overflow - Tifelabs</title>
-    <link rel="icon" href="../assets/images/baby.png">
-    <link rel="stylesheet" href="../css/blog.css">
-    <script src="../js/blog.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Understanding stack buffer overflow vulnerabilities in C - Tifelabs">
+<title>The Stack Buffer Overflow - Tifelabs</title>
+<link rel="icon" href="../assets/images/baby.png">
+<link rel="stylesheet" href="../css/blog.css">
+<script src="../js/blog.js" defer></script>
+<style>
+  .stack-diagram {
+    font-family: monospace;
+    font-size: 0.88rem;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border-radius: 6px;
+    padding: 1.4rem 1.8rem;
+    margin: 1.6rem 0;
+    overflow-x: auto;
+    line-height: 1.9;
+    border-left: 3px solid #c0392b;
+  }
+
+  .stack-diagram .addr   { color: #888; user-select: none; }
+  .stack-diagram .label  { color: #f0c674; }
+  .stack-diagram .note   { color: #7ec8a4; font-style: italic; }
+  .stack-diagram .arrow  { color: #e74c3c; }
+  .stack-diagram .border { color: #555; }
+
+  code {
+    font-family: monospace;
+    background: rgba(0,0,0,0.07);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border-radius: 6px;
+    padding: 1.2rem 1.6rem;
+    overflow-x: auto;
+    font-size: 0.87rem;
+    line-height: 1.75;
+    margin: 1.4rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    border-radius: 0;
+  }
+
+  .kw  { color: #cc99cd; }
+  .fn  { color: #6fb3d2; }
+  .str { color: #7ec8a4; }
+  .cm  { color: #777; font-style: italic; }
+  .num { color: #f0c674; }
+
+  .terminal {
+    font-family: monospace;
+    font-size: 0.87rem;
+    background: #111;
+    color: #ccc;
+    border-radius: 6px;
+    padding: 1.1rem 1.6rem;
+    margin: 1.4rem 0;
+    line-height: 1.8;
+  }
+
+  .terminal .prompt  { color: #4a9; }
+  .terminal .cmd     { color: #fff; }
+  .terminal .denied  { color: #e74c3c; font-weight: bold; }
+  .terminal .granted { color: #2ecc71; font-weight: bold; }
+  .terminal .cm      { color: #555; font-style: italic; }
+
+  .callout {
+    border-left: 3px solid #c0392b;
+    background: rgba(192,57,43,0.06);
+    padding: 0.9rem 1.2rem;
+    margin: 1.6rem 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.93rem;
+  }
+
+  .callout.safe {
+    border-color: #27ae60;
+    background: rgba(39,174,96,0.06);
+  }
+
+  .callout strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-top: 2.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  h2 { margin-top: 0.4rem; margin-bottom: 0.9rem; }
+</style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/index.html">λ</a></li>
-            <li><a href="../index.html" class="active">Writing</a></li>
-            <li><a href="/Photography/">Photography</a></li>
-            <li><a href="/Resource/">Resources</a></li>
-        </ul>
-    </nav>
+<nav>
+  <ul>
+    <li><a href="/index.html">λ</a></li>
+    <li><a href="../index.html" class="active">Writing</a></li>
+    <li><a href="/Photography/">Photography</a></li>
+    <li><a href="/Resource/">Resources</a></li>
+  </ul>
+</nav>
+<a href="../" class="back-link">Back to posts</a>
 
-    <a href="../b" class="back-link">Back to posts</a>
+<article>
+  <h1>The Stack Buffer Overflow</h1>
+  <div class="post-meta">Posted on November 25, 2025</div>
 
-    <article>
-        <h1>The Stack Buffer Overflow</h1>
-        <div class="post-meta">Posted on November 25, 2025</div>
+  <p>I was going through some common C vulnerabilities and this one stopped me. The stack buffer overflow.</p>
 
-        <p>I was reading through some common buffer overflows in C, I found one which caught my interest.</p>
+  <p>If you're reading this I'm assuming you know what the stack is. If not, quick check up in the link below</p>
 
-        <p>This is the stack buffer overflow. If you are reading this I assume you know what a stack memory is. It is one of the most important aspects in the computer architecture.</p>
+  <blockquote>
+    The Stack is a region where data is added and removed in LIFO order (Last In First Out). It stores local variables, function call info, return addresses,  basically the short-term memory of the program. More here →
+    <a href="https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">Stack info</a>
+  </blockquote>
 
-        <blockquote>
-            The Stack is a region where data is being added or removed in LIFO style (Last In First Out). The stack also stores and remembers all of the passed variables and functions. You can check out this for more understanding → <a href="https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">Stack info</a>
-        </blockquote>
+  <p>So I wrote a small password checker in C to show how this works. Two valid passwords, denies everything else.</p>
 
-        <p>Back to main post, The stack buffer overflow will happen when we corrupt the memory to control the execution flow of the program. I wrote a simple password checker to demonstrate this process. Returns Access Granted if it the right one and returns Denied if it's the wrong pass.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Snippet</th>
+        <th>Positive OUT</th>
+        <th>Negative OUT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="../blog-images/pass.png" alt="Password Snippet"></td>
+        <td><img src="../blog-images/positive.png" alt="Positive"></td>
+        <td><img src="../blog-images/negative.png" alt="Negative"></td>
+      </tr>
+    </tbody>
+  </table>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Snippet</th>
-                    <th>Positive OUT</th>
-                    <th>Negative OUT</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="../blog-images/pass.png" alt="Password Snippet"></td>
-                    <td><img src="../blog-images/positive.png" alt="Positive"></td>
-                    <td><img src="../blog-images/negative.png" alt="Negative"></td>
-                </tr>
-            </tbody>
-        </table>
 
-        <div class="end-marker">𓅓— END —𓅓</div>
-    </article>
+  <p class="section-label">The Problem</p>
+  <h2>This one line</h2>
+
+  <p>Everything about this program is fine except line 12:</p>
+
+  <pre><code><span class="fn">strcpy</span>(password_buffer, password);</code></pre>
+
+  <p><code>strcpy</code> copies whatever string you hand it into <code>password_buffer</code>. That buffer is 16 bytes wide. <code>strcpy</code> doesn't know that, doesn't check that, doesn't care; it copies until it hits a <code>\0</code> and stops. That's it.</p>
+
+  <p>So if your input is 30 characters, it writes 30 bytes into a 16-byte slot. The other 14 go somewhere. That <em>somewhere</em> is the whole problem.</p>
+
+
+  <p class="section-label">Memory Layout</p>
+  <h2>What's sitting next to that buffer</h2>
+
+  <p>Inside <code>CheckPassword</code>, the stack frame looks roughly like this:</p>
+
+  <div class="stack-diagram">
+<span class="border">┌──────────────────────────────────────┐</span>
+<span class="border">│</span>  <span class="addr">0x...10</span>  <span class="label">auth</span>              <span class="note">← int  (4 bytes)</span>   <span class="border">│</span>
+<span class="border">├──────────────────────────────────────┤</span>
+<span class="border">│</span>  <span class="addr">0x...00</span>  <span class="label">password_buffer</span>   <span class="note">← char[16]</span>         <span class="border">│</span>
+<span class="border">└──────────────────────────────────────┘</span>
+               <span class="arrow">↑ overflow writes upward into auth</span>
+  </div>
+
+  <p><code>auth</code> sits right above <code>password_buffer</code> in memory. Starts at <code>0</code> ; denied by default. The only thing supposed to flip it is a correct password match.</p>
+
+  <p>But <code>strcpy</code> writes forward through memory. Byte 0, 1, 2... 15, 16, 17 >>> it doesn't stop at the boundary. Once you're past byte 15 you're writing straight into <code>auth</code>.</p>
+
+
+  <p class="section-label">The Exploit</p>
+  <h2>Getting in without the password</h2>
+
+  <p>Send anything longer than 16 characters. The overflow bytes land in <code>auth</code>. ASCII characters are all non-zero, so <code>auth</code> goes non-zero, <code>CheckPassword</code> returns true, and you're in.</p>
+
+  <img src="../blog-images/granted.png" alt="Access granted via overflow">
+
+
+  <img src="../blog-images/hex.png" alt="Memory hex view showing auth overwrite">
+
+  <p>19 A's. Three bytes past the boundary. Each A is <code>0x41</code>, so <code>auth</code> ends up as <code>0x00414141</code>. Not zero. Granted.</p>
+
+  <div class="terminal">
+    <span class="prompt">~/C ❯</span> <span class="cmd">./run hashcat</span><br>
+    <span class="granted">  ---- ACCESS GRANTED ------</span><br><br>
+    <span class="prompt">~/C ❯</span> <span class="cmd">./run James</span><br>
+    <span class="denied">  ---- ACCESS DENIED !!!----</span><br><br>
+    <span class="prompt">~/C ❯</span> <span class="cmd">./run AAAAAAAAAAAAAAAAAAA</span><br>
+    <span class="granted">  ---- ACCESS GRANTED ------</span>
+    <span class="cm">  ← wrong password, shouldn't be here</span>
+  </div>
+
+  <p>The password logic isn't broken. The check itself is fine. The bug has nothing to do with any of that; it's just about where variables sit in memory and what <code>strcpy</code> does when you feed it too much.</p>
+
+
+  <p class="section-label">On macOS</p>
+  <h2>Getting a trace trap instead?</h2>
+
+  <p>If you try this on macOS and hit <code>Trace/BPT trap: 5</code> instead of access granted ; that's the stack protector catching the overflow. Apple compiles with <code>-fstack-protector</code> and a hardened <code>strcpy</code> by default. The overflow still happens, the OS just kills the process before anything can come of it.</p>
+
+  <p>To see it actually work, strip the protections at compile time:</p>
+
+  <code>cc stack_buff.c -o run -fno-stack-protector -D_FORTIFY_SOURCE=0</code>
+
+
+  <div class="callout">
+    <strong>What's actually happening</strong>
+    The compiler places a "canary" value on the stack before the return address. When the function returns, it checks if the canary is still intact. The overflow corrupts it, the check fails, SIGTRAP. The overflow happened — you just got caught.
+  </div>
+
+
+  <p class="section-label">The Fix</p>
+  <h2>One swap</h2>
+
+  <pre><code><span class="cm">// before</span>
+<span class="fn">strcpy</span>(password_buffer, password);
+
+<span class="cm">// after</span>
+<span class="fn">strncpy</span>(password_buffer, password, BUFFER - <span class="num">1</span>);
+password_buffer[BUFFER - <span class="num">1</span>] = <span class="str">'\0'</span>;</code></pre>
+
+  <p><code>strncpy</code> takes a max length. 19 A's come in, 15 get copied, the rest get dropped. <code>auth</code> never gets touched. If you're on macOS you can use <code>strlcpy</code> instead — same idea, handles the null terminator automatically.</p>
+
+
+  <div class="callout safe">
+    <strong>Where this goes next</strong>
+    This demo just flips an auth flag. The scarier version is overwriting the return address instead of changing a variable, you redirect execution to arbitrary code. That's stack smashing, and it's the same root cause. Might write about that next in my free time.
+  </div>
+
+  <div class="end-marker">𓅓— END —𓅓</div>
+</article>
 </body>
 </html>
