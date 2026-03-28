@@ -224,7 +224,7 @@
 
   <div class="callout">
     <strong>What's actually happening</strong>
-    The compiler places a "canary" value on the stack before the return address. When the function returns, it checks if the canary is still intact. The overflow corrupts it, the check fails, SIGTRAP. The overflow happened — you just got caught.
+    The compiler places a "canary" value on the stack before the return address. When the function returns, it checks if the canary is still intact. The overflow corrupts it, the check fails, SIGTRAP. 
   </div>
 
 
