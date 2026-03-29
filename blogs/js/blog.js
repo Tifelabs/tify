@@ -1,44 +1,43 @@
 (() => {
 ‘use strict’;
 
-const SEL = ‘article img, table img’;
-let activeOverlay = null;
-
 document.addEventListener(‘DOMContentLoaded’, () => {
-document.addEventListener(‘click’, e => {
-const img = e.target.closest(SEL);
-if (img && !activeOverlay) {
+document.querySelectorAll(‘article img, table img’).forEach(img => {
+if (img.dataset.expandable) return;
+img.dataset.expandable = ‘true’;
+img.style.cursor = ‘zoom-in’;
+img.addEventListener(‘click’, e => {
 e.preventDefault();
 expandImage(img);
-}
+});
 });
 });
 
 function expandImage(img) {
 const overlay = document.createElement(‘div’);
 overlay.className = ‘img-expanded’;
-overlay.innerHTML = `<img src="${img.src}" alt="${img.alt || ''}" style="cursor:zoom-out">`;
+
+
+const clone = img.cloneNode(true);
+clone.style.cursor = 'zoom-out';
+overlay.appendChild(clone);
 document.body.append(overlay);
-document.body.style.overflow = ‘hidden’;
-activeOverlay = overlay;
+document.body.style.overflow = 'hidden';
 
-```
-const escHandler = e => e.key === 'Escape' && close();
-
-function close() {
-  overlay.removeEventListener('click', close);
+const close = () => {
   document.removeEventListener('keydown', escHandler);
   overlay.addEventListener('transitionend', () => {
     overlay.remove();
     document.body.style.overflow = '';
-    activeOverlay = null;
   }, { once: true });
   overlay.style.opacity = '0';
-}
+};
 
-overlay.addEventListener('click', close);
+const escHandler = e => e.key === 'Escape' && close();
+
+overlay.addEventListener('click', close, { once: true });
 document.addEventListener('keydown', escHandler);
-```
+
 
 }
 })();
