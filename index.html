@@ -11,139 +11,52 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="./assets/banner/School_of_Athens.webp">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #f2ede4; --ink: #1c1917; --muted: #9c9589;
-    --accent: #2d6a4f; --rule: #ddd8ce; --thumb-bg: #e4dfd6;
-  }
-
-  html { scroll-behavior: smooth; }
-
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg:#f2ede4; --ink:#1c1917; --muted:#9c9589; --accent:#2d6a4f; --rule:#ddd8ce; --thumb-bg:#e4dfd6; }
+  html { scroll-behavior:smooth; }
   body {
-    font-family: 'Spectral', Georgia, serif;
-    font-size: 15px; line-height: 1.7;
-    color: var(--ink); background: var(--bg);
-    max-width: 580px; margin: 0 auto;
-    padding: 72px 28px 96px;
-    opacity: 0; animation: fadein .55s ease forwards;
+    font:400 15px/1.7 'Spectral',Georgia,serif;
+    color:var(--ink); background:var(--bg);
+    max-width:580px; margin:0 auto; padding:72px 28px 96px;
+    opacity:0; animation:fadein .55s ease forwards;
   }
-
-  @keyframes fadein { to { opacity: 1; } }
-
-  .banner {
-    width: 100%; height: 148px;
-    object-fit: cover; object-position: center 38%;
-    display: block; margin-bottom: 52px; border-radius: 2px;
-  }
-
-  nav { margin-bottom: 80px; }
-
-  nav ul { list-style: none; display: flex; gap: 32px; align-items: baseline; }
-
-  nav a {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; font-weight: 300;
-    color: var(--muted); text-decoration: none;
-    letter-spacing: .03em; transition: color .18s;
-  }
-
-  nav a:is(.active, :hover) { color: var(--ink); }
-  nav a.active { font-weight: 400; }
-
-  h1 { font-size: 15px; font-weight: 400; margin-bottom: 10px; letter-spacing: .01em; }
-
-  .intro {
-    font-size: 14px; font-weight: 300;
-    color: #3d3933; margin-bottom: 80px; max-width: 460px;
-  }
-
-  mark {
-    background: linear-gradient(180deg, transparent 58%, rgba(180,210,160,.55) 58%);
-    padding: 0 1px;
-  }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; font-weight: 400;
-    color: var(--muted); letter-spacing: .12em;
-    text-transform: uppercase; margin-bottom: 20px;
-  }
-
-  .projects { margin-bottom: 80px; }
-
-  .project-list { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
-
-  .project-entry { display: flex; flex-direction: column; border-bottom: 1px solid var(--rule); }
-
-  .project-item {
-    display: flex; align-items: center; gap: 18px;
-    text-decoration: none; color: inherit;
-    padding: 14px 0; transition: opacity .15s;
-  }
-
-  .project-item:hover { opacity: .82; }
-
-  .project-thumb {
-    width: 68px; height: 46px;
-    object-fit: cover; border-radius: 2px;
-    background: var(--thumb-bg); flex-shrink: 0;
-    cursor: pointer; transition: opacity .18s;
-  }
-
-  .project-thumb:hover { opacity: .75; }
-
-  .project-info { display: flex; flex-direction: column; gap: 3px; }
-
-  .project-name {
-    font-size: 14px; font-weight: 500; color: var(--accent);
-    text-decoration: underline;
-    text-decoration-color: rgba(45,106,79,.35);
-    text-underline-offset: 3px;
-  }
-
-  .project-item:hover .project-name { text-decoration-color: var(--accent); }
-
-  .project-desc {
-    font-size: 12.5px; font-weight: 300;
-    font-style: italic; color: var(--muted); line-height: 1.55;
-  }
-
-  .project-desc em { font-style: normal; color: #6b6560; }
-
-  .project-thumb.expanded {
-    width: 100%; max-width: 340px; height: auto;
-    object-fit: contain; border-radius: 3px;
-    background: #1a1a18; box-shadow: 0 8px 28px rgba(0,0,0,.16);
-    margin: 4px 0 12px;
-  }
-
-  footer {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px; font-weight: 300;
-    color: var(--muted); line-height: 2.1; letter-spacing: .02em;
-  }
-
-  footer a {
-    color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 1px; transition: border-color .18s, opacity .18s;
-  }
-
-  footer a:hover { opacity: .6; border-color: var(--ink); }
-
-  @media (max-width: 600px) {
-    body     { padding: 48px 20px 72px; }
-    .banner  { height: 112px; margin-bottom: 36px; }
-    nav, .intro, .projects { margin-bottom: 56px; }
-    .project-thumb.expanded { max-width: 100%; }
+  @keyframes fadein { to { opacity:1; } }
+  .banner { width:100%; height:148px; object-fit:cover; object-position:center 38%; display:block; margin-bottom:52px; border-radius:2px; }
+  nav { margin-bottom:80px; }
+  nav ul { list-style:none; display:flex; gap:32px; align-items:baseline; }
+  nav a { font:300 12px/1 'JetBrains Mono',monospace; color:var(--muted); text-decoration:none; letter-spacing:.03em; transition:color .18s; }
+  nav a:is(.active,:hover) { color:var(--ink); }
+  nav a.active { font-weight:400; }
+  h1 { font-size:15px; font-weight:400; margin-bottom:10px; letter-spacing:.01em; }
+  .intro { font:300 14px/1.7 'Spectral',serif; color:#3d3933; margin-bottom:80px; max-width:460px; }
+  mark { background:linear-gradient(180deg,transparent 58%,rgba(180,210,160,.55) 58%); padding:0 1px; }
+  .section-label { font:400 10px/1 'JetBrains Mono',monospace; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:20px; }
+  .projects { margin-bottom:80px; }
+  .project-list { display:flex; flex-direction:column; border-top:1px solid var(--rule); }
+  .project-entry { display:flex; flex-direction:column; border-bottom:1px solid var(--rule); }
+  .project-item { display:flex; align-items:center; gap:18px; text-decoration:none; color:inherit; padding:14px 0; transition:opacity .15s; }
+  .project-item:hover { opacity:.82; }
+  .project-thumb { width:68px; height:46px; object-fit:cover; border-radius:2px; background:var(--thumb-bg); flex-shrink:0; cursor:pointer; transition:opacity .18s; }
+  .project-thumb:hover { opacity:.75; }
+  .project-info { display:flex; flex-direction:column; gap:3px; }
+  .project-name { font-size:14px; font-weight:500; color:var(--accent); text-decoration:underline; text-decoration-color:rgba(45,106,79,.35); text-underline-offset:3px; }
+  .project-item:hover .project-name { text-decoration-color:var(--accent); }
+  .project-desc { font:300 italic 12.5px/1.55 'Spectral',serif; color:var(--muted); }
+  .project-desc em { font-style:normal; color:#6b6560; }
+  .project-thumb.expanded { width:100%; max-width:340px; height:auto; object-fit:contain; border-radius:3px; background:#1a1a18; box-shadow:0 8px 28px rgba(0,0,0,.16); margin:4px 0 12px; }
+  footer { font:300 11.5px/2.1 'JetBrains Mono',monospace; color:var(--muted); letter-spacing:.02em; }
+  footer a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule); padding-bottom:1px; transition:border-color .18s,opacity .18s; }
+  footer a:hover { opacity:.6; border-color:var(--ink); }
+  @media (max-width:600px) {
+    body { padding:48px 20px 72px; }
+    .banner { height:112px; margin-bottom:36px; }
+    nav, .intro, .projects { margin-bottom:56px; }
+    .project-thumb.expanded { max-width:100%; }
   }
 </style>
 </head>
 <body>
-
 <img class="banner" src="./assets/banner/School_of_Athens.webp" alt="The School of Athens" fetchpriority="high">
-
 <nav>
   <ul>
     <li><a href="index.html" class="active">&#955;</a></li>
@@ -152,15 +65,12 @@
     <li><a href="./Resource/">Resources</a></li>
   </ul>
 </nav>
-
 <main>
   <h1>Hi, I'm Tife.</h1>
   <p class="intro">I write low-level code, mess with exploit dev, and take photos.</p>
-
   <section class="projects">
     <p class="section-label">Projects</p>
     <div class="project-list">
-
       <div class="project-entry">
         <a href="https://github.com/tifelabs/gpulite" class="project-item" target="_blank" rel="noopener">
           <img class="project-thumb" src="./assets/images/gpulite.png" alt="gpulite" onerror="this.style.visibility='hidden'">
@@ -170,7 +80,6 @@
           </div>
         </a>
       </div>
-
       <div class="project-entry">
         <a href="https://github.com/Tifelabs/system_prog/tree/main/EXPLOIT" class="project-item" target="_blank" rel="noopener">
           <img class="project-thumb" src="./assets/images/htoe.png" alt="system exploits" onerror="this.style.visibility='hidden'">
@@ -180,49 +89,30 @@
           </div>
         </a>
       </div>
-
     </div>
   </section>
-
   <footer>
     <div>alberta, ca</div>
     <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
     <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener">github</a></div>
   </footer>
 </main>
-
 <script>
   const thumbs = document.querySelectorAll('.project-thumb');
-
   function collapse() {
-    thumbs.forEach(t => {
-      if (!t.classList.contains('expanded')) return;
-      t.classList.remove('expanded');
-      t.closest('.project-item')?.prepend(t);
-    });
+    thumbs.forEach(t => { if (!t.classList.contains('expanded')) return; t.classList.remove('expanded'); t.closest('.project-item')?.prepend(t); });
   }
-
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', e => {
       e.preventDefault(); e.stopPropagation();
       const wasOpen = thumb.classList.contains('expanded');
       collapse();
-      if (!wasOpen) {
-        thumb.closest('.project-entry')
-             .querySelector('.project-item')
-             .after(thumb);
-        thumb.classList.add('expanded');
-      }
+      if (!wasOpen) { thumb.closest('.project-entry').querySelector('.project-item').after(thumb); thumb.classList.add('expanded'); }
     });
   });
-
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.project-thumb')) collapse();
-  });
+  document.addEventListener('click', e => { if (!e.target.closest('.project-thumb')) collapse(); });
 </script>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>
-
 </body>
 </html>
