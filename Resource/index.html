@@ -8,157 +8,65 @@
 <link rel="icon" href="../assets/images/baby.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:     #f2ede4;
-    --ink:    #1c1917;
-    --muted:  #9c9589;
-    --accent: #2d6a4f;
-    --rule:   #e0ddd7;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  :root { --bg:#f2ede4; --ink:#1c1917; --muted:#9c9589; --accent:#2d6a4f; --rule:#e0ddd7; }
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
-    font-family: 'Spectral', Georgia, serif;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--ink);
-    background: var(--bg);
-    max-width: 580px;
-    margin: 0 auto;
-    padding: 80px 24px 96px;
-    opacity: 0;
-    animation: fadein .5s ease forwards;
+    font:300 14px/1.6 'Spectral',Georgia,serif;
+    color:var(--ink); background:var(--bg);
+    max-width:580px; margin:0 auto; padding:80px 24px 96px;
+    opacity:0; animation:fadein .5s ease forwards;
   }
-
-  @keyframes fadein { to { opacity: 1; } }
-
-  /* Nav */
-  nav { margin-bottom: 80px; }
-
-  nav ul { list-style: none; display: flex; gap: 32px; }
-
+  @keyframes fadein { to { opacity:1; } }
+  nav { margin-bottom:80px; }
+  nav ul { list-style:none; display:flex; gap:32px; }
   nav a {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 300;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: .03em;
-    transition: color .15s;
+    font:300 12px/1 'JetBrains Mono',monospace;
+    color:var(--muted); text-decoration:none;
+    letter-spacing:.03em; transition:color .15s;
   }
-
-  nav a.active,
-  nav a:hover { color: var(--ink); }
-
-  /* Header */
-  header { margin-bottom: 48px; }
-
-  .subtitle {
-    font-family: 'Spectral', serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: var(--ink);
-  }
-
-  /* Intro */
-  .intro {
-    font-size: 13px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    margin-bottom: 48px;
-  }
-
-  /* Resources */
-  .resources { margin-bottom: 80px; }
-
-  .category-section { margin-bottom: 44px; }
-
+  nav a.active, nav a:hover { color:var(--ink); }
+  header { margin-bottom:48px; }
+  .subtitle { font:400 15px/1 'Spectral',serif; color:var(--ink); }
+  .intro { font:300 italic 13px/1.6 'Spectral',serif; color:var(--muted); margin-bottom:48px; }
+  .resources { margin-bottom:80px; }
+  .category-section { margin-bottom:44px; }
   .category-header {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--muted);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--rule);
+    font:400 10px/1 'JetBrains Mono',monospace;
+    color:var(--muted); letter-spacing:.1em; text-transform:uppercase;
+    margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--rule);
   }
-
-  .link-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 8px;
-    margin-bottom: 12px;
-    align-items: baseline;
-  }
-
+  .link-item { display:grid; grid-template-columns:auto 1fr; gap:8px; margin-bottom:12px; align-items:baseline; }
   .link-item a {
-    font-family: 'Spectral', serif;
-    font-size: 13.5px;
-    font-weight: 400;
-    color: var(--accent);
-    text-decoration: underline;
-    text-decoration-color: rgba(45,106,79,.3);
-    text-underline-offset: 2px;
-    transition: text-decoration-color .18s;
+    font:400 13.5px/1 'Spectral',serif; color:var(--accent);
+    text-decoration:underline; text-decoration-color:rgba(45,106,79,.3);
+    text-underline-offset:2px; transition:text-decoration-color .18s;
   }
-
-  .link-item a:hover {
-    text-decoration-color: var(--accent);
-  }
-
-  .link-description {
-    font-size: 12.5px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .link-description::before { content: "— "; }
-
-  /* Footer */
+  .link-item a:hover { text-decoration-color:var(--accent); }
+  .link-description { font:300 italic 12.5px/1.4 'Spectral',serif; color:var(--muted); }
+  .link-description::before { content:"— "; }
   footer {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 2.1;
-    letter-spacing: .02em;
-    padding-top: 48px;
-    border-top: 1px solid var(--rule);
+    font:300 11.5px/2.1 'JetBrains Mono',monospace;
+    color:var(--muted); letter-spacing:.02em;
+    padding-top:48px; border-top:1px solid var(--rule);
   }
-
   footer a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 1px;
-    transition: border-color .18s, opacity .18s;
+    color:var(--ink); text-decoration:none;
+    border-bottom:1px solid var(--rule); padding-bottom:1px;
+    transition:border-color .18s, opacity .18s;
   }
-
-  footer a:hover { opacity: .6; border-color: var(--ink); }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    body { padding: 60px 20px 72px; }
-    nav { margin-bottom: 56px; }
-    nav ul { gap: 24px; }
-    .link-item { gap: 6px; margin-bottom: 14px; }
+  footer a:hover { opacity:.6; border-color:var(--ink); }
+  @media (max-width:600px) {
+    body { padding:60px 20px 72px; }
+    nav { margin-bottom:56px; }
+    nav ul { gap:24px; }
+    .link-item { gap:6px; margin-bottom:14px; }
   }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="subtitle">Resources</div>
-</header>
-
+<header><div class="subtitle">Resources</div></header>
 <nav>
   <ul>
     <li><a href="../index.html">&#955;</a></li>
@@ -167,76 +75,42 @@
     <li><a href="../Resource/" class="active">Resources</a></li>
   </ul>
 </nav>
-
 <main>
   <p class="intro">A curated list of links I find interesting — 100% worth reading.</p>
-
   <section class="resources">
 
     <div class="category-section">
       <div class="category-header">Writings &amp; Videos</div>
-      <div class="link-item">
-        <a href="https://phrack.org/" target="_blank" rel="noopener">Phrack</a>
-        <span class="link-description">Hackers Magazine</span>
-      </div>
-      <div class="link-item">
-        <a href="https://unixdigest.com/tutorials/pointers-in-c.html" target="_blank" rel="noopener">Unix Digest</a>
-        <span class="link-description">Pointers In C</span>
-      </div>
-      <div class="link-item">
-        <a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank" rel="noopener">Real Engineering</a>
-        <span class="link-description">The Insane Engineering of the SR-71 Blackbird</span>
-      </div>
-      <div class="link-item">
-        <a href="https://serenityos.org/happy/1st/" target="_blank" rel="noopener">Serenity OS</a>
-        <span class="link-description">SerenityOS: From zero to HTML in a year</span>
-      </div>
-      <div class="link-item">
-        <a href="https://gwern.net/death-note-anonymity" target="_blank" rel="noopener">Death Note</a>
-        <span class="link-description">Death Note: L, Anonymity &amp; Eluding Entropy</span>
-      </div>
+      <div class="link-item"><a href="https://phrack.org/" target="_blank" rel="noopener">Phrack</a><span class="link-description">Hackers Magazine</span></div>
+      <div class="link-item"><a href="https://unixdigest.com/tutorials/pointers-in-c.html" target="_blank" rel="noopener">Unix Digest</a><span class="link-description">Pointers In C</span></div>
+      <div class="link-item"><a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank" rel="noopener">Real Engineering</a><span class="link-description">The Insane Engineering of the SR-71 Blackbird</span></div>
+      <div class="link-item"><a href="https://serenityos.org/happy/1st/" target="_blank" rel="noopener">Serenity OS</a><span class="link-description">SerenityOS: From zero to HTML in a year</span></div>
+      <div class="link-item"><a href="https://gwern.net/death-note-anonymity" target="_blank" rel="noopener">Death Note</a><span class="link-description">Death Note: L, Anonymity &amp; Eluding Entropy</span></div>
     </div>
 
     <div class="category-section">
       <div class="category-header">Programming</div>
-      <div class="link-item">
-        <a href="https://craftinginterpreters.com/" target="_blank" rel="noopener">Crafting Interpreters</a>
-        <span class="link-description">A handbook for making programming languages</span>
-      </div>
+      <div class="link-item"><a href="https://craftinginterpreters.com/" target="_blank" rel="noopener">Crafting Interpreters</a><span class="link-description">A handbook for making programming languages</span></div>
     </div>
 
     <div class="category-section">
       <div class="category-header">Systems</div>
-      <div class="link-item">
-        <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">Operating Systems: Three Easy Pieces</a>
-        <span class="link-description">Free online operating systems book</span>
-      </div>
-      <div class="link-item">
-        <a href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener">Beej's Guide to Network Programming</a>
-        <span class="link-description">Socket programming guide using Internet sockets</span>
-      </div>
+      <div class="link-item"><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">Operating Systems: Three Easy Pieces</a><span class="link-description">Free online operating systems book</span></div>
+      <div class="link-item"><a href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener">Beej's Guide to Network Programming</a><span class="link-description">Socket programming guide using Internet sockets</span></div>
     </div>
 
     <div class="category-section">
       <div class="category-header">Personal Websites</div>
-      <div class="link-item">
-        <a href="https://near.blog/" target="_blank" rel="noopener">Near</a>
-        <span class="link-description">A great website with great blogs</span>
-      </div>
-      <div class="link-item">
-        <a href="https://fabiensanglard.net/" target="_blank" rel="noopener">Fabien</a>
-        <span class="link-description">Great website with computer graphics, low-level, and computer systems info</span>
-      </div>
+      <div class="link-item"><a href="https://near.blog/" target="_blank" rel="noopener">Near</a><span class="link-description">A great website with great blogs</span></div>
+      <div class="link-item"><a href="https://fabiensanglard.net/" target="_blank" rel="noopener">Fabien</a><span class="link-description">Great website with computer graphics, low-level, and computer systems info</span></div>
     </div>
 
   </section>
-
   <footer>
     <div>alberta, ca</div>
     <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
     <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener">github</a></div>
   </footer>
 </main>
-
 </body>
 </html>
