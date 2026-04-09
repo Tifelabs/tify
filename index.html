@@ -9,11 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="./assets/banner/School_of_Athens.webp">
 <style>
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   :root { --bg:#f2ede4; --ink:#1c1917; --muted:#9c9589; --accent:#2d6a4f; --rule:#ddd8ce; --thumb-bg:#e4dfd6; }
-  html { scroll-behavior:smooth; }
   body {
     font:400 15px/1.7 'Spectral',Georgia,serif;
     color:var(--ink); background:var(--bg);
@@ -23,17 +21,16 @@
   @keyframes fadein { to { opacity:1; } }
   .banner { width:100%; height:148px; object-fit:cover; object-position:center 38%; display:block; margin-bottom:52px; border-radius:2px; }
   nav { margin-bottom:80px; }
-  nav ul { list-style:none; display:flex; gap:32px; align-items:baseline; }
+  nav ul { list-style:none; display:flex; gap:32px; }
   nav a { font:300 12px/1 'JetBrains Mono',monospace; color:var(--muted); text-decoration:none; letter-spacing:.03em; transition:color .18s; }
   nav a:is(.active,:hover) { color:var(--ink); }
   nav a.active { font-weight:400; }
-  h1 { font-size:15px; font-weight:400; margin-bottom:10px; letter-spacing:.01em; }
+  h1 { font-size:15px; font-weight:400; margin-bottom:10px; }
   .intro { font:300 14px/1.7 'Spectral',serif; color:#3d3933; margin-bottom:80px; max-width:460px; }
-  mark { background:linear-gradient(180deg,transparent 58%,rgba(180,210,160,.55) 58%); padding:0 1px; }
   .section-label { font:400 10px/1 'JetBrains Mono',monospace; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:20px; }
   .projects { margin-bottom:80px; }
-  .project-list { display:flex; flex-direction:column; border-top:1px solid var(--rule); }
-  .project-entry { display:flex; flex-direction:column; border-bottom:1px solid var(--rule); }
+  .project-list { border-top:1px solid var(--rule); }
+  .project-entry { border-bottom:1px solid var(--rule); }
   .project-item { display:flex; align-items:center; gap:18px; text-decoration:none; color:inherit; padding:14px 0; transition:opacity .15s; }
   .project-item:hover { opacity:.82; }
   .project-thumb { width:68px; height:46px; object-fit:cover; border-radius:2px; background:var(--thumb-bg); flex-shrink:0; cursor:pointer; transition:opacity .18s; }
@@ -85,7 +82,7 @@
           <img class="project-thumb" src="./assets/images/htoe.png" alt="system exploits" onerror="this.style.visibility='hidden'">
           <div class="project-info">
             <span class="project-name">system exploits</span>
-            <span class="project-desc">C &middot; asm &middot; Studied <em>Hacking: The Art of Exploitation, 2nd Edition</em> cover-to-cover, manually implementing every code sample and exploit to build hands-on intuition for low-level security and systems concepts.</span>
+            <span class="project-desc">C &middot; asm &middot; <em>Hacking: The Art of Exploitation, 2nd Edition</em> — every code sample implemented by hand.</span>
           </div>
         </a>
       </div>
@@ -99,9 +96,7 @@
 </main>
 <script>
   const thumbs = document.querySelectorAll('.project-thumb');
-  function collapse() {
-    thumbs.forEach(t => { if (!t.classList.contains('expanded')) return; t.classList.remove('expanded'); t.closest('.project-item')?.prepend(t); });
-  }
+  const collapse = () => thumbs.forEach(t => { if (t.classList.contains('expanded')) { t.classList.remove('expanded'); t.closest('.project-item')?.prepend(t); } });
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', e => {
       e.preventDefault(); e.stopPropagation();
