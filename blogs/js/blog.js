@@ -1,65 +1,45 @@
 (() => {
   'use strict';
 
-  const ATTR = 'data-expandable';
-  const OVERFLOW = 'overflow';
-  const OPACITY = 'opacity';
-  const TRANSITION_MS = 200;
-  const ESC = 'Escape';
-
-  const overlay = document.createElement('div');
-  overlay.className = 'img-expanded';
+  const overlay = Object.assign(document.createElement('div'), { className: 'img-expanded' });
   overlay.style.cssText = 'opacity:0;will-change:opacity;';
 
-  let _img = null;
-  let _tid = 0;
-  let _open = false;
+  let _tid = 0, _open = false;
+
+  const teardown = () => {
+    overlay.remove();
+    document.body.style.overflow = '';
+    overlay.replaceChildren();
+  };
 
   const close = () => {
     if (!_open) return;
     _open = false;
     document.removeEventListener('keydown', onKey);
     clearTimeout(_tid);
-    requestAnimationFrame(() => {
-      overlay.style[OPACITY] = '0';
-      _tid = setTimeout(teardown, TRANSITION_MS);
-    });
+    overlay.style.opacity = '0';
+    _tid = setTimeout(teardown, 200);
   };
 
-  const onKey = e => e.key === ESC && close();
-
-  const teardown = () => {
-    overlay.remove();
-    document.body.style[OVERFLOW] = '';
-    overlay.replaceChildren();
-    _img = null;
-  };
+  const onKey = ({ key }) => key === 'Escape' && close();
 
   overlay.addEventListener('click', close);
 
-  const onDocClick = e => {
+  document.addEventListener('click', e => {
     const t = e.target;
-    if (t.tagName !== 'IMG' || !t.matches('article img, table img') || _open) return;
-
+    if (_open || t.tagName !== 'IMG' || !t.matches('article img, table img')) return;
     e.preventDefault();
     _open = true;
-    _img = t;
 
     const clone = t.cloneNode(false);
     clone.style.cssText = 'cursor:zoom-out;pointer-events:none;';
     delete clone.dataset.expandable;
 
-    overlay.appendChild(clone);
+    overlay.append(clone);
     document.body.append(overlay);
-    document.body.style[OVERFLOW] = 'hidden';
+    document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKey);
 
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        overlay.style[OPACITY] = '1';
-      })
-    );
-  };
-
-  document.addEventListener('click', onDocClick);
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.style.opacity = '1'));
+  });
 })();
