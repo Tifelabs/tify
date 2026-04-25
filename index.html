@@ -41,6 +41,7 @@
   .project-desc { font:300 italic 12.5px/1.55 'Spectral',serif; color:var(--muted); }
   .project-desc em { font-style:normal; color:#6b6560; }
   .project-thumb.expanded { width:100%; max-width:340px; height:auto; object-fit:contain; border-radius:3px; background:#1a1a18; box-shadow:0 8px 28px rgba(0,0,0,.16); margin:4px 0 12px; }
+  .project-item.has-expanded { align-items:flex-start; }
   footer { font:300 11.5px/2.1 'JetBrains Mono',monospace; color:var(--muted); letter-spacing:.02em; }
   footer a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule); padding-bottom:1px; transition:border-color .18s,opacity .18s; }
   footer a:hover { opacity:.6; border-color:var(--ink); }
@@ -66,11 +67,11 @@
   <h1>Hi, I'm Tife.</h1>
   <p class="intro">I write low-level code, mess with exploit dev, and take photos.</p>
   <section class="projects">
-    <p class="section-label">Projects</p>
+    <h2 class="section-label">Projects</h2>
     <div class="project-list">
       <div class="project-entry">
-        <a href="https://github.com/tifelabs/gpulite" class="project-item" target="_blank" rel="noopener">
-          <img class="project-thumb" src="./assets/images/gpulite.png" alt="gpulite" onerror="this.style.visibility='hidden'">
+        <a href="https://github.com/tifelabs/gpulite" class="project-item" target="_blank" rel="noopener noreferrer">
+          <img class="project-thumb" src="./assets/images/gpulite.png" alt="gpulite" onerror="this.style.display='none'">
           <div class="project-info">
             <span class="project-name">gpulite</span>
             <span class="project-desc">C++ &middot; lightweight GPU monitor for macOS</span>
@@ -78,8 +79,8 @@
         </a>
       </div>
       <div class="project-entry">
-        <a href="https://github.com/Tifelabs/system_prog/tree/main/EXPLOIT" class="project-item" target="_blank" rel="noopener">
-          <img class="project-thumb" src="./assets/images/htoe.png" alt="system exploits" onerror="this.style.visibility='hidden'">
+        <a href="https://github.com/Tifelabs/system_prog/tree/main/EXPLOIT" class="project-item" target="_blank" rel="noopener noreferrer">
+          <img class="project-thumb" src="./assets/images/htoe.png" alt="system exploits" onerror="this.style.display='none'">
           <div class="project-info">
             <span class="project-name">system exploits</span>
             <span class="project-desc">C &middot; asm &middot; <em>Hacking: The Art of Exploitation, 2nd Edition</em> — every code sample implemented by hand.</span>
@@ -88,21 +89,32 @@
       </div>
     </div>
   </section>
-  <footer>
-    <div>alberta, ca</div>
-    <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-    <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener">github</a></div>
-  </footer>
 </main>
+<footer>
+  <div>alberta, ca</div>
+  <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+  <div><a href="https://github.com/tifelabs" target="_blank" rel="noopener noreferrer">github</a></div>
+</footer>
 <script>
   const thumbs = document.querySelectorAll('.project-thumb');
-  const collapse = () => thumbs.forEach(t => { if (t.classList.contains('expanded')) { t.classList.remove('expanded'); t.closest('.project-item')?.prepend(t); } });
+  const collapse = () => thumbs.forEach(t => {
+    if (t.classList.contains('expanded')) {
+      t.classList.remove('expanded');
+      t.closest('.project-item')?.prepend(t);
+      t.closest('.project-item')?.classList.remove('has-expanded');
+    }
+  });
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', e => {
       e.preventDefault(); e.stopPropagation();
       const wasOpen = thumb.classList.contains('expanded');
       collapse();
-      if (!wasOpen) { thumb.closest('.project-entry').querySelector('.project-item').after(thumb); thumb.classList.add('expanded'); }
+      if (!wasOpen) {
+        const item = thumb.closest('.project-entry').querySelector('.project-item');
+        item.after(thumb);
+        thumb.classList.add('expanded');
+        item.classList.add('has-expanded');
+      }
     });
   });
   document.addEventListener('click', e => { if (!e.target.closest('.project-thumb')) collapse(); });
