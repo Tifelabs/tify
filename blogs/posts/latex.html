@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Why I switched to LaTeX for technical notes - Tifelabs">
+  <title>Switching to Latex</title>
+  <link rel="icon" href="../assets/images/baby.png">
+  <link rel="stylesheet" href="../css/blog.css">
+  <script src="../js/blog.js" defer></script>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="/index.html">λ</a></li>
+    <li><a href="../index.html" class="active">Writing</a></li>
+    <li><a href="/Photography/">Photography</a></li>
+    <li><a href="/Resource/">Resources</a></li>
+  </ul>
+</nav>
+
+<a href="../" class="back-link"> Back to posts</a>
+
+<article>
+  <h1>Why I switched to LaTeX for my notes</h1>
+  <p class="meta">May 2026 · 3 min read</p>
+
+  <p>I have been writing a lot of notes and documents recently using LaTeX, and it has quietly become one of the better workflow decisions I have made this year.</p>
+
+  <p>The clearest win is math. Having a proper way to render formulas and text notation; without worrying about rendering or format errors, it makes a real difference when working through anything technical. Markdown is great for prose, but it was never designed for equations.</p>
+
+  <p>It has its own learning, but it is genuinely not steep. Most of the time I am looking up a package or a style command on <a href="https://quickref.me/latex.html">here</a>, and the feedback loop, writing source, compiling, seeing the rendered output, is quite satisfying.</p>
+
+  <img src="../blog-images/latex_encoding.png" alt="A LaTeX document showing math notation rendered in a PDF">
+  <p>One of my interesting time is trying rendering Amdahl's formula both in latex and markdown</p>
+
+
+  <p class="latex">
+     \begin{equation*}
+    T_{\text{new}}= (1 - \alpha)T_{\text{old}} + \frac{(\alpha T{\text{old}}) }{k}
+        \end{equation*}
+    \begin{align*}
+        &= T_{\text{old}}[(1 - \alpha) + \frac{\alpha}{k}]
+    \end{align*}
+
+    \begin{align*}
+        S &= \frac{1}{(1 - \alpha) + \alpha + \frac{\alpha}{k}}
+    \end{align*}
+  </p>
+
+
+  <p>I have been a Markdown user for a long time. Switching to LaTeX for anything that involves notation or structure does not feel like a downgrade, it feels like picking up the right tool. The output is precise, consistent, and genuinely pleasant to read.</p>
+
+  <p>If you spend any meaningful time with math, physics, programming or structured technical writing, it is worth trying. The first few minutes of setup pays for itself quickly.</p>
+
+  <div class="end-marker">𓅓— END —𓅓</div>
+</article>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script src="../js/jquery.jslatex.js"></script>
+<script>
+  $(function () {
+    $(".latex").latex();
+  });
+</script>
+</body>
+</html>
