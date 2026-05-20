@@ -6,8 +6,6 @@
 <meta name="description" content="Tifelabs — Resources">
 <title>Resources - Tifelabs</title>
 <link rel="icon" href="../assets/images/baby.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root { --bg:#f2ede4; --ink:#1c1917; --muted:#9c9589; --accent:#2d6a4f; --rule:#e0ddd7; }
@@ -27,25 +25,20 @@
     letter-spacing:.03em; transition:color .15s;
   }
   nav a.active, nav a:hover { color:var(--ink); }
-  header { margin-bottom:48px; }
-  .subtitle { font:400 15px/1 'Spectral',serif; color:var(--ink); }
+  .subtitle { font:400 15px/1 'Spectral',serif; margin-bottom:48px; }
   .intro { font:300 italic 13px/1.6 'Spectral',serif; color:var(--muted); margin-bottom:48px; }
-  .resources { margin-bottom:80px; }
-  .category-section { margin-bottom:44px; }
-  .category-header {
+  section { margin-bottom:44px; }
+  h2 {
     font:400 10px/1 'JetBrains Mono',monospace;
     color:var(--muted); letter-spacing:.1em; text-transform:uppercase;
     margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--rule);
   }
   .link-item { display:grid; grid-template-columns:auto 1fr; gap:8px; margin-bottom:12px; align-items:baseline; }
-  .link-item a {
-    font:400 13.5px/1 'Spectral',serif; color:var(--accent);
-    text-decoration:underline; text-decoration-color:rgba(45,106,79,.3);
-    text-underline-offset:2px; transition:text-decoration-color .18s;
-  }
+  a { color:var(--accent); text-decoration:underline; text-decoration-color:rgba(45,106,79,.3); text-underline-offset:2px; transition:text-decoration-color .18s; }
+  .link-item a { font:400 13.5px/1 'Spectral',serif; }
   .link-item a:hover { text-decoration-color:var(--accent); }
-  .link-description { font:300 italic 12.5px/1.4 'Spectral',serif; color:var(--muted); }
-  .link-description::before { content:"— "; }
+  .link-item span { font:300 italic 12.5px/1.4 'Spectral',serif; color:var(--muted); }
+  .link-item span::before { content:"— "; }
   footer {
     font:300 11.5px/2.1 'JetBrains Mono',monospace;
     color:var(--muted); letter-spacing:.02em;
@@ -61,12 +54,11 @@
     body { padding:60px 20px 72px; }
     nav { margin-bottom:56px; }
     nav ul { gap:24px; }
-    .link-item { gap:6px; margin-bottom:14px; }
   }
 </style>
 </head>
 <body>
-<header><div class="subtitle">Resources</div></header>
+<div class="subtitle">Resources</div>
 <nav>
   <ul>
     <li><a href="../index.html">&#955;</a></li>
@@ -76,38 +68,35 @@
   </ul>
 </nav>
 <main>
-  <p class="intro">A curated list of links I find interesting — 100% worth reading.</p>
-  <section class="resources">
+  <p class="intro">A curated list of links I find interesting 100% worth reading.</p>
 
-    <div class="category-section">
-      <div class="category-header">Writings &amp; Videos</div>
-      
-      <div class="link-item"><a href="https://youtu.be/spUNpyF58BY?si=ELTQSXQfgUjy0RmD" target="_blank" rel="noopener">3Blue 1Brown</a><span class="link-description">Fourier Transform</span></div>
-      <div class="link-item"><a href="https://phrack.org/" target="_blank" rel="noopener">Phrack</a><span class="link-description">Hackers Magazine</span></div>
-      <div class="link-item"><a href="https://unixdigest.com/tutorials/pointers-in-c.html" target="_blank" rel="noopener">Unix Digest</a><span class="link-description">Pointers In C</span></div>
-      <div class="link-item"><a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank" rel="noopener">Real Engineering</a><span class="link-description">The Insane Engineering of the SR-71 Blackbird</span></div>
-      <div class="link-item"><a href="https://serenityos.org/happy/1st/" target="_blank" rel="noopener">Serenity OS</a><span class="link-description">SerenityOS: From zero to HTML in a year</span></div>
-      <div class="link-item"><a href="https://gwern.net/death-note-anonymity" target="_blank" rel="noopener">Death Note</a><span class="link-description">Death Note: L, Anonymity &amp; Eluding Entropy</span></div>
-    </div>
-
-    <div class="category-section">
-      <div class="category-header">Programming</div>
-      <div class="link-item"><a href="https://craftinginterpreters.com/" target="_blank" rel="noopener">Crafting Interpreters</a><span class="link-description">A handbook for making programming languages</span></div>
-    </div>
-
-    <div class="category-section">
-      <div class="category-header">Systems</div>
-      <div class="link-item"><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">Operating Systems: Three Easy Pieces</a><span class="link-description">Free online operating systems book</span></div>
-      <div class="link-item"><a href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener">Beej's Guide to Network Programming</a><span class="link-description">Socket programming guide using Internet sockets</span></div>
-    </div>
-
-    <div class="category-section">
-      <div class="category-header">Personal Websites</div>
-      <div class="link-item"><a href="https://near.blog/" target="_blank" rel="noopener">Near</a><span class="link-description">A great website with great blogs</span></div>
-      <div class="link-item"><a href="https://fabiensanglard.net/" target="_blank" rel="noopener">Fabien</a><span class="link-description">Great website with computer graphics, low-level, and computer systems info</span></div>
-    </div>
-
+  <section>
+    <h2>Writings &amp; Videos</h2>
+    <div class="link-item"><a href="https://youtu.be/spUNpyF58BY?si=ELTQSXQfgUjy0RmD" target="_blank" rel="noopener">3Blue 1Brown</a><span>Fourier Transform</span></div>
+    <div class="link-item"><a href="https://phrack.org/" target="_blank" rel="noopener">Phrack</a><span>Hackers Magazine</span></div>
+    <div class="link-item"><a href="https://unixdigest.com/tutorials/pointers-in-c.html" target="_blank" rel="noopener">Unix Digest</a><span>Pointers In C</span></div>
+    <div class="link-item"><a href="https://youtu.be/3hYSnyVLmGE?si=ehnvnGre9zZF53fv" target="_blank" rel="noopener">Real Engineering</a><span>The Insane Engineering of the SR-71 Blackbird</span></div>
+    <div class="link-item"><a href="https://serenityos.org/happy/1st/" target="_blank" rel="noopener">Serenity OS</a><span>SerenityOS: From zero to HTML in a year</span></div>
+    <div class="link-item"><a href="https://gwern.net/death-note-anonymity" target="_blank" rel="noopener">Death Note</a><span>Death Note: L, Anonymity &amp; Eluding Entropy</span></div>
   </section>
+
+  <section>
+    <h2>Programming</h2>
+    <div class="link-item"><a href="https://craftinginterpreters.com/" target="_blank" rel="noopener">Crafting Interpreters</a><span>A handbook for making programming languages</span></div>
+  </section>
+
+  <section>
+    <h2>Systems</h2>
+    <div class="link-item"><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">Operating Systems: Three Easy Pieces</a><span>Free online operating systems book</span></div>
+    <div class="link-item"><a href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener">Beej's Guide to Network Programming</a><span>Socket programming guide using Internet sockets</span></div>
+  </section>
+
+  <section>
+    <h2>Personal Websites</h2>
+    <div class="link-item"><a href="https://near.blog/" target="_blank" rel="noopener">Near</a><span>A great website with great blogs</span></div>
+    <div class="link-item"><a href="https://fabiensanglard.net/" target="_blank" rel="noopener">Fabien</a><span>Great website with computer graphics, low-level, and computer systems info</span></div>
+  </section>
+
   <footer>
     <div>alberta, ca</div>
     <div><a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
