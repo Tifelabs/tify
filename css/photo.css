@@ -265,6 +265,7 @@ footer a:hover { opacity: .6; border-color: var(--ink); }
 @media (max-width: 600px) {
   body { padding: 60px 20px 48px; }
   #site-nav { margin-bottom: 56px; }
+  .reshiram { display:none; }
   .gallery-grid.masonry { column-gap: 8px; }
   .gallery-grid.masonry .gitem { margin-bottom: 8px; }
   .gallery-grid.grid { gap: 8px; }
