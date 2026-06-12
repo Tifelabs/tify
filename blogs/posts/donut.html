@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Blessed are the Peacemakers - Tifelabs">
+  <title>Donut Redering In Blender - Tifelabs</title>
+  <link rel="icon" href="../assets/images/baby.png">
+  <link rel="stylesheet" href="../css/blog.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="../js/blog.js" defer></script>
+  <style>
+    model-viewer {
+      width: 100%;
+      height: 400px;
+      background-color: #1a1a1a;
+    }
+    .render-image {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 1.5rem auto;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/index.html">λ</a></li>
+      <li><a href="../index.html" class="active">Writing</a></li>
+      <li><a href="/Photography/">Photography</a></li>
+      <li><a href="/Resource/">Resources</a></li>
+    </ul>
+  </nav>
+  <a href="../" class="back-link"> Back to posts</a>
+  <article>
+    <h1>Donut Rendering In Blender</h1>
+    <p class="meta">June 13, 2026</p>
+
+    <p>A donut, modeled and rendered in Blender. Below is the final render, followed by an interactive 3D version you can rotate and zoom, drag to look around :) .</p>
+
+    <img src="../blog-images/donut.png" alt="Rendered donut in Blender" class="render-image">
+
+<model-viewer
+    src="../blog-images/donut.glb"
+    alt="3D Donut model"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    environment-image="neutral"
+    exposure="1"
+    loading="eager"
+    ar
+    style="width: 100%; height: 400px; background-color: #1a1a1a;"
+>
+</model-viewer>
+
+    <div class="end-marker">𓅓— END —𓅓</div>
+  </article>
+</body>
+</html>
