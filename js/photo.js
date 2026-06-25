@@ -190,7 +190,7 @@ function showImage(i) {
   lbImg.classList.remove('loaded');
   lbSpin.classList.add('show');
 
-  const hi  = src.src.replace('/Low_res/', '/High_res/');
+  const hi = src.src.replace('/Low_res/', '/High_res/').replace(/\.webp$/i, '.jpg')
   const tmp = new Image();
   const done = (url) => {
     if (idx !== i) return;
@@ -241,7 +241,7 @@ function preload(i) {
   go(() => {
     [-1, 1, -2, 2].forEach(d => {
       const img = items[i + d]?.querySelector('img');
-      if (img) new Image().src = img.src.replace('/Low_res/', '/High_res/');
+      if (img) new Image().src = img.src.replace('/Low_res/', '/High_res/').replace(/\.webp$/i, '.jpg');
     });
   });
 }
