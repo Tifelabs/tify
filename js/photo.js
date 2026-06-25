@@ -191,7 +191,7 @@ function showImage(i) {
   lbSpin.classList.add('show');
 
   // Low_res thumbs are .webp, High_res originals are .jpg
-  const hi  = src.src.replace('/Low_res/', '/High_res/').replace(/\.webp$/i, '.jpg');
+  const hi  = src.src.replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
   const tmp = new Image();
   const done = (url) => {
     if (idx !== i) return;
@@ -243,7 +243,7 @@ function preload(i) {
     [-1, 1, -2, 2].forEach(d => {
       const img = items[i + d]?.querySelector('img');
       // Low_res thumbs are .webp, High_res originals are .jpg
-      if (img) new Image().src = img.src.replace('/Low_res/', '/High_res/').replace(/\.webp$/i, '.jpg');
+      if (img) new Image().src = img.src.replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
     });
   });
 }
