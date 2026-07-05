@@ -91,7 +91,36 @@ function initLayout() {
   btnG.addEventListener('click', () => setLayout('grid'));
 }
 
+/* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
+let lockedScrollY = 0;
+function lockScroll() {
+  lockedScrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${lockedScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+}
+function unlockScroll() {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  window.scrollTo(0, lockedScrollY);
+}
+
 /* ── Lightbox ── */
+const ZOOM_MAX = 3.2, ZOOM_TAP = 2.4;
+let zoom = { scale: 1, x: 0, y: 0 };
+let pointers = new Map();
+let gesture = null; // null | 'swipe' | 'dismiss' | 'lock' | 'pan' | 'pinch'
+let startX = 0, startY = 0, startTime = 0;
+let panStartX = 0, panStartY = 0;
+let pinchStartDist = 0, pinchStartScale = 1;
+let lastTap = { time: 0, x: 0, y: 0 };
+let chromeHidden = false;
+
 function initLightbox() {
   lb      = qs('#lightbox');
   if (!lb) return;
@@ -134,12 +163,145 @@ function initLightbox() {
   lbImg.addEventListener('contextmenu', e => e.preventDefault());
   lbImg.addEventListener('dragstart',   e => e.preventDefault());
 
-  let tx = 0, tt = 0;
-  lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; tt = Date.now(); }, { passive: true });
-  lb.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - tx;
-    if (Math.abs(dx) > 50 && Date.now() - tt < 400) navigate(dx > 0 ? -1 : 1);
-  }, { passive: true });
+  initGestures(qs('.lb-img-wrap'));
+}
+
+/* One pointer-event based gesture system covers touch AND mouse:
+   - drag horizontally to change photo (rubber-bands at the first/last image)
+   - drag down to dismiss (image follows the finger, background fades)
+   - pinch, or double-tap, to zoom in on a point; drag to pan while zoomed
+   - a plain tap toggles an immersive "chrome hidden" view                */
+function initGestures(wrap) {
+  if (!wrap) return;
+
+  wrap.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    wrap.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    lbImg.classList.add('no-transition');
+
+    if (pointers.size === 2) {
+      gesture = 'pinch';
+      const [a, b] = [...pointers.values()];
+      pinchStartDist  = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      pinchStartScale = zoom.scale;
+    } else if (pointers.size === 1) {
+      startX = e.clientX; startY = e.clientY; startTime = Date.now();
+      panStartX = zoom.x; panStartY = zoom.y;
+      gesture = zoom.scale > 1.02 ? 'pan' : null; // direction decided on first real move
+    }
+  });
+
+  wrap.addEventListener('pointermove', e => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (gesture === 'pinch' && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      zoom.scale = clamp(pinchStartScale * (dist / pinchStartDist), 1, ZOOM_MAX);
+      clampPan();
+      applyZoom();
+      return;
+    }
+    if (pointers.size !== 1) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+
+    if (gesture === 'pan') {
+      zoom.x = panStartX + dx;
+      zoom.y = panStartY + dy;
+      clampPan();
+      applyZoom();
+      return;
+    }
+    if (gesture === null) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      gesture = Math.abs(dx) > Math.abs(dy) ? 'swipe' : (dy > 0 ? 'dismiss' : 'lock');
+    }
+    if (gesture === 'swipe') {
+      const atEdge = (idx === 0 && dx > 0) || (idx === items.length - 1 && dx < 0);
+      lbImg.style.transform = `translateX(${dx * (atEdge ? 0.35 : 1)}px)`;
+    } else if (gesture === 'dismiss') {
+      const d = clamp(dy, 0, 400);
+      lbImg.style.transform = `translateY(${d}px) scale(${clamp(1 - d / 900, 0.85, 1)})`;
+      qs('.lb-bg').style.opacity = String(clamp(1 - d / 300, 0.15, 1));
+    }
+  });
+
+  const endGesture = e => {
+    pointers.delete(e.pointerId);
+    if (pointers.size > 0) { gesture = pointers.size === 2 ? 'pinch' : null; return; }
+
+    lbImg.classList.remove('no-transition');
+    const dt = Math.max(Date.now() - startTime, 1);
+
+    if (gesture === 'swipe') {
+      const dx = e.clientX - startX;
+      const velocity = Math.abs(dx) / dt;
+      lbImg.style.transform = '';
+      if (Math.abs(dx) > 70 || velocity > 0.5) navigate(dx < 0 ? 1 : -1);
+    } else if (gesture === 'dismiss') {
+      const dy = e.clientY - startY;
+      const velocity = dy / dt;
+      if (dy > 110 || velocity > 0.6) {
+        closeLightbox();
+      } else {
+        lbImg.style.transform = '';
+        qs('.lb-bg').style.opacity = '';
+      }
+    } else if (gesture === 'pinch') {
+      if (zoom.scale <= 1.02) resetZoom(); else { clampPan(); applyZoom(); }
+    } else if (gesture === null || gesture === 'lock') {
+      if (Math.abs(e.clientX - startX) < 10 && Math.abs(e.clientY - startY) < 10) {
+        handleTap(e.clientX, e.clientY);
+      }
+    }
+    gesture = null;
+  };
+  wrap.addEventListener('pointerup', endGesture);
+  wrap.addEventListener('pointercancel', endGesture);
+}
+
+function handleTap(x, y) {
+  const now = Date.now();
+  const isDouble = now - lastTap.time < 320 && Math.hypot(x - lastTap.x, y - lastTap.y) < 40;
+  lastTap = { time: now, x, y };
+
+  if (!isDouble) { toggleChrome(); return; }
+  lastTap.time = 0; // consume the tap pair so a third tap doesn't chain into another double
+  if (zoom.scale > 1.02) {
+    resetZoom();
+  } else {
+    const rect = lbImg.getBoundingClientRect();
+    zoom.scale = ZOOM_TAP;
+    zoom.x = (rect.left + rect.width  / 2 - x) * (ZOOM_TAP - 1);
+    zoom.y = (rect.top  + rect.height / 2 - y) * (ZOOM_TAP - 1);
+    clampPan();
+    applyZoom();
+  }
+}
+
+function toggleChrome() {
+  chromeHidden = !chromeHidden;
+  lb.classList.toggle('chrome-hidden', chromeHidden);
+}
+
+function clampPan() {
+  const bx = Math.max(0, (lbImg.offsetWidth  * (zoom.scale - 1)) / 2);
+  const by = Math.max(0, (lbImg.offsetHeight * (zoom.scale - 1)) / 2);
+  zoom.x = clamp(zoom.x, -bx, bx);
+  zoom.y = clamp(zoom.y, -by, by);
+}
+
+function applyZoom() {
+  lbImg.style.transform = `translate(${zoom.x}px,${zoom.y}px) scale(${zoom.scale})`;
+  lbImg.classList.toggle('zoomed', zoom.scale > 1.02);
+}
+
+function resetZoom() {
+  zoom = { scale: 1, x: 0, y: 0 };
+  lbImg.style.transform = '';
+  lbImg.classList.remove('zoomed');
 }
 
 function buildFilmstrip(activeIdx) {
@@ -157,21 +319,19 @@ function buildFilmstrip(activeIdx) {
 }
 
 function scrollStrip(i) {
-  const thumbs = qsa('.lb-thumb', lbStrip.parentElement);
+  const thumbs = qsa('.lb-thumb', lbStrip);
   thumbs.forEach((t, j) => t.classList.toggle('active', j === i));
-  const thumb = thumbs[i];
-  if (!thumb) return;
-  const strip  = lbStrip.parentElement;
-  const offset = thumb.offsetLeft - strip.clientWidth / 2 + thumb.offsetWidth / 2;
-  lbStrip.style.transform = `translateX(${-Math.max(0, offset)}px)`;
+  thumbs[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }
 
 function openLightbox(i, vis) {
   items = vis;
   open  = true;
+  chromeHidden = false;
+  lb.classList.remove('chrome-hidden');
   lb.classList.add('open');
   lb.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+  lockScroll();
   buildFilmstrip(i);
   showImage(i);
 }
@@ -179,6 +339,7 @@ function openLightbox(i, vis) {
 function showImage(i) {
   i = clamp(i, 0, items.length - 1);
   idx = i;
+  resetZoom();
   const item = items[i];
   const src  = item.querySelector('img');
   lbTitle.textContent = item.dataset.title || '';
@@ -231,7 +392,9 @@ function closeLightbox() {
   open = false;
   lb.classList.remove('open');
   lb.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+  unlockScroll();
+  const bg = qs('.lb-bg'); if (bg) bg.style.opacity = '';
+  resetZoom();
   setTimeout(() => { lbImg.src = ''; lbImg.classList.remove('loaded'); }, 400);
 }
 
