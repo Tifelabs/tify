@@ -4,7 +4,7 @@ const qs  = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-let idx = -1, items = [], allItems = [], cat = 'all', open = false, layoutMode = 'justify';
+let idx = -1, items = [], allItems = [], cat = 'all', open = false;
 
 /* DOM Refs */
 let lb, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbSpin, lbStrip;
@@ -53,18 +53,17 @@ function initFilter() {
 /* ── Layout ── */
 function initLayout() {
   const grid = qs('#gallery-grid');
-  const btnM = qs('#btn-masonry');
+  const btnB = qs('#btn-bento');
   const btnG = qs('#btn-grid');
-  if (!grid || !btnM || !btnG) return;
+  if (!grid || !btnB || !btnG) return;
 
   function setLayout(l) {
     grid.className = `gallery-grid ${l}`;
-    layoutMode = l;
-    btnM.classList.toggle('active', l === 'masonry');
-    btnG.classList.toggle('active', l === 'justify');
+    btnB.classList.toggle('active', l === 'bento');
+    btnG.classList.toggle('active', l === 'uniform');
   }
-  btnM.addEventListener('click', () => setLayout('masonry'));
-  btnG.addEventListener('click', () => setLayout('justify'));
+  btnB.addEventListener('click', () => setLayout('bento'));
+  btnG.addEventListener('click', () => setLayout('uniform'));
 }
 
 /* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */

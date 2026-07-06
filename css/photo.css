@@ -34,23 +34,32 @@ header{margin-bottom:48px}
 .lbtn:hover{color:var(--muted)}
 .lbtn.active{color:var(--ink)}
 .gallery-grid{padding-bottom:60px}
-.gallery-grid.masonry{columns:3;column-gap:10px}
-.gallery-grid.masonry .gitem{break-inside:avoid;margin-bottom:10px}
+/* Bento grid: a real CSS Grid with a repeating pattern of featured (2×2) and wide (2×1) tiles
+   among the regular 1×1 ones, packed with grid-auto-flow:dense. Fully deterministic from nth-child
+   — no JS layout math, so it can't drift out of sync with the DOM. Caption sits below the photo. */
+.gallery-grid.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:120px;grid-auto-flow:dense;gap:14px}
+.gallery-grid.bento .gitem{display:flex;flex-direction:column;border-radius:0px}
+.gallery-grid.bento .gi-wrap{flex:1;min-height:0}
+.gallery-grid.bento .gi-wrap img{height:100%;object-fit:cover}
+.gallery-grid.bento figcaption{flex:0 0 auto}
+.gallery-grid.bento .gi-index{top:8px;left:8px}
+.gallery-grid.bento .gitem:nth-child(7n+1){grid-column:span 2;grid-row:span 2}
+.gallery-grid.bento .gitem:nth-child(7n+3){grid-column:span 2}
 
-/* Contact-sheet grid: a real CSS Grid with a fixed crop ratio per tile — no JS layout math,
-   no overlay gradient on the photo. Caption sits below the image, like a printed contact sheet. */
-.gallery-grid.justify{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
-.gallery-grid.justify .gitem{border-radius:3px}
-.gallery-grid.justify .gi-wrap{aspect-ratio:3/2}
-.gallery-grid.justify .gi-wrap img{height:100%;object-fit:cover}
-.gallery-grid.justify .gi-index{top:8px;left:8px}
+/* Even grid (contact-sheet style): a real CSS Grid, every tile the same crop ratio — good for
+   scanning a large set at a glance. Caption sits below the photo, same as the waterfall view. */
+.gallery-grid.uniform{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.gallery-grid.uniform .gitem{border-radius:3px}
+.gallery-grid.uniform .gi-wrap{aspect-ratio:3/2}
+.gallery-grid.uniform .gi-wrap img{height:100%;object-fit:cover}
+.gallery-grid.uniform .gi-index{top:8px;left:8px}
 
 .gitem{background:var(--card-bg);overflow:hidden;display:block;position:relative;border-top:2px solid transparent;border-radius:5px}
 .gitem.hidden{display:none}
 .gitem:hover{box-shadow:0 6px 24px rgba(0,0,0,.11);border-top-color:var(--accent)}
 .gi-wrap{overflow:hidden;position:relative;line-height:0}
 
-.gi-wrap img{width:100%;-webkit-user-drag:none}
+.gi-wrap img{width:100%;height:auto;-webkit-user-drag:none}
 .gi-wrap::before{content:'↗';position:absolute;bottom:10px;right:10px;font-size:13px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5);z-index:2;opacity:0}
 .gitem:hover .gi-wrap::before{opacity:1}
 figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:3px;column-gap:8px;padding:10px 12px 12px;background:var(--card-bg);border-top:1px solid rgba(0,0,0,.05)}
@@ -103,17 +112,13 @@ figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto a
 footer{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:300;color:var(--muted);line-height:2.1;padding-top:48px;border-top:1px solid var(--rule)}
 footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px}
 footer a:hover{opacity:.6;border-color:var(--ink)}
-@media (max-width:820px){
-  .gallery-grid.masonry{columns:2}
-}
 @media (max-width:600px){
   body{padding:60px 20px 48px;max-width:100%}
   body{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
   #site-nav{margin-bottom:56px}
   .bird{display:block !important}
-  .gallery-grid.masonry{columns:2;column-gap:8px}
-  .gallery-grid.masonry .gitem{margin-bottom:8px}
-  .gallery-grid.justify{gap:8px;grid-template-columns:repeat(2,1fr)}
+  .gallery-grid.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:100px;gap:8px}
+  .gallery-grid.uniform{grid-template-columns:repeat(2,1fr);gap:8px}
   .lb-topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
   .lb-res{display:none}
   /* Bigger, thumb-friendly hit targets (Apple/Google both recommend ~44px minimum) */
@@ -126,4 +131,3 @@ footer a:hover{opacity:.6;border-color:var(--ink)}
   .lb-next{right:max(6px,env(safe-area-inset-right))}
   .lb-thumb{width:46px;height:46px}
 }
-@media (max-width:360px){.gallery-grid.masonry{columns:1}}
