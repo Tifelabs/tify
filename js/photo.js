@@ -4,7 +4,7 @@ const qs  = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-let idx = -1, items = [], allItems = [], cat = 'all', open = false;
+let idx = -1, items = [], allItems = [], cat = 'all', open = false, layoutMode = 'justify';
 
 /* DOM Refs */
 let lb, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbSpin, lbStrip;
@@ -66,6 +66,7 @@ function initFilter() {
           if (show) el.classList.remove('visible');
         });
         items = allItems.filter(el => !el.classList.contains('hidden'));
+        if (layoutMode === 'justify') layoutJustified();
         grid.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .25s ease,transform .25s ease';
         setTimeout(revealItems, 20);
       }, 260);
@@ -82,13 +83,65 @@ function initLayout() {
 
   function setLayout(l) {
     grid.className = `gallery-grid ${l}`;
+    layoutMode = l;
     btnM.classList.toggle('active', l === 'masonry');
-    btnG.classList.toggle('active', l === 'grid');
+    btnG.classList.toggle('active', l === 'justify');
+    if (l !== 'justify') clearJustifyStyles();
     qsa('.gitem:not(.hidden)').forEach(el => el.classList.remove('visible'));
+    if (l === 'justify') layoutJustified();
     setTimeout(revealItems, 50);
   }
   btnM.addEventListener('click', () => setLayout('masonry'));
-  btnG.addEventListener('click', () => setLayout('grid'));
+  btnG.addEventListener('click', () => setLayout('justify'));
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (layoutMode === 'justify') layoutJustified(); }, 150);
+  }, { passive: true });
+}
+
+function clearJustifyStyles() {
+  allItems.forEach(el => { el.style.width = ''; el.style.height = ''; });
+}
+
+/* Justified rows, the way Unsplash/Getty do it: pack items into a row using their real aspect
+   ratio (read from data-res) until the row would overflow the container, then scale that whole
+   row so it fills the width exactly — no cropping, every photo shown at its true proportions.
+   The trailing row is left at natural size rather than stretched, same as the reference sites. */
+function layoutJustified() {
+  const grid = qs('#gallery-grid');
+  if (!grid || !items.length) return;
+  const gap = parseFloat(getComputedStyle(grid).gap) || 10;
+  const W = grid.clientWidth;
+  if (!W) return;
+  const targetH = clamp(W / 2.9, 100, 220);
+
+  const aspectOf = el => {
+    const [w, h] = (el.dataset.res || '').split(/[×x]/i).map(Number);
+    return (w > 0 && h > 0) ? w / h : 1.5;
+  };
+  const commitRow = (row, aspectSum, stretch) => {
+    const availW = W - gap * (row.length - 1);
+    const h = stretch ? (availW / (aspectSum * targetH)) * targetH : targetH;
+    row.forEach(({ el, ar }) => {
+      el.style.width  = Math.round(ar * h) + 'px';
+      el.style.height = Math.round(h) + 'px';
+    });
+  };
+
+  let row = [], aspectSum = 0;
+  items.forEach(el => {
+    const ar = aspectOf(el);
+    row.push({ el, ar });
+    aspectSum += ar;
+    const idealW = aspectSum * targetH + gap * (row.length - 1);
+    if (idealW >= W) {
+      commitRow(row, aspectSum, true);
+      row = []; aspectSum = 0;
+    }
+  });
+  if (row.length) commitRow(row, aspectSum, false);
 }
 
 /* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
@@ -435,6 +488,7 @@ function init() {
   initFilter();
   initLayout();
   initLightbox();
+  if (layoutMode === 'justify') layoutJustified();
   revealItems();
 
   document.addEventListener('contextmenu', e => {
