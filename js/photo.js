@@ -24,23 +24,6 @@ function initCursor() {
   document.addEventListener('mouseout',  e => { if (e.target.closest(hoverSel)) cursor.classList.remove('hover'); });
 }
 
-/* Reveal */
-function revealItems() {
-  const visible = qsa('.gitem:not(.hidden)');
-  if (!('IntersectionObserver' in window)) {
-    visible.forEach(el => el.classList.add('visible'));
-    return;
-  }
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (!e.isIntersecting) return;
-      setTimeout(() => e.target.classList.add('visible'), i * 40);
-      obs.unobserve(e.target);
-    });
-  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
-  visible.forEach(el => obs.observe(el));
-}
-
 /* Filter */
 function initFilter() {
   allItems = qsa('.gitem');
@@ -58,18 +41,11 @@ function initFilter() {
         b.setAttribute('aria-selected', b === btn);
       });
 
-      grid.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease';
-      setTimeout(() => {
-        allItems.forEach(el => {
-          const show = cat === 'all' || el.dataset.cat === cat;
-          el.classList.toggle('hidden', !show);
-          if (show) el.classList.remove('visible');
-        });
-        items = allItems.filter(el => !el.classList.contains('hidden'));
-        if (layoutMode === 'justify') layoutJustified();
-        grid.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .25s ease,transform .25s ease';
-        setTimeout(revealItems, 20);
-      }, 260);
+      allItems.forEach(el => {
+        const show = cat === 'all' || el.dataset.cat === cat;
+        el.classList.toggle('hidden', !show);
+      });
+      items = allItems.filter(el => !el.classList.contains('hidden'));
     });
   });
 }
@@ -86,62 +62,9 @@ function initLayout() {
     layoutMode = l;
     btnM.classList.toggle('active', l === 'masonry');
     btnG.classList.toggle('active', l === 'justify');
-    if (l !== 'justify') clearJustifyStyles();
-    qsa('.gitem:not(.hidden)').forEach(el => el.classList.remove('visible'));
-    if (l === 'justify') layoutJustified();
-    setTimeout(revealItems, 50);
   }
   btnM.addEventListener('click', () => setLayout('masonry'));
   btnG.addEventListener('click', () => setLayout('justify'));
-
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { if (layoutMode === 'justify') layoutJustified(); }, 150);
-  }, { passive: true });
-}
-
-function clearJustifyStyles() {
-  allItems.forEach(el => { el.style.width = ''; el.style.height = ''; });
-}
-
-/* Justified rows, the way Unsplash/Getty do it: pack items into a row using their real aspect
-   ratio (read from data-res) until the row would overflow the container, then scale that whole
-   row so it fills the width exactly — no cropping, every photo shown at its true proportions.
-   The trailing row is left at natural size rather than stretched, same as the reference sites. */
-function layoutJustified() {
-  const grid = qs('#gallery-grid');
-  if (!grid || !items.length) return;
-  const gap = parseFloat(getComputedStyle(grid).gap) || 10;
-  const W = grid.clientWidth;
-  if (!W) return;
-  const targetH = clamp(W / 2.9, 100, 220);
-
-  const aspectOf = el => {
-    const [w, h] = (el.dataset.res || '').split(/[×x]/i).map(Number);
-    return (w > 0 && h > 0) ? w / h : 1.5;
-  };
-  const commitRow = (row, aspectSum, stretch) => {
-    const availW = W - gap * (row.length - 1);
-    const h = stretch ? (availW / (aspectSum * targetH)) * targetH : targetH;
-    row.forEach(({ el, ar }) => {
-      el.style.width  = Math.round(ar * h) + 'px';
-      el.style.height = Math.round(h) + 'px';
-    });
-  };
-
-  let row = [], aspectSum = 0;
-  items.forEach(el => {
-    const ar = aspectOf(el);
-    row.push({ el, ar });
-    aspectSum += ar;
-    const idealW = aspectSum * targetH + gap * (row.length - 1);
-    if (idealW >= W) {
-      commitRow(row, aspectSum, true);
-      row = []; aspectSum = 0;
-    }
-  });
-  if (row.length) commitRow(row, aspectSum, false);
 }
 
 /* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
@@ -430,15 +353,7 @@ function navigate(delta) {
   if (!open) return;
   const next = clamp(idx + delta, 0, items.length - 1);
   if (next === idx) return;
-  const dir = delta > 0 ? -1 : 1;
-  lbImg.style.cssText = `transition:opacity .18s ease,transform .18s ease;opacity:0;transform:translateX(${dir * -24}px)`;
-  setTimeout(() => {
-    lbImg.style.cssText = `transition:none;transform:translateX(${dir * 20}px)`;
-    showImage(next);
-    requestAnimationFrame(() => {
-      lbImg.style.cssText = 'transition:opacity .22s ease,transform .22s ease;opacity:1;transform:translateX(0)';
-    });
-  }, 180);
+  showImage(next);
 }
 
 function closeLightbox() {
@@ -488,8 +403,6 @@ function init() {
   initFilter();
   initLayout();
   initLightbox();
-  if (layoutMode === 'justify') layoutJustified();
-  revealItems();
 
   document.addEventListener('contextmenu', e => {
     if (e.target.tagName === 'IMG' && (e.target.closest('.gallery-grid') || e.target.closest('#lightbox')))
