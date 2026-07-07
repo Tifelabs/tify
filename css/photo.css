@@ -39,7 +39,7 @@ header{margin-bottom:48px}
    masonry, this can never distort: every tile is the same shape no matter what size the
    source photo is or whether it's finished loading yet. */
 .gallery-grid.masonry{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 10px}
-.gallery-grid.masonry .gi-wrap{aspect-ratio:4/5}
+.gallery-grid.masonry .gi-wrap{aspect-ratio:3/2}
 .gallery-grid.masonry .gi-wrap img{width:100%;height:100%;object-fit:cover}
 
 /* Bento mosaic grid — every 7th tile goes big, every 7th+3 goes tall, rest sit square. Still just 2 columns to match the site's narrow single-column frame, but the rhythm of big/tall/small tiles reads as a deliberate mosaic instead of a flat table. */
