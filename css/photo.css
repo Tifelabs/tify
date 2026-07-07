@@ -1,52 +1,52 @@
 /* Google Fonts moved to HTML <link> tags — remove @import for faster render */
-:root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--rule:#e0ddd7;--card-bg:#eceae2;--faint:#c0bdb6;--bg-rgb:242,237,228;--mono:'JetBrains Mono',monospace}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Spectral',Georgia,serif;font-size:14px;line-height:1.6;color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:80px 24px 60px;padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+:root{--bg:#f2ede4;--ink:#1c1917;--muted:#2d6a4f;--accent:#2d6a4f;--rule:#e0ddd7;--card-bg:#eceae2;--faint:#c0bdb6;--bg-rgb:242,237,228}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Spectral',Georgia,serif;font-size:14px;line-height:1.6;color:var(--ink);background:var(--bg);max-width:560px;margin:0 auto;padding:80px 24px 60px;padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
 img{display:block;max-width:100%}
+*{-webkit-tap-highlight-color:transparent}
 a,button{touch-action:manipulation}
 @media (hover:none){#cursor,#cursor-dot{display:none}}
-
 #cursor{position:fixed;top:0;left:0;width:24px;height:24px;border:1.5px solid rgba(28,25,23,.5);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s,background .18s}
 #cursor-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;background:var(--ink);border-radius:50%;transition:width .18s,height .18s,opacity .18s}
 #cursor.hover{width:36px;height:36px;border-color:rgba(28,25,23,.9)}
 #cursor.hover #cursor-dot{opacity:0}
 #cursor.clicking{width:12px;height:12px;background:rgba(28,25,23,.08);border-color:var(--ink)}
 #cursor.clicking #cursor-dot{width:4px;height:4px}
-
 #site-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:72px}
 #site-nav ul{list-style:none;display:flex;gap:28px}
-#site-nav ul a,.nav-contact{font:300 12px var(--mono);color:var(--accent);text-decoration:none;letter-spacing:.03em;transition:color .15s}
+#site-nav ul a,.nav-contact{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:300;color:var(--muted);text-decoration:none;letter-spacing:.03em;transition:color .15s}
 #site-nav ul a:hover,#site-nav ul a.active,.nav-contact:hover{color:var(--ink)}
-.nav-brand{font-family:var(--mono);font-size:13px;text-decoration:none}
-
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:13px;text-decoration:none}
 header{margin-bottom:48px}
-.hero-eyebrow{font:300 10px var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.eyebrow-dot{width:4px;height:4px;background:var(--accent);border-radius:50%}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.eyebrow-dot{width:4px;height:4px;background:var(--muted);border-radius:50%}
 .hero-sub{font-size:13px;font-weight:300;font-style:italic;color:#555;margin-bottom:6px}
-.hero-link{font:300 12px var(--mono);text-decoration:none;transition:opacity .15s}
+.hero-link{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:300;text-decoration:none;transition:opacity .15s}
 .hero-link:hover{opacity:.6}
-
 .filter-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
 .filter-tabs{display:flex;gap:16px}
-.ftab{font:300 11px var(--mono);letter-spacing:.03em;color:var(--accent);background:none;border:none;padding:0;display:flex;align-items:center;gap:5px;transition:color .15s}
+.ftab{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:300;letter-spacing:.03em;color:var(--muted);background:none;border:none;padding:0;display:flex;align-items:center;gap:5px;transition:color .15s}
+.ftab:hover,.ftab.active{color:var(--muted)}
 .ftab em{font-style:normal;font-size:10px;color:var(--faint)}
-.ftab.active em{color:var(--accent)}
+.ftab.active em{color:var(--muted)}
 .layout-switch{display:flex;gap:6px}
 .lbtn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--faint);transition:color .15s}
-.lbtn:hover{color:var(--accent)}
+.lbtn:hover{color:var(--muted)}
 .lbtn.active{color:var(--ink)}
 .gallery-grid{padding-bottom:60px}
 
-/* Fixed aspect-ratio tiles + object-fit:cover — unlike multi-column masonry, tiles never
-   distort regardless of source size or load state */
-.gallery-grid.masonry,.gallery-grid.grid{display:grid;grid-template-columns:repeat(2,1fr)}
-.gallery-grid.masonry{gap:14px 10px}
+/* Clean card grid — fixed aspect-ratio tiles with object-fit:cover. Unlike CSS multi-column
+   masonry, this can never distort: every tile is the same shape no matter what size the
+   source photo is or whether it's finished loading yet. */
+.gallery-grid.masonry{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 10px}
 .gallery-grid.masonry .gi-wrap{aspect-ratio:3/2}
+.gallery-grid.masonry .gi-wrap img{width:100%;height:100%;object-fit:cover}
 
-/* Bento mosaic — every 7th tile big, every 7th+3 tall, rest square */
-.gallery-grid.grid{grid-auto-rows:120px;grid-auto-flow:dense;gap:10px}
+/* Bento mosaic grid — every 7th tile goes big, every 7th+3 goes tall, rest sit square. Still just 2 columns to match the site's narrow single-column frame, but the rhythm of big/tall/small tiles reads as a deliberate mosaic instead of a flat table. */
+.gallery-grid.grid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:120px;grid-auto-flow:dense;gap:10px}
 .gallery-grid.grid .gitem{position:relative;height:100%}
 .gallery-grid.grid .gi-wrap{position:absolute;inset:0}
+.gallery-grid.grid .gi-wrap img{width:100%;height:100%;object-fit:cover}
 .gallery-grid.grid figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.28) 55%,transparent);padding:9px 11px 8px;display:block}
 .gallery-grid.grid .gi-title{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3)}
 .gallery-grid.grid .gi-year{color:rgba(255,255,255,.85)}
@@ -54,49 +54,52 @@ header{margin-bottom:48px}
 .gallery-grid.grid .gitem:nth-child(7n+1){grid-column:span 2;grid-row:span 2}
 .gallery-grid.grid .gitem:nth-child(7n+4){grid-row:span 2}
 
+/* removed box-shadow from transition — was causing repaint on every frame */
 .gitem{background:var(--card-bg);overflow:hidden;display:block;opacity:0;transform:translateY(14px);position:relative;transition:opacity .45s,transform .45s;border-top:2px solid transparent;will-change:opacity,transform}
 .gitem.visible{opacity:1;transform:translateY(0)}
 .gitem.hidden{display:none}
 .gitem:hover{box-shadow:0 6px 24px rgba(0,0,0,.11);border-top-color:var(--accent)}
 .gi-wrap{overflow:hidden;position:relative;line-height:0}
-.gi-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s;-webkit-user-drag:none}
+
+/* removed filter:saturate — expensive on every image, barely visible */
+.gi-wrap img{width:100%;transition:transform .6s;-webkit-user-drag:none}
 .gitem:hover .gi-wrap img{transform:scale(1.045)}
 .gi-wrap::before{content:'↗';position:absolute;bottom:10px;right:10px;font-size:13px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5);z-index:2;opacity:0;transform:translate(4px,4px);transition:opacity .28s,transform .28s}
 .gitem:hover .gi-wrap::before{opacity:1;transform:translate(0,0)}
-
 figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:3px;column-gap:8px;padding:10px 12px 12px;background:var(--card-bg);border-top:1px solid rgba(0,0,0,.05)}
 .gi-title{font-size:12px;color:#3a3a3a;letter-spacing:.01em;grid-column:1;grid-row:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
 .gitem:hover .gi-title{color:var(--ink)}
-.gi-year{font:300 10px var(--mono);color:var(--accent);grid-column:2;grid-row:1;text-align:right}
-.gi-res{font:300 10px var(--mono);color:#b0aea8;letter-spacing:.02em;grid-column:1/-1;grid-row:2;display:none}
-.gi-index{position:absolute;top:9px;left:10px;font:300 9px var(--mono);color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.5);letter-spacing:.06em;z-index:3;pointer-events:none;opacity:0;transform:translateY(-3px);transition:opacity .25s,transform .25s}
+.gi-year{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:300;color:var(--muted);grid-column:2;grid-row:1;text-align:right}
+.gi-res{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:300;color:#b0aea8;letter-spacing:.02em;grid-column:1/-1;grid-row:2;display:none}
+.gi-index{position:absolute;top:9px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.5);letter-spacing:.06em;z-index:3;pointer-events:none;opacity:0;transform:translateY(-3px);transition:opacity .25s,transform .25s}
 .gitem:hover .gi-index{opacity:1;transform:translateY(0)}
 
-/* Touch devices: no hover, so show affordances permanently (lighter) + a press state instead */
+/* Touch devices have no hover, so give a permanent (lighter) version of the hover affordances, plus a tactile press state instead */
 @media (hover:none){
-  .gi-index,.gi-wrap::before{opacity:.85;transform:translate(0,0)}
+  .gi-index{opacity:.85;transform:translateY(0)}
+  .gi-wrap::before{opacity:.85;transform:translate(0,0)}
   .gitem{transition:opacity .45s,transform .2s}
   .gitem:active{transform:scale(.97)}
   .lbtn:active,#lb-close:active{transform:scale(.9)}
   .lb-nav:active{transform:translateY(-50%) scale(.9)}
   .ftab:active{opacity:.6}
 }
-
 #lightbox{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
 #lightbox.open{opacity:1;pointer-events:all}
-/* Tap the photo (not a double-tap-zoom) to hide chrome for immersive view; tap again to restore */
+/* Single tap on the photo (that isn't a double-tap-to-zoom) hides the chrome for an immersive full-screen view; tap again to bring it back */
 #lightbox.chrome-hidden .lb-topbar,#lightbox.chrome-hidden .lb-nav,#lightbox.chrome-hidden .lb-filmstrip{opacity:0;pointer-events:none}
 .lb-topbar,.lb-filmstrip{transition:opacity .25s}
+
 .lb-bg{position:absolute;inset:0;background:rgba(var(--bg-rgb),.97);transition:opacity .2s}
 .lb-topbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:0 24px;padding-top:env(safe-area-inset-top);padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right));height:calc(52px + env(safe-area-inset-top));border-bottom:1px solid var(--rule);flex-shrink:0}
 .lb-meta{display:flex;align-items:center;gap:8px;overflow:hidden}
 #lb-title{font-size:13px}
 .lb-dot{color:var(--faint);font-size:11px}
-#lb-year{font:300 11px var(--mono);color:var(--accent)}
-.lb-res{font:300 10px var(--mono);color:var(--faint)}
+#lb-year{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:300;color:var(--muted)}
+.lb-res{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:300;color:var(--faint)}
 .lb-controls{display:flex;align-items:center;gap:16px}
-.lb-count{font:300 10px var(--mono);color:var(--accent);letter-spacing:.05em}
-#lb-close{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--accent);transition:color .15s,transform .2s}
+.lb-count{font-family:'JetBrains Mono',monospace;font-weight:300;color:var(--muted);font-size:10px;letter-spacing:.05em}
+#lb-close{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--muted);transition:color .15s,transform .2s}
 #lb-close:hover{color:var(--ink);transform:rotate(90deg)}
 .lb-stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:1;touch-action:none}
 .lb-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;touch-action:none}
@@ -104,7 +107,7 @@ figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto a
 #lb-img.loaded{opacity:1}
 #lb-img.zoomed{cursor:zoom-out}
 #lb-img.no-transition{transition:none}
-.lb-spinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border:1.5px solid var(--rule);border-top-color:var(--ink);border-radius:50%;animation:spin .4s linear infinite;opacity:0;transition:opacity .2s}
+.lb-spinner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border:1.5px solid var(--rule);border-top-color:var(--ink);border-radius:50%;animation:spin .8s linear infinite;opacity:0;transition:opacity .2s}
 .lb-spinner.show{opacity:1}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(20,18,16,.32);backdrop-filter:blur(6px) saturate(160%);-webkit-backdrop-filter:blur(6px) saturate(160%);border:none;box-shadow:0 2px 10px rgba(0,0,0,.12);color:#fff;opacity:.6;z-index:2;transition:opacity .2s,transform .2s,background .2s;-webkit-tap-highlight-color:transparent}
 .lb-nav:hover{opacity:1;background:rgba(20,18,16,.5)}
@@ -119,25 +122,20 @@ figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto a
 .lb-thumb img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .lb-thumb:hover{opacity:.7;transform:scale(1.05)}
 .lb-thumb.active{border-color:var(--accent);opacity:1}
-
-footer{font:300 11.5px/2.1 var(--mono);color:var(--accent);padding-top:48px;border-top:1px solid var(--rule)}
+footer{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:300;color:var(--muted);line-height:2.1;padding-top:48px;border-top:1px solid var(--rule)}
 footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;transition:border-color .18s,opacity .18s}
 footer a:hover{opacity:.6;border-color:var(--ink)}
-
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-
-@media (max-width:650px){
-  body{padding:60px 20px 48px;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+@media (max-width:600px){
+  body{padding:60px 20px 48px}
+  body{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
   #site-nav{margin-bottom:56px}
   .bird{display:block !important}
-  .gallery-grid.masonry,.gallery-grid.grid{grid-template-columns:1fr}
   .gallery-grid.masonry{gap:10px 8px}
   .gallery-grid.grid{gap:8px;grid-auto-rows:104px}
-  .gallery-grid.grid .gitem:nth-child(7n+1){grid-column:span 1;grid-row:span 2}
-  .gallery-grid.grid .gitem:nth-child(7n+4){grid-column:span 1;grid-row:span 1}
   .lb-topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
   .lb-res{display:none}
-  /* Bigger, thumb-friendly hit targets (~44px min per Apple/Google guidance) */
+  /* Bigger, thumb-friendly hit targets (Apple/Google both recommend ~44px minimum) */
   .lbtn{width:36px;height:36px}
   .ftab{padding:6px 0}
   .filter-tabs{gap:20px}
@@ -146,4 +144,11 @@ footer a:hover{opacity:.6;border-color:var(--ink)}
   .lb-prev{left:max(6px,env(safe-area-inset-left))}
   .lb-next{right:max(6px,env(safe-area-inset-right))}
   .lb-thumb{width:46px;height:46px}
+  /* Feature tile ratio stays generous even on small screens */
+  .gallery-grid.grid .gitem:nth-child(7n+1){grid-row:span 2}
+}
+@media (max-width:360px){.gallery-grid.masonry{grid-template-columns:1fr}.gallery-grid.grid{grid-template-columns:1fr}.gallery-grid.grid .gitem:nth-child(7n+1),.gallery-grid.grid .gitem:nth-child(7n+4){grid-column:span 1;grid-row:span 1}}
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
