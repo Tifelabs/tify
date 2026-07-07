@@ -4,7 +4,7 @@ const qs  = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-let idx = -1, items = [], allItems = [], cat = 'all', open = false;
+let idx = -1, items = [], allItems = [], cat = 'all', open = false, layoutMode = 'masonry';
 
 /* DOM Refs */
 let lb, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbSpin, lbStrip;
@@ -24,6 +24,23 @@ function initCursor() {
   document.addEventListener('mouseout',  e => { if (e.target.closest(hoverSel)) cursor.classList.remove('hover'); });
 }
 
+/* Reveal */
+function revealItems() {
+  const visible = qsa('.gitem:not(.hidden)');
+  if (!('IntersectionObserver' in window)) {
+    visible.forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (!e.isIntersecting) return;
+      setTimeout(() => e.target.classList.add('visible'), i * 40);
+      obs.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+  visible.forEach(el => obs.observe(el));
+}
+
 /* Filter */
 function initFilter() {
   allItems = qsa('.gitem');
@@ -41,11 +58,17 @@ function initFilter() {
         b.setAttribute('aria-selected', b === btn);
       });
 
-      allItems.forEach(el => {
-        const show = cat === 'all' || el.dataset.cat === cat;
-        el.classList.toggle('hidden', !show);
-      });
-      items = allItems.filter(el => !el.classList.contains('hidden'));
+      grid.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease';
+      setTimeout(() => {
+        allItems.forEach(el => {
+          const show = cat === 'all' || el.dataset.cat === cat;
+          el.classList.toggle('hidden', !show);
+          if (show) el.classList.remove('visible');
+        });
+        items = allItems.filter(el => !el.classList.contains('hidden'));
+        grid.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .25s ease,transform .25s ease';
+        setTimeout(revealItems, 20);
+      }, 260);
     });
   });
 }
@@ -53,17 +76,20 @@ function initFilter() {
 /* ── Layout ── */
 function initLayout() {
   const grid = qs('#gallery-grid');
-  const btnB = qs('#btn-bento');
+  const btnM = qs('#btn-masonry');
   const btnG = qs('#btn-grid');
-  if (!grid || !btnB || !btnG) return;
+  if (!grid || !btnM || !btnG) return;
 
   function setLayout(l) {
     grid.className = `gallery-grid ${l}`;
-    btnB.classList.toggle('active', l === 'bento');
-    btnG.classList.toggle('active', l === 'uniform');
+    layoutMode = l;
+    btnM.classList.toggle('active', l === 'masonry');
+    btnG.classList.toggle('active', l === 'grid');
+    qsa('.gitem:not(.hidden)').forEach(el => el.classList.remove('visible'));
+    setTimeout(revealItems, 50);
   }
-  btnB.addEventListener('click', () => setLayout('bento'));
-  btnG.addEventListener('click', () => setLayout('uniform'));
+  btnM.addEventListener('click', () => setLayout('masonry'));
+  btnG.addEventListener('click', () => setLayout('grid'));
 }
 
 /* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
@@ -352,7 +378,15 @@ function navigate(delta) {
   if (!open) return;
   const next = clamp(idx + delta, 0, items.length - 1);
   if (next === idx) return;
-  showImage(next);
+  const dir = delta > 0 ? -1 : 1;
+  lbImg.style.cssText = `transition:opacity .18s ease,transform .18s ease;opacity:0;transform:translateX(${dir * -24}px)`;
+  setTimeout(() => {
+    lbImg.style.cssText = `transition:none;transform:translateX(${dir * 20}px)`;
+    showImage(next);
+    requestAnimationFrame(() => {
+      lbImg.style.cssText = 'transition:opacity .22s ease,transform .22s ease;opacity:1;transform:translateX(0)';
+    });
+  }, 180);
 }
 
 function closeLightbox() {
@@ -402,6 +436,7 @@ function init() {
   initFilter();
   initLayout();
   initLightbox();
+  revealItems();
 
   document.addEventListener('contextmenu', e => {
     if (e.target.tagName === 'IMG' && (e.target.closest('.gallery-grid') || e.target.closest('#lightbox')))
