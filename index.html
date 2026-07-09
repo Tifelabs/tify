@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Tifelabs:: systems programmer & photographer">
 <title>Tifelabs</title>
 <link rel="icon" href="./assets/images/baby.png">
@@ -13,6 +13,11 @@
 
 <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+    html{
+        -webkit-text-size-adjust:100%;
+        text-size-adjust:100%;
+    }
 
     :root{
         --bg:#f2ede4;
@@ -43,9 +48,12 @@
     nav a{
         font:400 12px/1 'JetBrains Mono',monospace;
         color:var(--muted);text-decoration:none;letter-spacing:.04em;
+        -webkit-tap-highlight-color:transparent;
     }
     nav a.active{color:var(--ink);font-weight:400}
-    nav a:hover{color:var(--ink)}
+    @media(hover:hover){
+        nav a:hover{color:var(--ink)}
+    }
 
     /* ---------- intro ---------- */
     h1{font:300 28px/1.2 'Spectral',serif;letter-spacing:-.02em;margin-bottom:14px}
@@ -72,9 +80,14 @@
         border-radius:2px;flex-shrink:0;
         border:1px solid var(--accent);
         cursor:pointer;
+        touch-action:manipulation;
+        -webkit-tap-highlight-color:transparent;
         transition:opacity .2s ease;
     }
-    .flex-block img:hover{opacity:.85}
+    @media(hover:hover){
+        .flex-block img:hover{opacity:.85}
+    }
+    .flex-block img:active{opacity:.7}
 
     .flex-block p{font:300 14px/1.8 'Spectral',serif;color:#4a4540}
     .flex-block p .hl{color:var(--accent);font-style:italic}
@@ -87,7 +100,10 @@
         z-index:100;
         align-items:center;justify-content:center;
         cursor:pointer;
+        touch-action:manipulation;
         padding:40px;
+        padding-top:max(40px,env(safe-area-inset-top));
+        padding-bottom:max(40px,env(safe-area-inset-bottom));
     }
     .lightbox.open{display:flex}
     .lightbox img{
@@ -96,11 +112,17 @@
         border:1px solid var(--accent);
     }
     .lightbox .caption{
-        position:absolute;bottom:24px;left:0;right:0;
+        position:absolute;
+        bottom:max(24px,env(safe-area-inset-bottom));
+        left:0;right:0;
         text-align:center;
         font:300 12px/1 'JetBrains Mono',monospace;
         color:var(--bg);letter-spacing:.04em;
+        padding:0 20px;
     }
+
+    /* prevents background scroll while lightbox is open (iOS/Android) */
+    body.lightbox-active{overflow:hidden;position:fixed;width:100%}
 
     /* ---------- misc ---------- */
     .reshiram{position:fixed;right:10px;bottom:50px;display:block}
@@ -108,19 +130,31 @@
     footer{
         font:300 11px/2.2 'JetBrains Mono',monospace;
         color:var(--muted);letter-spacing:.02em;
+        padding-bottom:env(safe-area-inset-bottom);
     }
     footer a{
         color:var(--muted);text-decoration:none;
         border-bottom:1px solid var(--rule);padding-bottom:1px;
+        -webkit-tap-highlight-color:transparent;
     }
-    footer a:hover{opacity:.6;border-color:var(--ink)}
+    @media(hover:hover){
+        footer a:hover{opacity:.6;border-color:var(--ink)}
+    }
 
-    /* ---------- mobile ---------- */
+    /* ---------- tablet / mobile ---------- */
     @media(max-width:650px){
         body{padding:48px 20px 72px}
         nav,.intro{margin-bottom:56px}
-        .flex-block{flex-direction:column}
-        .flex-block img{width:100%;max-width:280px}
+        .flex-block{flex-direction:column;gap:16px}
+        .flex-block img{width:100%;max-width:320px;height:auto}
+    }
+
+    /* ---------- small phones (iPhone SE, etc.) ---------- */
+    @media(max-width:380px){
+        body{padding:36px 16px 56px}
+        h1{font-size:24px}
+        nav{gap:18px}
+        .flex-block{margin-bottom:56px}
     }
 </style>
 </head>
@@ -174,8 +208,9 @@
         >
         <p>
             I see photography as an art. This is one of my favourite
-            pictures at <span class="hl">Banff.</span> At this spot I get to take as many pictures to train on Mountain Photography and Taking pictures of 
-            an object of an high altitude.
+            pictures at <span class="hl">Banff</span>. At this spot I get
+            to practice mountain photography and take pictures of subjects
+            at high altitude.
         </p>
     </div>
 
@@ -210,10 +245,12 @@
             lightboxImg.alt = caption;
             lightboxCaption.textContent = caption;
             lightbox.classList.add('open');
+            document.body.classList.add('lightbox-active');
         }
 
         function closeLightbox() {
             lightbox.classList.remove('open');
+            document.body.classList.remove('lightbox-active');
         }
 
         document.addEventListener('keydown', e => {
