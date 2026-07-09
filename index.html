@@ -37,7 +37,7 @@
         overflow-x:hidden;
     }
 
-    /* ---------- banner + nav ---------- */
+    /*  banner + nav */
     .banner{
         width:100%;height:80px;
         object-fit:cover;object-position:center 38%;
@@ -142,16 +142,29 @@
         footer a:hover{opacity:.6;border-color:var(--ink)}
     }
 
-    /* ---------- tablet / mobile ---------- */
+    /* tablet / mobile (shared) */
     @media(max-width:650px){
         body{padding:48px 20px 72px}
         nav,.intro{margin-bottom:56px}
-        .flex-block,
-        .flex-block.reverse{flex-direction:column;gap:16px}
         .flex-block img{width:100%;max-width:320px;height:auto}
     }
 
-    /* ---------- small phones (iPhone SE, etc.) ---------- */
+    /* iOS only: stack image above text (avoids reverse-row squeeze on Safari/Firefox iOS) */
+    body.is-ios .flex-block,
+    body.is-ios .flex-block.reverse{
+        flex-direction:column;
+        gap:16px;
+    }
+
+    /* Android */
+    @media(max-width:650px){
+        body:not(.is-ios) .flex-block img{
+            width:130px;
+            max-width:130px;
+        }
+    }
+
+    /* small phones (iPhone SE, etc.)  */
     @media(max-width:380px){
         body{padding:36px 16px 56px}
         h1{font-size:24px}
@@ -235,6 +248,13 @@
             <a href="https://github.com/tifelabs" target="_blank" rel="noopener noreferrer">github</a>
         </div>
     </footer>
+
+    <!-- platform detection: iOS gets stacked flex-blocks, everyone else keeps the row layout -->
+    <script>
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+            document.body.classList.add('is-ios');
+        }
+    </script>
 
     <!-- lightbox logic -->
     <script>
