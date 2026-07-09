@@ -13,37 +13,119 @@
 
 <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#f2ede4;--ink:#1c1917;--muted:#2d6a4f;--accent:#2d6a4f;--rule:#ddd8ce}
-    
+
+    :root{
+        --bg:#f2ede4;
+        --ink:#1c1917;
+        --muted:#2d6a4f;
+        --accent:#2d6a4f;
+        --rule:#ddd8ce;
+    }
+
     body{
         font:400 15px/1.75 'Spectral',Georgia,serif;
-        color:var(--ink);background:var(--bg);
-        max-width:650px;margin:0 auto;padding:72px 28px 96px
+        color:var(--ink);
+        background:var(--bg);
+        max-width:650px;
+        margin:0 auto;
+        padding:72px 28px 96px;
     }
-    .banner{width:100%;height:80px;object-fit:cover;object-position:center 38%;display:block;border-radius:2px;margin-bottom:40px}
+
+    /* ---------- banner + nav ---------- */
+    .banner{
+        width:100%;height:80px;
+        object-fit:cover;object-position:center 38%;
+        display:block;border-radius:2px;
+        margin-bottom:40px;
+    }
+
     nav{display:flex;gap:28px;margin-bottom:88px}
-    nav a{font:400 12px/1 'JetBrains Mono',monospace;color:var(--muted);text-decoration:none;letter-spacing:.04em}
+    nav a{
+        font:400 12px/1 'JetBrains Mono',monospace;
+        color:var(--muted);text-decoration:none;letter-spacing:.04em;
+    }
     nav a.active{color:var(--ink);font-weight:400}
     nav a:hover{color:var(--ink)}
+
+    /* ---------- intro ---------- */
     h1{font:300 28px/1.2 'Spectral',serif;letter-spacing:-.02em;margin-bottom:14px}
     h1 em{font-style:italic;color:var(--accent)}
     .intro{font:300 14px/1.8 'Spectral',serif;color:#4a4540;max-width:650px;margin-bottom:80px}
+
+    /* ---------- list section ---------- */
+    section{margin-bottom:80px}
+    section>p{
+        font:300 12px/1 'JetBrains Mono',monospace;
+        color:var(--muted);letter-spacing:.04em;text-transform:uppercase;
+        margin-bottom:20px;
+    }
+    ol{padding-left:24px}
+    ol li{font:100 14px/1.9 'Spectral',serif}
+    ol li::marker{color:var(--accent);font:400 10px 'JetBrains Mono',monospace}
+
+    /* ---------- image + text blocks ---------- */
+    .flex-block{display:flex;gap:25px;align-items:flex-start;margin-bottom:80px}
+    .flex-block.reverse{flex-direction:row-reverse}
+
+    .flex-block img{
+        width:180px;height:auto;
+        border-radius:2px;flex-shrink:0;
+        border:1px solid var(--accent);
+        cursor:pointer;
+        transition:opacity .2s ease;
+    }
+    .flex-block img:hover{opacity:.85}
+
+    .flex-block p{font:300 14px/1.8 'Spectral',serif;color:#4a4540}
+    .flex-block p .hl{color:var(--accent);font-style:italic}
+
+    /* ---------- lightbox ---------- */
+    .lightbox{
+        display:none;
+        position:fixed;inset:0;
+        background:rgba(28,25,23,.92);
+        z-index:100;
+        align-items:center;justify-content:center;
+        cursor:pointer;
+        padding:40px;
+    }
+    .lightbox.open{display:flex}
+    .lightbox img{
+        max-width:100%;max-height:100%;
+        border-radius:2px;
+        border:1px solid var(--accent);
+    }
+    .lightbox .caption{
+        position:absolute;bottom:24px;left:0;right:0;
+        text-align:center;
+        font:300 12px/1 'JetBrains Mono',monospace;
+        color:var(--bg);letter-spacing:.04em;
+    }
+
+    /* ---------- misc ---------- */
     .reshiram{position:fixed;right:10px;bottom:50px;display:block}
-    
+
     footer{
         font:300 11px/2.2 'JetBrains Mono',monospace;
-        color:var(--muted);letter-spacing:.02em
+        color:var(--muted);letter-spacing:.02em;
     }
-    footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px}
+    footer a{
+        color:var(--muted);text-decoration:none;
+        border-bottom:1px solid var(--rule);padding-bottom:1px;
+    }
     footer a:hover{opacity:.6;border-color:var(--ink)}
-    
+
+    /* ---------- mobile ---------- */
     @media(max-width:650px){
         body{padding:48px 20px 72px}
         nav,.intro{margin-bottom:56px}
+        .flex-block{flex-direction:column}
+        .flex-block img{width:100%;max-width:280px}
     }
 </style>
 </head>
 <body>
+
     <img class="banner" src="./assets/images/crabapple.webp" alt="Crabapple">
 
     <nav>
@@ -56,9 +138,54 @@
     <main>
         <h1>Hi, I'm <em>T</em>.</h1>
         <p class="intro">I love computers, I do programming and hobby photography.</p>
+        <br>
     </main>
 
+    <section>
+        <p>here are some things I like</p>
+        <ol type="I">
+            <li>Console Reverse Engineering</li>
+            <li>Photography</li>
+            <li>Planes & Drones</li>
+            <li>Technical Drawing & Rough Sketch</li>
+            <li>Volleyball</li>
+        </ol>
+    </section>
+
+    <div class="flex-block">
+        <img
+            src="./assets/images/american_eagle.webp"
+            alt="American Eagle Bombardier CRJ-700"
+            onclick="openLightbox(this.src,this.alt)"
+        >
+        <p>
+            Here is a picture of the beautiful American Eagle Bombardier
+            <span class="hl">CRJ-700</span>, I took this at
+            <span class="hl">Pearson International Airport</span>.
+            Really nice and great looking plane.
+        </p>
+    </div>
+
+    <div class="flex-block reverse">
+        <img
+            src="./assets/images/banff.webp"
+            alt="Banff Trip"
+            onclick="openLightbox(this.src,this.alt)"
+        >
+        <p>
+            I see photography as an art. This is one of my favourite
+            pictures at <span class="hl">Banff.</span> At this spot I get to take as many pictures to train on Mountain Photography and Taking pictures of 
+            an object of an high altitude.
+        </p>
+    </div>
+
     <img src="./assets/gifs/reshiram.gif" class="reshiram" alt="">
+
+    <!-- shared lightbox: reused by every image on the page -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+        <div class="caption" id="lightbox-caption"></div>
+    </div>
 
     <footer>
         <div>alberta, ca</div>
@@ -72,11 +199,36 @@
         </div>
     </footer>
 
+    <!-- lightbox logic -->
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        function openLightbox(src, caption) {
+            lightboxImg.src = src;
+            lightboxImg.alt = caption;
+            lightboxCaption.textContent = caption;
+            lightbox.classList.add('open');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
     <script>
-        window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-        gtag('js',new Date());gtag('config','G-W3CM55WK3Y')
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-W3CM55WK3Y');
     </script>
+
 </body>
 </html>
