@@ -34,6 +34,7 @@
         max-width:650px;
         margin:0 auto;
         padding:72px 28px 96px;
+        overflow-x:hidden;
     }
 
     /* ---------- banner + nav ---------- */
@@ -145,7 +146,8 @@
     @media(max-width:650px){
         body{padding:48px 20px 72px}
         nav,.intro{margin-bottom:56px}
-        .flex-block{flex-direction:column;gap:16px}
+        .flex-block,
+        .flex-block.reverse{flex-direction:column;gap:16px}
         .flex-block img{width:100%;max-width:320px;height:auto}
     }
 
