@@ -6,66 +6,39 @@
 <meta name="description" content="Tifelabs — Resources">
 <title>Resources - Tifelabs</title>
 <link rel="icon" href="../assets/images/baby.png">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#f2ede4; --ink:#1c1917; --muted:#9c9589; --accent:#2d6a4f; --rule:#e0ddd7; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font:300 14px/1.6 'Spectral',Georgia,serif;
-    color:var(--ink); background:var(--bg);
-    max-width:650px; margin:0 auto; padding:80px 24px 96px;
-    opacity:0; animation:fadein .5s ease forwards;
-  }
-  @keyframes fadein { to { opacity:1; } }
-  nav { margin-bottom:80px; }
-  nav ul { list-style:none; display:flex; gap:32px; }
-  nav a {
-    font:300 12px/1 'JetBrains Mono',monospace;
-    color:var(#2d6a4f); text-decoration:none;
-    letter-spacing:.03em; transition:color .15s;
-  }
-  nav a.active, nav a:hover { color:var(--ink); }
-  .subtitle { font:400 15px/1 'Spectral',serif; margin-bottom:48px; }
-  .intro { font:300 italic 13px/1.6 'Spectral',serif; color:var(--muted); margin-bottom:48px; }
-  section { margin-bottom:44px; }
-  h2 {
-    font:400 10px/1 'JetBrains Mono',monospace;
-    color:var(--muted); letter-spacing:.1em; text-transform:uppercase;
-    margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--rule);
-  }
-  .link-item { display:grid; grid-template-columns:auto 1fr; gap:8px; margin-bottom:12px; align-items:baseline; }
-  a { color:var(--accent); text-decoration:underline; text-decoration-color:rgba(45,106,79,.3); text-underline-offset:2px; transition:text-decoration-color .18s; }
-  .link-item a { font:400 13.5px/1 'Spectral',serif; }
-  .link-item a:hover { text-decoration-color:var(--accent); }
-  .link-item span { font:300 italic 12.5px/1.4 'Spectral',serif; color:var(--muted); }
-  .link-item span::before { content:"— "; }
-  footer {
-    font:300 11.5px/2.1 'JetBrains Mono',monospace;
-    color:var(--muted); letter-spacing:.02em;
-    padding-top:48px; border-top:1px solid var(--rule);
-  }
-  footer a {
-    color:var(--ink); text-decoration:none;
-    border-bottom:1px solid var(--rule); padding-bottom:1px;
-    transition:border-color .18s, opacity .18s;
-  }
-  footer a:hover { opacity:.6; border-color:var(--ink); }
-  @media (max-width:650px) {
-    body { padding:60px 20px 72px; }
-    nav { margin-bottom:56px; }
-    nav ul { gap:24px; }
-  }
+:root{--bg:#f2ede4;--ink:#1c1917;--muted:#9c9589;--accent:#2d6a4f;--rule:#e0ddd7;--serif:ui-serif,Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font:300 14px/1.6 var(--serif);color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:80px 24px 96px;opacity:0;animation:fadein .5s ease forwards}
+@keyframes fadein{to{opacity:1}}
+nav{margin-bottom:80px;display:flex;gap:32px}
+nav a{font:300 12px/1 var(--mono);color:var(--accent);text-decoration:none;letter-spacing:.03em;transition:color .15s}
+nav a.active,nav a:hover{color:var(--ink)}
+.subtitle{font:400 15px/1 var(--serif);margin-bottom:48px}
+.intro{font:300 italic 13px/1.6 var(--serif);color:var(--muted);margin-bottom:48px}
+section{margin-bottom:44px}
+h2{font:400 10px/1 var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.link-item{display:grid;grid-template-columns:auto 1fr;gap:8px;margin-bottom:12px;align-items:baseline}
+a{color:var(--accent);text-decoration-color:rgba(45,106,79,.3);text-underline-offset:2px;transition:text-decoration-color .18s}
+.link-item a{font:400 13.5px/1 var(--serif)}
+.link-item a:hover{text-decoration-color:var(--accent)}
+.link-item span{font:300 italic 12.5px/1.4 var(--serif);color:var(--muted)}
+footer{font:300 11.5px/2.1 var(--mono);color:var(--muted);letter-spacing:.02em;padding-top:48px;border-top:1px solid var(--rule)}
+footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;transition:border-color .18s,opacity .18s}
+footer a:hover{opacity:.6;border-color:var(--ink)}
+@media(max-width:650px){
+body{padding:60px 20px 72px}
+nav{margin-bottom:56px;gap:24px}
+}
 </style>
 </head>
 <body>
 <div class="subtitle">Resources</div>
 <nav>
-  <ul>
-    <li><a href="../index.html">&#955;</a></li>
-    <li><a href="../blogs/">Writing</a></li>
-    <li><a href="../photography/">Photography</a></li>
-    <li><a href="../resource/" class="active">Resources</a></li>
-  </ul>
+  <a href="../index.html">&#955;</a>
+  <a href="../blogs/">Writing</a>
+  <a href="../photography/">Photography</a>
+  <a href="../resource/" class="active">Resources</a>
 </nav>
 <main>
   <p class="intro">A curated list of links I find interesting 100% worth reading.</p>
@@ -106,6 +79,6 @@
   </footer>
 </main>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>  
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>
 </body>
 </html>
