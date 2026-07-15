@@ -6,41 +6,38 @@
 <meta name="description" content="Tifelabs:: systems programmer & photographer">
 <title>Tifelabs</title>
 <link rel="icon" href="./assets/images/baby.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-:root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--rule:#ddd8ce;--tap-highlight:transparent}
-body{font:400 15px/1.75 'Spectral',Georgia,serif;color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:72px 28px 96px;overflow-x:hidden}
+:root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--rule:#ddd8ce;--tap-highlight:transparent;--serif:ui-serif,Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
+body{font:400 15px/1.75 var(--serif);color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:72px 28px 96px;overflow-x:hidden}
 .banner{width:100%;height:80px;object-fit:cover;object-position:center 38%;display:block;border-radius:2px;margin-bottom:40px}
 nav{display:flex;gap:28px;margin-bottom:88px}
-nav a{font:400 12px/1 'JetBrains Mono',monospace;color:var(--accent);text-decoration:none;letter-spacing:.04em;-webkit-tap-highlight-color:var(--tap-highlight)}
+nav a{font:400 12px/1 var(--mono);color:var(--accent);text-decoration:none;letter-spacing:.04em;-webkit-tap-highlight-color:var(--tap-highlight)}
 nav a.active{color:var(--ink);font-weight:400}
 @media(hover:hover){nav a:hover{color:var(--ink)}}
-h1{font:300 28px/1.2 'Spectral',serif;letter-spacing:-.02em;margin-bottom:14px}
+h1{font:300 28px/1.2 var(--serif);letter-spacing:-.02em;margin-bottom:14px}
 h1 em{font-style:italic;color:var(--accent)}
-.intro{font:300 14px/1.8 'Spectral',serif;color:#4a4540;max-width:650px;margin-bottom:80px}
+.intro{font:300 14px/1.8 var(--serif);color:#4a4540;max-width:650px;margin-bottom:80px}
 section{margin-bottom:80px}
-section>p{font:300 12px/1 'JetBrains Mono',monospace;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+section>p{font:300 12px/1 var(--mono);color:var(--accent);letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
 ol{padding-left:24px}
-ol li{font:100 14px/1.9 'Spectral',serif}
-ol li::marker{color:var(--accent);font:400 10px 'JetBrains Mono',monospace}
+ol li{font:300 14px/1.9 var(--serif)}
+ol li::marker{color:var(--accent);font:400 10px var(--mono)}
 .flex-block{display:flex;gap:25px;align-items:flex-start;margin-bottom:80px}
 .flex-block.reverse{flex-direction:row-reverse}
 .flex-block img{width:180px;height:auto;border-radius:2px;flex-shrink:0;border:1px solid var(--accent);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:var(--tap-highlight);transition:opacity .2s ease}
 @media(hover:hover){.flex-block img:hover{opacity:.85}}
 .flex-block img:active{opacity:.7}
-.flex-block p{font:300 14px/1.8 'Spectral',serif;color:#4a4540}
+.flex-block p{font:300 14px/1.8 var(--serif);color:#4a4540}
 .flex-block p .hl{color:var(--accent);font-style:italic}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(28,25,23,.92);z-index:100;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;padding:40px;padding-top:max(40px,env(safe-area-inset-top));padding-bottom:max(40px,env(safe-area-inset-bottom))}
-.lightbox.open{display:flex}
+.lightbox:target{display:flex}
 .lightbox img{max-width:100%;max-height:100%;border-radius:2px;border:1px solid var(--accent)}
-.lightbox .caption{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:300 12px/1 'JetBrains Mono',monospace;color:var(--bg);letter-spacing:.04em;padding:0 20px}
-body.lightbox-active{overflow:hidden;position:fixed;width:100%}
+.lightbox .caption{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:300 12px/1 var(--mono);color:var(--bg);letter-spacing:.04em;padding:0 20px}
+:root:has(.lightbox:target){overflow:hidden}
 .reshiram{position:fixed;right:10px;bottom:50px;display:block}
-footer{font:300 11px/2.2 'JetBrains Mono',monospace;color:var(--accent);letter-spacing:.02em;padding-bottom:env(safe-area-inset-bottom)}
+footer{font:300 11px/2.2 var(--mono);color:var(--accent);letter-spacing:.02em;padding-bottom:env(safe-area-inset-bottom)}
 footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;-webkit-tap-highlight-color:var(--tap-highlight)}
 footer .row{display:flex;align-items:center;gap:6px}
 @media(hover:hover){footer a:hover{opacity:.6;border-color:var(--ink)}}
@@ -48,8 +45,8 @@ footer .row{display:flex;align-items:center;gap:6px}
 body{padding:48px 20px 72px}
 nav,.intro{margin-bottom:56px}
 .flex-block img{width:100%;max-width:320px;height:auto}
-body.is-ios .flex-block,body.is-ios .flex-block.reverse{flex-direction:column;gap:16px}
-body:not(.is-ios) .flex-block img{width:130px;max-width:130px}
+@supports (-webkit-touch-callout:none){.flex-block,.flex-block.reverse{flex-direction:column;gap:16px}}
+@supports not (-webkit-touch-callout:none){.flex-block img{width:130px;max-width:130px}}
 }
 @media(max-width:380px){
 body{padding:36px 16px 56px}
@@ -73,7 +70,6 @@ nav{gap:18px}
 <main>
     <h1>Hi, I'm <em>T</em>.</h1>
     <p class="intro">I love computers, I do programming and hobby photography.</p>
-    <br>
 </main>
 
 <section>
@@ -88,50 +84,31 @@ nav{gap:18px}
 </section>
 
 <div class="flex-block">
-    <img class="lightbox-trigger" src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700" loading="lazy">
+    <a href="#lightbox-eagle"><img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700" loading="lazy"></a>
     <p>Here is a picture of the beautiful American Eagle Bombardier <span class="hl">CRJ-700</span>, I took this at <span class="hl">Pearson International Airport</span>. Really nice and great looking plane.</p>
 </div>
 
 <div class="flex-block reverse">
-    <img class="lightbox-trigger" src="./assets/images/banff.webp" alt="Banff Trip" loading="lazy">
+    <a href="#lightbox-banff"><img src="./assets/images/banff.webp" alt="Banff Trip" loading="lazy"></a>
     <p>I see photography as an art. This is one of my favourite pictures at <span class="hl">Banff</span>. At this spot I get to practice mountain photography and take pictures of subjects at high altitude.</p>
 </div>
 
 <img src="./assets/gifs/reshiram.gif" class="reshiram" alt="" loading="lazy">
 
-<div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="" alt="">
-    <div class="caption" id="lightbox-caption"></div>
-</div>
+<a href="#" id="lightbox-eagle" class="lightbox">
+    <img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700">
+    <div class="caption">American Eagle Bombardier CRJ-700</div>
+</a>
+<a href="#" id="lightbox-banff" class="lightbox">
+    <img src="./assets/images/banff.webp" alt="Banff Trip">
+    <div class="caption">Banff Trip</div>
+</a>
 
 <footer>
     <div>alberta, ca</div>
     <div class="row"><img src="./assets/gifs/mail_gif.gif" alt="" height="30" width="20" loading="lazy"> <a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
     <div class="row"><img src="./assets/gifs/git.gif" alt="" height="20" width="20" loading="lazy"> <a href="https://github.com/tifelabs" target="_blank" rel="noopener noreferrer">github</a></div>
 </footer>
-
-<script>
-if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) document.body.classList.add('is-ios');
-
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxCaption = document.getElementById('lightbox-caption');
-
-function openLightbox(src, caption) {
-    lightboxImg.src = src;
-    lightboxImg.alt = caption;
-    lightboxCaption.textContent = caption;
-    lightbox.classList.add('open');
-    document.body.classList.add('lightbox-active');
-}
-function closeLightbox() {
-    lightbox.classList.remove('open');
-    document.body.classList.remove('lightbox-active');
-}
-document.querySelectorAll('.lightbox-trigger').forEach(img => img.addEventListener('click', () => openLightbox(img.src, img.alt)));
-lightbox.addEventListener('click', closeLightbox);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
 <script>
