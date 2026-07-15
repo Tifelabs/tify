@@ -9,7 +9,7 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-:root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--rule:#ddd8ce;--tap-highlight:transparent;--serif:ui-serif,Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
+:root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--rule:#ddd8ce;--tap-highlight:transparent;--serif:Constantia,'Lucida Bright',Lucidabright,'Lucida Serif',Lucida,'DejaVu Serif','Bitstream Vera Serif','Liberation Serif',Georgia,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
 body{font:400 15px/1.75 var(--serif);color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:72px 28px 96px;overflow-x:hidden}
 .banner{width:468px;max-width:100%;height:60px;object-fit:cover;object-position:center 38%;display:block;margin:0 auto 40px;border-radius:2px}
 nav{display:flex;gap:28px;margin-bottom:88px}
@@ -58,7 +58,7 @@ nav{gap:18px}
 </head>
 <body>
 
-<img class="banner" src="./assets/images/crabapple.webp" alt="Crabapple">
+<img class="banner" src="./assets/images/crabapple.webp" alt="Crabapple" width="468" height="60" fetchpriority="high" decoding="async">
 
 <nav>
     <a href="index.html" class="active">&#120582;</a>
@@ -84,30 +84,30 @@ nav{gap:18px}
 </section>
 
 <div class="flex-block">
-    <a href="#lightbox-eagle"><img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700" loading="lazy"></a>
+    <a href="#lightbox-eagle"><img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700" loading="lazy" decoding="async"></a>
     <p>Here is a picture of the beautiful American Eagle Bombardier <span class="hl">CRJ-700</span>, I took this at <span class="hl">Pearson International Airport</span>. Really nice and great looking plane.</p>
 </div>
 
 <div class="flex-block reverse">
-    <a href="#lightbox-banff"><img src="./assets/images/banff.webp" alt="Banff Trip" loading="lazy"></a>
+    <a href="#lightbox-banff"><img src="./assets/images/banff.webp" alt="Banff Trip" loading="lazy" decoding="async"></a>
     <p>I see photography as an art. This is one of my favourite pictures at <span class="hl">Banff</span>. At this spot I get to practice mountain photography and take pictures of subjects at high altitude.</p>
 </div>
 
-<img src="./assets/gifs/reshiram.gif" class="reshiram" alt="" loading="lazy">
+<img src="./assets/gifs/reshiram.gif" class="reshiram" alt="" loading="lazy" decoding="async">
 
 <a href="#" id="lightbox-eagle" class="lightbox">
-    <img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700">
+    <img src="./assets/images/american_eagle.webp" alt="American Eagle Bombardier CRJ-700" loading="lazy" decoding="async">
     <div class="caption">American Eagle Bombardier CRJ-700</div>
 </a>
 <a href="#" id="lightbox-banff" class="lightbox">
-    <img src="./assets/images/banff.webp" alt="Banff Trip">
+    <img src="./assets/images/banff.webp" alt="Banff Trip" loading="lazy" decoding="async">
     <div class="caption">Banff Trip</div>
 </a>
 
 <footer>
     <div>alberta, ca</div>
-    <div class="row"><img src="./assets/gifs/mail_gif.gif" alt="" height="30" width="20" loading="lazy"> <a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
-    <div class="row"><img src="./assets/gifs/git.gif" alt="" height="20" width="20" loading="lazy"> <a href="https://github.com/tifelabs" target="_blank" rel="noopener noreferrer">github</a></div>
+    <div class="row"><img src="./assets/gifs/mail_gif.gif" alt="" height="30" width="20" loading="lazy" decoding="async"> <a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a></div>
+    <div class="row"><img src="./assets/gifs/git.gif" alt="" height="20" width="20" loading="lazy" decoding="async"> <a href="https://github.com/tifelabs" target="_blank" rel="noopener noreferrer">github</a></div>
 </footer>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>

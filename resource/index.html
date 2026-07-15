@@ -7,7 +7,7 @@
 <title>Resources - Tifelabs</title>
 <link rel="icon" href="../assets/images/baby.png">
 <style>
-:root{--bg:#f2ede4;--ink:#1c1917;--muted:#9c9589;--accent:#2d6a4f;--rule:#e0ddd7;--serif:ui-serif,Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
+:root{--bg:#f2ede4;--ink:#1c1917;--muted:#9c9589;--accent:#2d6a4f;--rule:#e0ddd7;--serif:Constantia,'Lucida Bright',Lucidabright,'Lucida Serif',Lucida,'DejaVu Serif','Bitstream Vera Serif','Liberation Serif',Georgia,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font:300 14px/1.6 var(--serif);color:var(--ink);background:var(--bg);max-width:650px;margin:0 auto;padding:80px 24px 96px;opacity:0;animation:fadein .5s ease forwards}
 @keyframes fadein{to{opacity:1}}
@@ -18,7 +18,7 @@ nav a.active,nav a:hover{color:var(--ink)}
 .intro{font:300 italic 13px/1.6 var(--serif);color:var(--muted);margin-bottom:48px}
 section{margin-bottom:44px}
 h2{font:400 10px/1 var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
-.link-item{display:grid;grid-template-columns:auto 1fr;gap:8px;margin-bottom:12px;align-items:baseline}
+.link-item{display:grid;grid-template-columns:auto 1fr;gap:8px;margin-bottom:12px;align-items:baseline;content-visibility:auto;contain-intrinsic-size:auto 24px}
 a{color:var(--accent);text-decoration-color:rgba(45,106,79,.3);text-underline-offset:2px;transition:text-decoration-color .18s}
 .link-item a{font:400 13.5px/1 var(--serif)}
 .link-item a:hover{text-decoration-color:var(--accent)}
