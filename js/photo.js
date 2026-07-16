@@ -4,7 +4,7 @@ const qs  = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
-let idx = -1, items = [], allItems = [], cat = 'all', open = false, layoutMode = 'masonry';
+let idx = -1, items = [], allItems = [], cat = 'all', open = false;
 
 /* DOM Refs */
 let lb, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbSpin, lbStrip;
@@ -82,7 +82,6 @@ function initLayout() {
 
   function setLayout(l) {
     grid.className = `gallery-grid ${l}`;
-    layoutMode = l;
     btnM.classList.toggle('active', l === 'masonry');
     btnG.classList.toggle('active', l === 'grid');
     qsa('.gitem:not(.hidden)').forEach(el => el.classList.remove('visible'));
