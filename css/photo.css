@@ -1,17 +1,10 @@
-/* Google Fonts moved to HTML <link> tags — remove @import for faster render */
+/* faster render */
 :root{--bg:#f2ede4;--ink:#1c1917;--muted:#2d6a4f;--accent:#2d6a4f;--rule:#e0ddd7;--card-bg:#eceae2;--faint:#c0bdb6;--bg-rgb:242,237,228;--serif:Constantia,'Lucida Bright',Lucidabright,'Lucida Serif',Lucida,'DejaVu Serif','Bitstream Vera Serif','Liberation Serif',Georgia,serif;--mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--serif);font-size:14px;line-height:1.6;color:var(--ink);background:var(--bg);max-width:560px;margin:0 auto;padding:80px 24px 60px;padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
 img{display:block;max-width:100%}
 *{-webkit-tap-highlight-color:transparent}
 a,button{touch-action:manipulation}
-@media (hover:none){#cursor,#cursor-dot{display:none}}
-#cursor{position:fixed;top:0;left:0;width:24px;height:24px;border:1.5px solid rgba(28,25,23,.5);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s,background .18s}
-#cursor-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;background:var(--ink);border-radius:50%;transition:width .18s,height .18s,opacity .18s}
-#cursor.hover{width:36px;height:36px;border-color:rgba(28,25,23,.9)}
-#cursor.hover #cursor-dot{opacity:0}
-#cursor.clicking{width:12px;height:12px;background:rgba(28,25,23,.08);border-color:var(--ink)}
-#cursor.clicking #cursor-dot{width:4px;height:4px}
 #site-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:72px}
 #site-nav .nav-links{display:flex;gap:28px}
 #site-nav .nav-links a,.nav-contact{font-family:var(--mono);font-size:12px;font-weight:300;color:var(--muted);text-decoration:none;letter-spacing:.03em;transition:color .15s}
@@ -55,32 +48,26 @@ header{margin-bottom:48px}
 .gallery-grid.grid .gitem:nth-child(7n+1){grid-column:span 2;grid-row:span 2}
 .gallery-grid.grid .gitem:nth-child(7n+4){grid-row:span 2}
 
-/* removed box-shadow from transition — was causing repaint on every frame */
-.gitem{background:var(--card-bg);overflow:hidden;display:block;opacity:0;transform:translateY(14px);position:relative;transition:opacity .45s,transform .45s;border-top:2px solid transparent;will-change:opacity,transform}
-.gitem.visible{opacity:1;transform:translateY(0)}
+.gitem{background:var(--card-bg);overflow:hidden;display:block;position:relative;border-top:2px solid transparent;transition:border-color .15s}
 .gitem.hidden{display:none}
-.gitem:hover{box-shadow:0 6px 24px rgba(0,0,0,.11);border-top-color:var(--accent)}
+.gitem:hover{border-top-color:var(--accent)}
 .gi-wrap{overflow:hidden;position:relative;line-height:0}
-
-/* removed filter:saturate — expensive on every image, barely visible */
-.gi-wrap img{width:100%;transition:transform .6s;-webkit-user-drag:none}
-.gitem:hover .gi-wrap img{transform:scale(1.045)}
-.gi-wrap::before{content:'↗';position:absolute;bottom:10px;right:10px;font-size:13px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5);z-index:2;opacity:0;transform:translate(4px,4px);transition:opacity .28s,transform .28s}
-.gitem:hover .gi-wrap::before{opacity:1;transform:translate(0,0)}
+.gi-wrap img{width:100%;-webkit-user-drag:none}
+.gi-wrap::before{content:'↗';position:absolute;bottom:10px;right:10px;font-size:13px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5);z-index:2;opacity:0;transition:opacity .2s}
+.gitem:hover .gi-wrap::before{opacity:1}
 figcaption{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:3px;column-gap:8px;padding:10px 12px 12px;background:var(--card-bg);border-top:1px solid rgba(0,0,0,.05)}
 .gi-title{font-size:12px;color:#3a3a3a;letter-spacing:.01em;grid-column:1;grid-row:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
 .gitem:hover .gi-title{color:var(--ink)}
 .gi-year{font-family:var(--mono);font-size:10px;font-weight:300;color:var(--muted);grid-column:2;grid-row:1;text-align:right}
 .gi-res{font-family:var(--mono);font-size:10px;font-weight:300;color:#b0aea8;letter-spacing:.02em;grid-column:1/-1;grid-row:2;display:none}
-.gi-index{position:absolute;top:9px;left:10px;font-family:var(--mono);font-size:9px;font-weight:300;color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.5);letter-spacing:.06em;z-index:3;pointer-events:none;opacity:0;transform:translateY(-3px);transition:opacity .25s,transform .25s}
-.gitem:hover .gi-index{opacity:1;transform:translateY(0)}
+.gi-index{position:absolute;top:9px;left:10px;font-family:var(--mono);font-size:9px;font-weight:300;color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.5);letter-spacing:.06em;z-index:3;pointer-events:none;opacity:0;transition:opacity .2s}
+.gitem:hover .gi-index{opacity:1}
 
 /* Touch devices have no hover, so give a permanent (lighter) version of the hover affordances, plus a tactile press state instead */
 @media (hover:none){
-  .gi-index{opacity:.85;transform:translateY(0)}
-  .gi-wrap::before{opacity:.85;transform:translate(0,0)}
-  .gitem{transition:opacity .45s,transform .2s}
-  .gitem:active{transform:scale(.97)}
+  .gi-index{opacity:.85}
+  .gi-wrap::before{opacity:.85}
+  .gitem:active{transform:scale(.97);transition:transform .1s}
   .lbtn:active,#lb-close:active{transform:scale(.9)}
   .lb-nav:active{transform:translateY(-50%) scale(.9)}
   .ftab:active{opacity:.6}
