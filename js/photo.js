@@ -31,22 +31,6 @@ function initFilter() {
   });
 }
 
-/* ── Layout ── */
-function initLayout() {
-  const grid = qs('#gallery-grid');
-  const btnM = qs('#btn-masonry');
-  const btnG = qs('#btn-grid');
-  if (!grid || !btnM || !btnG) return;
-
-  function setLayout(l) {
-    grid.className = `gallery-grid ${l}`;
-    btnM.classList.toggle('active', l === 'masonry');
-    btnG.classList.toggle('active', l === 'grid');
-  }
-  btnM.addEventListener('click', () => setLayout('masonry'));
-  btnG.addEventListener('click', () => setLayout('grid'));
-}
-
 /* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
 let lockedScrollY = 0;
 function lockScroll() {
@@ -362,26 +346,7 @@ function preload(i) {
 
 /* Init */
 function init() {
-  qsa('.gitem').forEach((item, i) => {
-    const badge = document.createElement('span');
-    badge.className = 'gi-index';
-    badge.textContent = String(i + 1).padStart(2, '0');
-    item.appendChild(badge);
-
-    const res = item.dataset.res;
-    if (res) {
-      const cap = item.querySelector('figcaption');
-      if (cap) {
-        const el = document.createElement('span');
-        el.className = 'gi-res';
-        el.textContent = res + ' px';
-        cap.appendChild(el);
-      }
-    }
-  });
-
   initFilter();
-  initLayout();
   initLightbox();
 
   document.addEventListener('contextmenu', e => {
