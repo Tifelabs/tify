@@ -7,7 +7,7 @@ const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 let idx = -1, items = [], allItems = [], cat = 'all', open = false;
 
 /* DOM Refs */
-let lb, lbBg, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbSpin, lbStrip;
+let lb, lbBg, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbStrip;
 
 /* Filter */
 function initFilter() {
@@ -72,7 +72,6 @@ function initLightbox() {
   lbCount = qs('#lb-count');
   lbPrev  = qs('#lb-prev');
   lbNext  = qs('#lb-next');
-  lbSpin  = qs('#lb-spinner');
   lbStrip = qs('#lb-filmstrip-inner');
 
   document.addEventListener('click', e => {
@@ -290,7 +289,6 @@ function showImage(i) {
   lbPrev.style.visibility = i === 0                  ? 'hidden' : 'visible';
   lbNext.style.visibility = i === items.length - 1   ? 'hidden' : 'visible';
   lbImg.classList.remove('loaded');
-  lbSpin.classList.add('show');
 
   // Low_res thumbs are .webp, High_res originals are .jpg
   const hi  = src.src.replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
@@ -300,7 +298,6 @@ function showImage(i) {
     lbImg.src = url;
     lbImg.alt = src.alt;
     lbImg.classList.add('loaded');
-    lbSpin.classList.remove('show');
     scrollStrip(i);
     preload(i);
   };
@@ -308,7 +305,6 @@ function showImage(i) {
   tmp.onerror = () => {
     const fb = new Image();
     fb.onload  = () => done(src.src);
-    fb.onerror = () => lbSpin.classList.remove('show');
     fb.src = src.src;
   };
   tmp.src = hi;
