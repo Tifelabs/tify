@@ -1,8 +1,7 @@
-:root{--bg:#f2ede4;--ink:#1c1917;--muted:#2d6a4f;--accent:#2d6a4f;--rule:#e0ddd7;--faint:#c0bdb6;--bg-rgb:242,237,228;--serif:'Spectral',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
-*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f2ede4;--ink:#1c1917;--muted:#2d6a4f;--rule:#e0ddd7;--faint:#c0bdb6;--bg-rgb:242,237,228;--serif:'Spectral',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:var(--serif);font-size:15px;line-height:1.6;color:var(--ink);background:var(--bg);max-width:1160px;margin:0 auto;padding:80px 32px 60px;padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}
 img{display:block;max-width:100%}
-*{-webkit-tap-highlight-color:transparent}
 a,button{touch-action:manipulation}
 .subtitle{font:400 15px/1 var(--serif);margin-bottom:50px}
 #site-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:72px}
@@ -10,6 +9,7 @@ a,button{touch-action:manipulation}
 #site-nav .nav-links a,.nav-contact{font-family:var(--mono);font-size:12px;font-weight:300;color:var(--muted);text-decoration:none;letter-spacing:.03em;transition:color .15s}
 #site-nav .nav-links a:hover,#site-nav .nav-links a.active,.nav-contact:hover{color:var(--ink)}
 header{margin-bottom:48px}
+.hero-sub{font-size:13px;font-weight:300;font-style:italic;color:#555;margin-bottom:14px}
 .hero-link{font-family:var(--mono);font-size:15px;font-weight:300;text-decoration:none;transition:opacity .15s}
 .hero-link:hover{opacity:.6}
 .filter-bar{margin-bottom:56px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
@@ -72,7 +72,7 @@ figcaption{display:none}
 .lb-thumb{flex-shrink:0;width:52px;height:52px;overflow:hidden;border:2px solid transparent;opacity:.4;transition:border-color .2s,opacity .2s,transform .2s;scroll-snap-align:center}
 .lb-thumb img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .lb-thumb:hover{opacity:.7;transform:scale(1.05)}
-.lb-thumb.active{border-color:var(--accent);opacity:1}
+.lb-thumb.active{border-color:var(--muted);opacity:1}
 footer{font-family:var(--mono);font-size:11.5px;font-weight:300;color:var(--muted);line-height:2.1;padding-top:48px;border-top:1px solid var(--rule)}
 footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;transition:border-color .18s,opacity .18s}
 footer a:hover{opacity:.6;border-color:var(--ink)}

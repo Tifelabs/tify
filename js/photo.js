@@ -13,20 +13,24 @@ let lb, lbBg, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbStrip;
 function initFilter() {
   allItems = qsa('.gitem');
   items = allItems;
+  const tabs = qsa('.ftab');
 
-  qsa('.ftab').forEach(btn => {
+  tabs.forEach(btn => {
     btn.addEventListener('click', () => {
       const next = btn.dataset.cat;
       if (next === cat) return;
       cat = next;
 
-      qsa('.ftab').forEach(b => {
+      tabs.forEach(b => {
         b.classList.toggle('active', b === btn);
         b.setAttribute('aria-selected', b === btn);
       });
 
-      allItems.forEach(el => el.classList.toggle('hidden', !(cat === 'all' || el.dataset.cat === cat)));
-      items = allItems.filter(el => !el.classList.contains('hidden'));
+      items = allItems.filter(el => {
+        const show = cat === 'all' || el.dataset.cat === cat;
+        el.classList.toggle('hidden', !show);
+        return show;
+      });
     });
   });
 }
@@ -77,9 +81,8 @@ function initLightbox() {
   document.addEventListener('click', e => {
     const item = e.target.closest('.gitem');
     if (!item || item.classList.contains('hidden')) return;
-    const vis = allItems.filter(el => !el.classList.contains('hidden'));
-    const i = vis.indexOf(item);
-    if (i !== -1) openLightbox(i, vis);
+    const i = items.indexOf(item);
+    if (i !== -1) openLightbox(i);
   });
 
   document.addEventListener('keydown', e => {
@@ -106,11 +109,6 @@ function initLightbox() {
   initGestures(qs('.lb-img-wrap'));
 }
 
-/* One pointer-event based gesture system covers touch AND mouse:
-   - drag horizontally to change photo (rubber-bands at the first/last image)
-   - drag down to dismiss (image follows the finger, background fades)
-   - pinch, or double-tap, to zoom in on a point; drag to pan while zoomed
-   - a plain tap toggles an immersive "chrome hidden" view                */
 function initGestures(wrap) {
   if (!wrap) return;
 
@@ -264,8 +262,7 @@ function scrollStrip(i) {
   thumbs[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }
 
-function openLightbox(i, vis) {
-  items = vis;
+function openLightbox(i) {
   open  = true;
   chromeHidden = false;
   lb.classList.remove('chrome-hidden');
