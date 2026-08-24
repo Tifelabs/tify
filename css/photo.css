@@ -20,9 +20,6 @@ header{margin-bottom:48px}
 .ftab.active em{color:var(--muted)}
 .bird{position:fixed;right:40px;top:100px}
 
-/* Contact-sheet grid — even columns, every tile the same aspect ratio no matter
-   the source photo's shape, generous gutters, contained (not full-bleed).
-   No captions, no card chrome: consistent whitespace does the framing. */
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 32px;padding-bottom:80px}
 .gitem{position:relative}
 .gitem.hidden{display:none}
@@ -84,7 +81,6 @@ footer a:hover{opacity:.6;border-color:var(--ink)}
   .bird{display:block !important}
   .lb-topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
   .lb-res{display:none}
-  /* Bigger, thumb-friendly hit targets (Apple/Google both recommend ~44px minimum) */
   .ftab{padding:6px 0}
   .filter-tabs{gap:20px}
   #lb-close{width:44px;height:44px}
