@@ -103,8 +103,6 @@ function initLightbox() {
   lbPrev.addEventListener('click', () => navigate(-1));
   lbNext.addEventListener('click', () => navigate(1));
   lbBg?.addEventListener('click', closeLightbox);
-  lbImg.addEventListener('contextmenu', e => e.preventDefault());
-  lbImg.addEventListener('dragstart',   e => e.preventDefault());
 
   initGestures(qs('.lb-img-wrap'));
 }
@@ -116,7 +114,6 @@ function initGestures(wrap) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     wrap.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    lbImg.classList.add('no-transition');
 
     if (pointers.size === 2) {
       gesture = 'pinch';
@@ -170,7 +167,6 @@ function initGestures(wrap) {
     pointers.delete(e.pointerId);
     if (pointers.size > 0) { gesture = pointers.size === 2 ? 'pinch' : null; return; }
 
-    lbImg.classList.remove('no-transition');
     const dt = Math.max(Date.now() - startTime, 1);
 
     if (gesture === 'swipe') {
@@ -259,7 +255,7 @@ function buildFilmstrip(activeIdx) {
 function scrollStrip(i) {
   const thumbs = qsa('.lb-thumb', lbStrip);
   thumbs.forEach((t, j) => t.classList.toggle('active', j === i));
-  thumbs[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  thumbs[i]?.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
 }
 
 function openLightbox(i) {
@@ -321,7 +317,8 @@ function closeLightbox() {
   unlockScroll();
   if (lbBg) lbBg.style.opacity = '';
   resetZoom();
-  setTimeout(() => { lbImg.src = ''; lbImg.classList.remove('loaded'); }, 400);
+  lbImg.src = '';
+  lbImg.classList.remove('loaded');
 }
 
 function preload(i) {
