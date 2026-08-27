@@ -93,23 +93,23 @@
 (defparameter *portfolio* (make-collection "Street & Landscape"))
 
 (add-photo *portfolio*
-           (make-photo :title "Morning Fog"
+           (make-photo :title "Castle Canyon"
                        :file "../assets/low_res/castle_canyon.webp"
                        :date "2025-11-12"
-                       :camera "Fuji X-T5"
+                       :camera "Canon 4000d"
                        :tags '("landscape" "fog" "morning")
                        :rating 5))
 
 (add-photo *portfolio*
-           (make-photo :title "Neon Alley"
-                       :file "neon-03.jpg"
+           (make-photo :title "Crabapple"
+                       :file "../assets/low_res/crabapple.webp"
                        :date "2026-02-28"
-                       :camera "Sony A7IV"
+                       :camera "Canon 4000D"
                        :tags '("street" "night" "neon")
                        :rating 4))
 
 (add-photo *portfolio*
-           (make-photo :title "Quiet Harbor"
+           (make-photo :title "Transit Noir"
                        :file "harbor-07.jpg"
                        :date "2026-04-03"
                        :camera "Fuji X-T5"
