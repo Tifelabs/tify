@@ -1,5 +1,0 @@
-- Add a clean reponsive way to view photographs on IOS and android
-
-- Add Onclick live preview.
-
-- Change grid style to Pinterest mock-up
