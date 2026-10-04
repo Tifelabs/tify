@@ -57,27 +57,19 @@ nav a:hover,nav a.active{color:var(--ink)}
 footer{margin-top:100px;padding-top:32px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:300;color:var(--muted);letter-spacing:.02em}
 
 @media (max-width:650px){
-body{padding:50px 24px 100px}
-header{margin-bottom:40px}
-nav{margin-bottom:60px}
-nav ul{gap:24px}
-#post-title{font-size:1.875rem;margin-bottom:1.75rem}
-#post-content h1{font-size:1.75rem}
-#post-content h2{font-size:1.5rem}
-#post-content h3{font-size:1.25rem}
-#post-content h4{font-size:1.125rem}
-#post-content img{margin:2rem auto}
-#post-content pre{padding:1rem;margin:1.5rem -12px;border-radius:.375rem}
-#post-content th,#post-content td{padding:.75rem}
-.modal{padding:40px 20px}
-.modal-close{top:20px;right:20px;width:44px;height:44px;font-size:28px}
-.modal img{max-width:calc(100% - 40px);max-height:calc(100% - 100px)}
-}
-
-@media (max-width:650px){
-body{padding:40px 20px 80px}
-#post-title{font-size:1.5rem}
-#post-content h1{font-size:1.5rem}
-#post-content h2{font-size:1.25rem}
-#post-content h3{font-size:1.125rem}
+  body{padding:40px 20px 80px}
+  header{margin-bottom:40px}
+  nav{margin-bottom:60px}
+  nav ul{gap:24px}
+  #post-title{font-size:1.5rem;margin-bottom:1.75rem}
+  #post-content h1{font-size:1.5rem}
+  #post-content h2{font-size:1.25rem}
+  #post-content h3{font-size:1.125rem}
+  #post-content h4{font-size:1.125rem}
+  #post-content img{margin:2rem auto}
+  #post-content pre{padding:1rem;margin:1.5rem -12px;border-radius:.375rem}
+  #post-content th,#post-content td{padding:.75rem}
+  .modal{padding:40px 20px}
+  .modal-close{top:20px;right:20px;width:44px;height:44px;font-size:28px}
+  .modal img{max-width:calc(100% - 40px);max-height:calc(100% - 100px)}
 }
