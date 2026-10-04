@@ -8,51 +8,42 @@
 <style>
 :root{--bg:#f2ede4;--ink:#1c1917;--accent:#2d6a4f;--muted:#4a4540;--rule:#ddd8ce}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font:400 15px/1.7 Georgia,serif;color:var(--ink);background:var(--bg);max-width:620px;margin:0 auto;padding:48px 24px 80px}
-.banner{width:100%;max-width:468px;height:60px;object-fit:cover;object-position:center 38%;display:block;margin:0 auto 36px;border-radius:2px}
-
-nav{display:flex;gap:28px;margin-bottom:52px}
-nav a{font:400 13px/1 ui-monospace,Menlo,monospace;color:var(--muted);text-decoration:none;letter-spacing:.03em}
-nav a:hover{color:var(--ink)}
-nav a.active{color:var(--accent)}
-
+body{font:15px/1.7 Georgia,serif;color:var(--ink);background:var(--bg);max-width:620px;margin:0 auto;padding:48px 24px 80px}
+.banner{width:100%;height:60px;object-fit:cover;object-position:center 38%;display:block;margin-bottom:48px;border-radius:2px}
 h1{font:300 26px/1.2 Georgia,serif;margin-bottom:12px}
-.intro{color:var(--muted);margin-bottom:56px;font-weight:300}
+.intro{color:var(--muted);margin-bottom:56px}
 .block{display:flex;gap:24px;margin-bottom:48px}
 .block.reverse{flex-direction:row-reverse}
-.block img{width:160px;flex-shrink:0;border-radius:2px;border:1px solid var(--accent)}
+.block img{width:160px;flex-shrink:0;border:1px solid var(--accent)}
 .block p{font:300 14px/1.7 Georgia,serif;color:var(--muted)}
 .hl{color:var(--accent);font-style:italic}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(28,25,23,.92);z-index:100;align-items:center;justify-content:center;cursor:pointer;padding:40px}
 .lightbox:target{display:flex}
-.lightbox img{max-width:100%;max-height:100%;border-radius:2px;border:1px solid var(--accent)}
-footer{font:300 12px/2 ui-monospace,Menlo,monospace;color:var(--accent);margin-top:64px}
+.lightbox img{max-width:100%;max-height:100%;border:1px solid var(--accent)}
+footer{font:12px/2 ui-monospace,Menlo,monospace;color:var(--accent);margin-top:64px}
 footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+nav{display:flex;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
+nav a{font:12px ui-monospace,Menlo,monospace;color:var(--muted);text-decoration:none;letter-spacing:.03em}
+nav a:hover{color:var(--ink)}
+nav a.active{color:var(--accent)}
 @media(max-width:520px){.block,.block.reverse{flex-direction:column}.block img{width:100%;max-width:280px}}
 </style>
 </head>
 <body>
 
-<img class="banner" src="./assets/images/crabapple.webp" alt="Crabapple" width="468" height="60">
-
-<nav>
-  <a href="index.html" class="active">Home</a>
-  <a href="./blogs/">Writing</a>
-  <a href="./photography/">Photography</a>
-  <a href="./resource/">Resources</a>
-</nav>
+<img class="banner" src="./assets/images/crabapple.webp" alt="Crabapple">
 
 <h1>Tife</h1>
 <p class="intro">I love computers. I do programming and hobby photography.</p>
 
 <div class="block">
-  <a href="#lb1"><img src="./assets/images/american_eagle.webp" alt="American Eagle CRJ-700"></a>
+  <a href="#lb1"><img src="./assets/images/american_eagle.webp" alt="CRJ-700"></a>
   <p>American Eagle Bombardier <span class="hl">CRJ-700</span> at <span class="hl">Pearson International Airport</span>.</p>
 </div>
 
 <div class="block reverse">
   <a href="#lb2"><img src="./assets/images/banff.webp" alt="Banff"></a>
-  <p>One of my favourite shots from <span class="hl">Banff</span> mountain photography at high altitude.</p>
+  <p>One of my favourite shots from <span class="hl">Banff</span>  mountain photography at high altitude.</p>
 </div>
 
 <a href="#" id="lb1" class="lightbox"><img src="./assets/images/american_eagle.webp" alt="CRJ-700"></a>
@@ -62,6 +53,13 @@ footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--
   alberta, ca<br>
   <a href="mailto:tifelabs@gmail.com">tifelabs@gmail.com</a><br>
   <a href="https://github.com/tifelabs" target="_blank">github</a>
+
+  <nav>
+    <a href="index.html" class="active">&#955;</a>
+    <a href="./blogs/">Writing</a>
+    <a href="./photography/">Photography</a>
+    <a href="./resource/">Resources</a>
+  </nav>
 </footer>
 
 </body>
