@@ -1,350 +1,178 @@
 'use strict';
+const $ = (s, r = document) => r.querySelector(s), clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const hiSrc = i => (i.currentSrc || i.src).replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
+const rubber = (d, L) => Math.sign(d) * L * (1 - 1 / (.55 * Math.abs(d) / L + 1));
 
-const qs  = (s, r = document) => r.querySelector(s);
-const qsa = (s, r = document) => [...r.querySelectorAll(s)];
-const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+/* data */
+const grid = $('#gallery-grid'), all = [...grid.children], N = all.length;
+const lb = $('#lightbox'), img = $('#lb-img'), bg = $('.lb-bg'), strip = $('#lb-filmstrip-inner'), wrap = $('.lb-img-wrap');
+const [prev, next, closeBtn] = ['#lb-prev', '#lb-next', '#lb-close'].map(s => $(s));
+const bit = {}, mask = new Int32Array(N), vis = new Uint16Array(N), rank = new Int16Array(N), th = new Array(N);
+let nv = 0, cur = 0, isOpen = false, token = 0, act, pre, last, y0 = 0;
+all.forEach((el, k) => { el.k = k; mask[k] = 1 << (bit[el.dataset.cat] ??= Object.keys(bit).length); });
 
-let idx = -1, items = [], allItems = [], cat = 'all', open = false;
-
-/* DOM Refs */
-let lb, lbBg, lbImg, lbTitle, lbYear, lbRes, lbCount, lbPrev, lbNext, lbStrip;
-
-/* Filter */
-function initFilter() {
-  allItems = qsa('.gitem');
-  items = allItems;
-  const tabs = qsa('.ftab');
-
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const next = btn.dataset.cat;
-      if (next === cat) return;
-      cat = next;
-
-      tabs.forEach(b => {
-        b.classList.toggle('active', b === btn);
-        b.setAttribute('aria-selected', b === btn);
-      });
-
-      items = allItems.filter(el => {
-        const show = cat === 'all' || el.dataset.cat === cat;
-        el.classList.toggle('hidden', !show);
-        return show;
-      });
-    });
-  });
-}
-
-/* ── Scroll lock (position:fixed trick — plain overflow:hidden still lets iOS Safari rubber-band the page behind a fixed modal) ── */
-let lockedScrollY = 0;
-function lockScroll() {
-  lockedScrollY = window.scrollY;
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${lockedScrollY}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-}
-function unlockScroll() {
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.width = '';
-  window.scrollTo(0, lockedScrollY);
-}
-
-/* ── Lightbox ── */
-const ZOOM_MAX = 3.2, ZOOM_TAP = 2.4;
-let zoom = { scale: 1, x: 0, y: 0 };
-let pointers = new Map();
-let gesture = null; // null | 'swipe' | 'dismiss' | 'lock' | 'pan' | 'pinch'
-let startX = 0, startY = 0, startTime = 0;
-let panStartX = 0, panStartY = 0;
-let pinchStartDist = 0, pinchStartScale = 1;
-let lastTap = { time: 0, x: 0, y: 0 };
-let chromeHidden = false;
-
-function initLightbox() {
-  lb      = qs('#lightbox');
-  if (!lb) return;
-  lbBg    = qs('.lb-bg');
-  lbImg   = qs('#lb-img');
-  lbTitle = qs('#lb-title');
-  lbYear  = qs('#lb-year');
-  lbRes   = qs('#lb-res');
-  lbCount = qs('#lb-count');
-  lbPrev  = qs('#lb-prev');
-  lbNext  = qs('#lb-next');
-  lbStrip = qs('#lb-filmstrip-inner');
-
-  document.addEventListener('click', e => {
-    const item = e.target.closest('.gitem');
-    if (!item || item.classList.contains('hidden')) return;
-    const i = items.indexOf(item);
-    if (i !== -1) openLightbox(i);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (!open) return;
-    if (e.key === 'Escape')     closeLightbox();
-    if (e.key === 'ArrowLeft')  navigate(-1);
-    if (e.key === 'ArrowRight') navigate(1);
-    if (e.key === 'Tab') {
-      const btns = qsa('button:not([disabled])', lb);
-      if (!btns.length) return;
-      const first = btns[0], last = btns[btns.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-
-  qs('#lb-close').addEventListener('click', closeLightbox);
-  lbPrev.addEventListener('click', () => navigate(-1));
-  lbNext.addEventListener('click', () => navigate(1));
-  lbBg?.addEventListener('click', closeLightbox);
-
-  initGestures(qs('.lb-img-wrap'));
-}
-
-function initGestures(wrap) {
-  if (!wrap) return;
-
-  wrap.addEventListener('pointerdown', e => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    wrap.setPointerCapture(e.pointerId);
-    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-    if (pointers.size === 2) {
-      gesture = 'pinch';
-      const [a, b] = [...pointers.values()];
-      pinchStartDist  = Math.hypot(a.x - b.x, a.y - b.y) || 1;
-      pinchStartScale = zoom.scale;
-    } else if (pointers.size === 1) {
-      startX = e.clientX; startY = e.clientY; startTime = Date.now();
-      panStartX = zoom.x; panStartY = zoom.y;
-      gesture = zoom.scale > 1.02 ? 'pan' : null; // direction decided on first real move
-    }
-  });
-
-  wrap.addEventListener('pointermove', e => {
-    if (!pointers.has(e.pointerId)) return;
-    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-    if (gesture === 'pinch' && pointers.size === 2) {
-      const [a, b] = [...pointers.values()];
-      const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
-      zoom.scale = clamp(pinchStartScale * (dist / pinchStartDist), 1, ZOOM_MAX);
-      clampPan();
-      applyZoom();
-      return;
-    }
-    if (pointers.size !== 1) return;
-    const dx = e.clientX - startX, dy = e.clientY - startY;
-
-    if (gesture === 'pan') {
-      zoom.x = panStartX + dx;
-      zoom.y = panStartY + dy;
-      clampPan();
-      applyZoom();
-      return;
-    }
-    if (gesture === null) {
-      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-      gesture = Math.abs(dx) > Math.abs(dy) ? 'swipe' : (dy > 0 ? 'dismiss' : 'lock');
-    }
-    if (gesture === 'swipe') {
-      const atEdge = (idx === 0 && dx > 0) || (idx === items.length - 1 && dx < 0);
-      lbImg.style.transform = `translateX(${dx * (atEdge ? 0.35 : 1)}px)`;
-    } else if (gesture === 'dismiss') {
-      const d = clamp(dy, 0, 400);
-      lbImg.style.transform = `translateY(${d}px) scale(${clamp(1 - d / 900, 0.85, 1)})`;
-      lbBg.style.opacity = String(clamp(1 - d / 300, 0.15, 1));
-    }
-  });
-
-  const endGesture = e => {
-    pointers.delete(e.pointerId);
-    if (pointers.size > 0) { gesture = pointers.size === 2 ? 'pinch' : null; return; }
-
-    const dt = Math.max(Date.now() - startTime, 1);
-
-    if (gesture === 'swipe') {
-      const dx = e.clientX - startX;
-      const velocity = Math.abs(dx) / dt;
-      lbImg.style.transform = '';
-      if (Math.abs(dx) > 70 || velocity > 0.5) navigate(dx < 0 ? 1 : -1);
-    } else if (gesture === 'dismiss') {
-      const dy = e.clientY - startY;
-      const velocity = dy / dt;
-      if (dy > 110 || velocity > 0.6) {
-        closeLightbox();
-      } else {
-        lbImg.style.transform = '';
-        lbBg.style.opacity = '';
-      }
-    } else if (gesture === 'pinch') {
-      if (zoom.scale <= 1.02) resetZoom(); else { clampPan(); applyZoom(); }
-    } else if (gesture === null || gesture === 'lock') {
-      if (Math.abs(e.clientX - startX) < 10 && Math.abs(e.clientY - startY) < 10) {
-        handleTap(e.clientX, e.clientY);
-      }
-    }
-    gesture = null;
-  };
-  wrap.addEventListener('pointerup', endGesture);
-  wrap.addEventListener('pointercancel', endGesture);
-}
-
-function handleTap(x, y) {
-  const now = Date.now();
-  const isDouble = now - lastTap.time < 320 && Math.hypot(x - lastTap.x, y - lastTap.y) < 40;
-  lastTap = { time: now, x, y };
-
-  if (!isDouble) { toggleChrome(); return; }
-  lastTap.time = 0; // consume the tap pair so a third tap doesn't chain into another double
-  if (zoom.scale > 1.02) {
-    resetZoom();
-  } else {
-    const rect = lbImg.getBoundingClientRect();
-    zoom.scale = ZOOM_TAP;
-    zoom.x = (rect.left + rect.width  / 2 - x) * (ZOOM_TAP - 1);
-    zoom.y = (rect.top  + rect.height / 2 - y) * (ZOOM_TAP - 1);
-    clampPan();
-    applyZoom();
+/* filter */
+const show = m => {
+  nv = 0;
+  for (let k = 0; k < N; k++) {
+    const v = mask[k] & m;
+    all[k].hidden = !v;
+    if (th[k]) th[k].hidden = !v;
+    if (v) { rank[k] = nv; vis[nv++] = k; } else rank[k] = -1;
   }
-}
+};
+show(-1);
+const tabs = $('.filter-tabs');
+tabs.onclick = e => {
+  const b = e.target.closest('.ftab'), c = b && b.dataset.cat;
+  if (!b || b.classList.contains('active')) return;
+  for (const t of tabs.children) { t.classList.toggle('active', t === b); t.setAttribute('aria-selected', t === b); }
+  show(c === 'all' ? -1 : c in bit ? 1 << bit[c] : 0);
+};
+grid.onclick = e => { const el = e.target.closest('.gitem'); if (el) openLb(rank[el.k]); };
+grid.onkeydown = e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.gitem')) { e.preventDefault(); openLb(rank[e.target.k]); }
+};
 
-function toggleChrome() {
-  chromeHidden = !chromeHidden;
-  lb.classList.toggle('chrome-hidden', chromeHidden);
-}
+/* transform */
+let z = { s: 1, x: 0, y: 0 }, raf = 0;
+const paint = () => { raf = 0; img.style.transform = `translate(${z.x}px,${z.y}px) scale(${z.s})`; img.classList.toggle('zoomed', z.s > 1.02); };
+const draw = now => now ? (cancelAnimationFrame(raf), paint()) : raf ||= requestAnimationFrame(paint);
+const fit = () => {
+  const bx = img.offsetWidth * (z.s - 1) / 2, by = img.offsetHeight * (z.s - 1) / 2;
+  z.x = clamp(z.x, -bx, bx); z.y = clamp(z.y, -by, by);
+};
+const reset  = () => { z = { s: 1, x: 0, y: 0 }; bg.style.opacity = ''; draw(true); };
+const settle = () => z.s > 1.02 ? (fit(), draw(true)) : reset();
 
-function clampPan() {
-  const bx = Math.max(0, (lbImg.offsetWidth  * (zoom.scale - 1)) / 2);
-  const by = Math.max(0, (lbImg.offsetHeight * (zoom.scale - 1)) / 2);
-  zoom.x = clamp(zoom.x, -bx, bx);
-  zoom.y = clamp(zoom.y, -by, by);
-}
+/* gestures: t' = u1 - k*(u0 - t0), k = s'/s0, u = point - image centre */
+const P = new Map();
+let B, T = -1e9, tx = 0, ty = 0;
+const stat = () => {
+  const v = [...P.values()], n = v.length;
+  return [v.reduce((a, p) => a + p[0], 0) / n, v.reduce((a, p) => a + p[1], 0) / n, n > 1 ? Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]) || 1 : 0];
+};
+const base = t => {
+  const [x, y, d] = stat(), r = img.getBoundingClientRect();
+  B = { x, y, d, s: z.s, tx: z.x, ty: z.y, cx: r.left + r.width / 2 - z.x, cy: r.top + r.height / 2 - z.y, m: null, lx: x, ly: y, lt: t, vx: 0, vy: 0 };
+};
+const tapAt = (x, y, t) => {
+  if (t - T > 320 || Math.hypot(x - tx, y - ty) > 40) { T = t; tx = x; ty = y; lb.classList.toggle('chrome-hidden'); return; }
+  T = -1e9;
+  const r = img.getBoundingClientRect(), s = z.s > 1.02 ? 1 : 2.4, k = s / z.s;
+  const ux = x - (r.left + r.width / 2 - z.x), uy = y - (r.top + r.height / 2 - z.y);
+  z.x = ux - k * (ux - z.x); z.y = uy - k * (uy - z.y); z.s = s;
+  fit(); draw(true);
+};
 
-function applyZoom() {
-  lbImg.style.transform = `translate(${zoom.x}px,${zoom.y}px) scale(${zoom.scale})`;
-  lbImg.classList.toggle('zoomed', zoom.scale > 1.02);
-}
+wrap.onpointerdown = e => {
+  if (e.pointerType === 'mouse' && e.button) return;
+  wrap.setPointerCapture(e.pointerId);
+  P.set(e.pointerId, [e.clientX, e.clientY]);
+  base(e.timeStamp);
+};
+wrap.onpointermove = e => {
+  if (!P.has(e.pointerId)) return;
+  P.set(e.pointerId, [e.clientX, e.clientY]);
+  const [x, y, d] = stat(), dt = e.timeStamp - B.lt || 1;
+  B.vx += ((x - B.lx) / dt - B.vx) * .5; B.vy += ((y - B.ly) / dt - B.vy) * .5;
+  B.lx = x; B.ly = y; B.lt = e.timeStamp;
+  if (B.m === 'ignore') return;
+  if (P.size > 1 || z.s > 1.02) {
+    const s = clamp(B.s * (P.size > 1 ? d / B.d : 1), 1, 3.2), k = s / B.s;
+    z.s = s;
+    z.x = x - B.cx - k * (B.x - B.cx - B.tx);
+    z.y = y - B.cy - k * (B.y - B.cy - B.ty);
+    fit(); return draw();
+  }
+  const dx = x - B.x, dy = y - B.y;
+  B.m ||= Math.abs(dx) < 8 && Math.abs(dy) < 8 ? null : Math.abs(dx) > Math.abs(dy) ? 'x' : dy > 0 ? 'y' : 'up';
+  if (B.m === 'x') z.x = (!cur && dx > 0) || (cur === nv - 1 && dx < 0) ? rubber(dx, innerWidth) : dx;
+  else if (B.m === 'y') { const c = clamp(dy, 0, 400); z.y = c; z.s = Math.max(.85, 1 - c / 900); bg.style.opacity = Math.max(.15, 1 - c / 300); }
+  else return;
+  draw();
+};
+wrap.onpointerup = wrap.onpointercancel = e => {
+  if (!P.delete(e.pointerId)) return;
+  if (P.size) {
+    if (z.s <= 1.02) reset();
+    base(e.timeStamp);
+    if (z.s <= 1.02) B.m = 'ignore';
+    return;
+  }
+  const m = B.m, dx = e.clientX - B.x, dy = e.clientY - B.y;
+  if (e.type === 'pointercancel' || m === 'ignore') return settle();
+  if (m === 'x') { const p = dx + 200 * B.vx; settle(); if (Math.abs(p) > 80) go(p < 0 ? 1 : -1); }
+  else if (m === 'y') dy + 200 * B.vy > 110 ? closeLb() : settle();
+  else if (Math.abs(dx) < 10 && Math.abs(dy) < 10) tapAt(e.clientX, e.clientY, e.timeStamp);
+  else settle();
+};
 
-function resetZoom() {
-  zoom = { scale: 1, x: 0, y: 0 };
-  lbImg.style.transform = '';
-  lbImg.classList.remove('zoomed');
-}
+/* lightbox */
+const preload = p => {
+  const k = vis[p], c = navigator.connection;
+  if (p >= 0 && p < nv && !(c && (c.saveData || /2g/.test(c.effectiveType)))) { pre = new Image(); pre.fetchPriority = 'low'; pre.src = hiSrc($('img', all[k])); }
+};
+const view = (p, dir) => {
+  cur = p; reset();
+  const k = vis[p], el = all[k], t = $('img', el), d = el.dataset;
+  $('#lb-title').textContent = d.title || '';
+  $('#lb-year').textContent = d.year || '—';
+  $('#lb-res').textContent = d.res || '';
+  $('#lb-count').textContent = `${p + 1} / ${nv}`;
+  prev.style.visibility = p ? 'visible' : 'hidden';
+  next.style.visibility = p < nv - 1 ? 'visible' : 'hidden';
+  if (act) act.classList.remove('active');
+  (act = th[k]).classList.add('active');
+  act.scrollIntoView({ inline: 'center', block: 'nearest' });
 
-function buildFilmstrip(activeIdx) {
-  if (!lbStrip) return;
-  lbStrip.innerHTML = '';
-  items.forEach((item, i) => {
-    const src = item.querySelector('img');
-    const thumb = document.createElement('div');
-    thumb.className = 'lb-thumb' + (i === activeIdx ? ' active' : '');
-    thumb.innerHTML = `<img src="${src.src}" alt="${src.alt}" loading="lazy">`;
-    thumb.addEventListener('click', () => navigate(i - idx));
-    lbStrip.appendChild(thumb);
-  });
-  scrollStrip(activeIdx);
-}
 
-function scrollStrip(i) {
-  const thumbs = qsa('.lb-thumb', lbStrip);
-  thumbs.forEach((t, j) => t.classList.toggle('active', j === i));
-  thumbs[i]?.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-}
+  img.style.setProperty('--ar', (t.naturalWidth || t.getAttribute('width')) / (t.naturalHeight || t.getAttribute('height')));
+  img.alt = t.alt; img.src = t.currentSrc || t.src; img.classList.add('loaded');
+  const hi = hiSrc(t), me = ++token, im = new Image();
+  im.src = hi;
+  im.decode().then(() => me === token && (img.src = hi)).catch(() => {}).then(() => me === token && preload(p + dir));
+};
+const go = d => { const n = clamp(cur + d, 0, nv - 1); if (isOpen && n !== cur) view(n, Math.sign(d)); };
 
-function openLightbox(i) {
-  open  = true;
-  chromeHidden = false;
+function openLb(p) {
+  isOpen = true; last = document.activeElement;
   lb.classList.remove('chrome-hidden');
-  lb.classList.add('open');
-  lb.setAttribute('aria-hidden', 'false');
-  lockScroll();
-  buildFilmstrip(i);
-  showImage(i);
+  y0 = scrollY;
+  document.body.style.cssText = `position:fixed;top:-${y0}px;left:0;right:0;width:${document.body.offsetWidth}px`;
+  if (!th[0]) strip.append(...all.map((el, k) => {
+    const t = th[k] = document.createElement('div'), im = new Image(), s = $('img', el);
+    t.className = 'lb-thumb'; t.hidden = el.hidden; t.k = k;
+    im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; im.src = s.currentSrc || s.src;
+    t.append(im);
+    return t;
+  }));
+  lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+  view(p, 1);
+  closeBtn.focus({ preventScroll: true });
+}
+function closeLb() {
+  isOpen = false; token++;
+  lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
+  document.body.style.cssText = ''; scrollTo(0, y0);
+  reset();
+  img.removeAttribute('src'); img.classList.remove('loaded');
+  if (last) last.focus({ preventScroll: true });
 }
 
-function showImage(i) {
-  i = clamp(i, 0, items.length - 1);
-  idx = i;
-  resetZoom();
-  const item = items[i];
-  const src  = item.querySelector('img');
-  lbTitle.textContent = item.dataset.title || '';
-  lbYear.textContent  = item.dataset.year  || '—';
-  lbRes.textContent   = item.dataset.res   || '';
-  lbCount.textContent = `${i + 1} / ${items.length}`;
-  lbPrev.style.visibility = i === 0                  ? 'hidden' : 'visible';
-  lbNext.style.visibility = i === items.length - 1   ? 'hidden' : 'visible';
-  lbImg.classList.remove('loaded');
-
-  // Low_res thumbs are .webp, High_res originals are .jpg
-  const hi  = src.src.replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
-  const tmp = new Image();
-  const done = (url) => {
-    if (idx !== i) return;
-    lbImg.src = url;
-    lbImg.alt = src.alt;
-    lbImg.classList.add('loaded');
-    scrollStrip(i);
-    preload(i);
-  };
-  tmp.onload  = () => done(hi);
-  tmp.onerror = () => {
-    const fb = new Image();
-    fb.onload  = () => done(src.src);
-    fb.src = src.src;
-  };
-  tmp.src = hi;
-}
-
-function navigate(delta) {
-  if (!open) return;
-  const next = clamp(idx + delta, 0, items.length - 1);
-  if (next === idx) return;
-  showImage(next);
-}
-
-function closeLightbox() {
-  open = false;
-  lb.classList.remove('open');
-  lb.setAttribute('aria-hidden', 'true');
-  unlockScroll();
-  if (lbBg) lbBg.style.opacity = '';
-  resetZoom();
-  lbImg.src = '';
-  lbImg.classList.remove('loaded');
-}
-
-function preload(i) {
-  const go = window.requestIdleCallback
-    ? cb => requestIdleCallback(cb, { timeout: 1000 })
-    : cb => setTimeout(cb, 0);
-  go(() => {
-    [-1, 1, -2, 2].forEach(d => {
-      const img = items[i + d]?.querySelector('img');
-      // Low_res thumbs are .webp, High_res originals are .jpg
-      if (img) new Image().src = img.src.replace('/low_res/', '/high_res/').replace(/\.webp$/i, '.jpg');
-    });
-  });
-}
-
-/* Init */
-function init() {
-  initFilter();
-  initLightbox();
-
-  document.addEventListener('contextmenu', e => {
-    if (e.target.tagName === 'IMG' && (e.target.closest('.gallery-grid') || e.target.closest('#lightbox')))
-      e.preventDefault();
-  });
-}
-
-document.readyState === 'loading'
-  ? document.addEventListener('DOMContentLoaded', init)
-  : init();
+closeBtn.onclick = closeLb;
+prev.onclick = () => go(-1);
+next.onclick = () => go(1);
+strip.onclick = e => { const t = e.target.closest('.lb-thumb'); if (t) go(rank[t.k] - cur); };
+document.onkeydown = e => {
+  if (!isOpen) return;
+  if (e.key === 'Escape') closeLb();
+  else if (e.key === 'ArrowLeft') go(-1);
+  else if (e.key === 'ArrowRight') go(1);
+  else if (e.key === 'Tab') {
+    const f = [closeBtn, prev, next].filter(b => b.style.visibility !== 'hidden'), i = f.indexOf(document.activeElement);
+    e.preventDefault();
+    f[i < 0 ? 0 : (i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+  }
+};
+document.oncontextmenu = e => e.target.matches('.gallery-grid img,#lightbox img') && e.preventDefault();
