@@ -20,7 +20,11 @@
   <link rel="icon" type="image/png" href="../assets/banner/crabapple.png">
   <link rel="icon" type="image/x-icon" href="../assets/banner/crabapple.ico">
   <link rel="stylesheet" href="../css/photo.css">
-  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;1,300&family=JetBrains+Mono:wght@300&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;1,300&family=JetBrains+Mono:wght@300&display=swap"></noscript>
+  <script src="../js/photo.js" defer></script>
 </head>
 <body>
   <div class="subtitle">Photography</div>
@@ -36,7 +40,7 @@
 
   <header>
     <p class="hero-sub">I enjoy nature, landscapes, and the objects we pass every day.</p>
-    <img src="../assets/gifs/bird.gif" class="bird" alt="" loading="lazy" decoding="async">
+    <img src="../assets/gifs/bird.gif" class="bird" alt="" loading="lazy" decoding="async" fetchpriority="low">
     <a class="hero-link" href="./notes.html">Camera notes →</a>
   </header>
 
@@ -54,230 +58,230 @@
 
     <div class="gallery-grid" id="gallery-grid">
 
-      <figure class="gitem" data-cat="flowers" data-title="Pelargonium" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/pelargonium.webp" alt="Pelargonium, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Pelargonium" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/pelargonium.webp" alt="Pelargonium, 2026" fetchpriority="high" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Spiraea japonica" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Spiraea_japonica.webp" alt="Spiraea japonica, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Spiraea japonica" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Spiraea_japonica.webp" alt="Spiraea japonica, 2026" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Castle Canyon" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/castle_canyon.webp" alt="Castle Canyon, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Castle Canyon" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/castle_canyon.webp" alt="Castle Canyon, 2026" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Lake Louise" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/lake_louise.webp" alt="Lake Louise, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Lake Louise" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/lake_louise.webp" alt="Lake Louise, 2026" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Sulphur Mountain" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/sulphur_mountain.webp" alt="Sulphur Mountain, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Sulphur Mountain" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/sulphur_mountain.webp" alt="Sulphur Mountain, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Red Light" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/red_light.webp" alt="Red Light, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Red Light" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/red_light.webp" alt="Red Light, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="American Elm" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/american_elm.webp" alt="American Elm, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="American Elm" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/american_elm.webp" alt="American Elm, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Flock Roll" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/flock_roll.webp" alt="Flock Roll, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Flock Roll" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/flock_roll.webp" alt="Flock Roll, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Transit Noir" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/transit_noir.webp" alt="Transit Noir, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Transit Noir" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/transit_noir.webp" alt="Transit Noir, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Heart of jasper" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/heart_of_jasper.webp" alt="Heart of Jasper, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Heart of jasper" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/heart_of_jasper.webp" alt="Heart of Jasper, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Laminar - Century Park" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/century_park.webp" alt="Laminar - Century Park, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Laminar - Century Park" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/century_park.webp" alt="Laminar - Century Park, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Traffic" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/traffic.webp" alt="traffic, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Traffic" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/traffic.webp" alt="traffic, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="Sky Signature" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/sky_signature.webp" alt="sky_signature, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="portrait" data-title="Sky Signature" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/sky_signature.webp" alt="sky_signature, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="Side Pole" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/side_pole.webp" alt="side_pole, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="portrait" data-title="Side Pole" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/side_pole.webp" alt="side_pole, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Sunrise" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/surise.webp" alt="Sunrise, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Sunrise" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/surise.webp" alt="Sunrise, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Snowy Balcony" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/snowy_balcony.webp" alt="Snowy Balcony, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Snowy Balcony" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/snowy_balcony.webp" alt="Snowy Balcony, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="The Rails" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/rail.webp" alt="The Rails, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="The Rails" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/rail.webp" alt="The Rails, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Jasper Ave" data-year="2026" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/jasper.webp" alt="Jasper Ave, 2026" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Jasper Ave" data-year="2026" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/jasper.webp" alt="Jasper Ave, 2026" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Space Number" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/SpaceNumber.webp" alt="Space Number, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Space Number" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/SpaceNumber.webp" alt="Space Number, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Fog" data-year="2025" data-res="4977×3453" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/fog2025.webp" alt="Fog, 2025" loading="lazy" width="4977" height="3453"></div>
+      <figure class="gitem" data-cat="general" data-title="Fog" data-year="2025" data-res="4977×3453" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/fog2025.webp" alt="Fog, 2025" loading="lazy" decoding="async" width="4977" height="3453"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Snow Bench" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/SnowBench.webp" alt="Snow Bench, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Snow Bench" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/SnowBench.webp" alt="Snow Bench, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Bottle" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Bottle.webp" alt="Bottle, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Bottle" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Bottle.webp" alt="Bottle, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Sugar Glass" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/SugarGlass.webp" alt="Sugar Glass, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Sugar Glass" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/SugarGlass.webp" alt="Sugar Glass, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Winter" data-year="2025" data-res="2172×1448" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/winter.webp" alt="Winter, 2025" loading="lazy" width="2172" height="1448"></div>
+      <figure class="gitem" data-cat="general" data-title="Winter" data-year="2025" data-res="2172×1448" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/winter.webp" alt="Winter, 2025" loading="lazy" decoding="async" width="2172" height="1448"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Crabapple" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/crabapple.webp" alt="Crabapple, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Crabapple" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/crabapple.webp" alt="Crabapple, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Daisy" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/daisy.webp" alt="Daisy, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Daisy" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/daisy.webp" alt="Daisy, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Bouquet de marguerites" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/bouquet_blur.webp" alt="Bouquet de marguerites, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Bouquet de marguerites" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/bouquet_blur.webp" alt="Bouquet de marguerites, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Blossom" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/blossom.webp" alt="Blossom, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Blossom" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/blossom.webp" alt="Blossom, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="flowers" data-title="Dandelion" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/dandelion.webp" alt="Dandelion, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="flowers" data-title="Dandelion" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/dandelion.webp" alt="Dandelion, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Sign" data-year="2025" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Sign 2025.webp" alt="Sign, 2025" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="general" data-title="Sign" data-year="2025" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Sign 2025.webp" alt="Sign, 2025" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="The Library" data-year="2025" data-res="563×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Library.webp" alt="The Library, 2025" loading="lazy" width="563" height="1000"></div>
+      <figure class="gitem" data-cat="portrait" data-title="The Library" data-year="2025" data-res="563×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Library.webp" alt="The Library, 2025" loading="lazy" decoding="async" width="563" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Plane Model" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/BipPlane2024.webp" alt="Plane Model, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="general" data-title="Plane Model" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/BipPlane2024.webp" alt="Plane Model, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Fall" data-year="2024" data-res="600×800" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Fall2024.webp" alt="Fall, 2024" loading="lazy" width="600" height="800"></div>
+      <figure class="gitem" data-cat="general" data-title="Fall" data-year="2024" data-res="600×800" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Fall2024.webp" alt="Fall, 2024" loading="lazy" decoding="async" width="600" height="800"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="Windmills" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/mills.webp" alt="Windmills, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="portrait" data-title="Windmills" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/mills.webp" alt="Windmills, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Landscape" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/scape1.webp" alt="Landscape, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Landscape" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/scape1.webp" alt="Landscape, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Landscape Like XP" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/scape2.webp" alt="Landscape Like XP, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Landscape Like XP" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/scape2.webp" alt="Landscape Like XP, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Blur" data-year="2024" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/blur.webp" alt="Blur, 2024" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Blur" data-year="2024" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/blur.webp" alt="Blur, 2024" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Halifax Dawn" data-year="2024" data-res="1500×1125" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/Dawn2024.webp" alt="Halifax Dawn, 2024" loading="lazy" width="1500" height="1125"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Halifax Dawn" data-year="2024" data-res="1500×1125" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/Dawn2024.webp" alt="Halifax Dawn, 2024" loading="lazy" decoding="async" width="1500" height="1125"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Solar Eclipse" data-year="2024" data-res="1500×1125" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/eclipse 2024.webp" alt="Solar Eclipse, 2024" loading="lazy" width="1500" height="1125"></div>
+      <figure class="gitem" data-cat="general" data-title="Solar Eclipse" data-year="2024" data-res="1500×1125" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/eclipse 2024.webp" alt="Solar Eclipse, 2024" loading="lazy" decoding="async" width="1500" height="1125"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="Cap-Pele Beach" data-year="2024" data-res="1500×2000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/set.webp" alt="Cap-Pele Beach, 2024" loading="lazy" width="1500" height="2000"></div>
+      <figure class="gitem" data-cat="portrait" data-title="Cap-Pele Beach" data-year="2024" data-res="1500×2000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/set.webp" alt="Cap-Pele Beach, 2024" loading="lazy" decoding="async" width="1500" height="2000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="After-Fall" data-year="2023" data-res="1500×2250" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/afterfall.webp" alt="After-Fall, 2023" loading="lazy" width="1500" height="2250"></div>
+      <figure class="gitem" data-cat="portrait" data-title="After-Fall" data-year="2023" data-res="1500×2250" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/afterfall.webp" alt="After-Fall, 2023" loading="lazy" decoding="async" width="1500" height="2250"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Fall" data-year="2023" data-res="900×900" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/fall1.webp" alt="Fall, 2023" loading="lazy" width="900" height="900"></div>
+      <figure class="gitem" data-cat="general" data-title="Fall" data-year="2023" data-res="900×900" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/fall1.webp" alt="Fall, 2023" loading="lazy" decoding="async" width="900" height="900"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Roof Top" data-year="2023" data-res="1500×1125" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/roof-top.webp" alt="Roof Top, 2023" loading="lazy" width="1500" height="1125"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Roof Top" data-year="2023" data-res="1500×1125" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/roof-top.webp" alt="Roof Top, 2023" loading="lazy" decoding="async" width="1500" height="1125"></div>
       </figure>
 
-      <figure class="gitem" data-cat="portrait" data-title="Mountain Road" data-year="2023" data-res="1500×2250" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/mountain road.webp" alt="Mountain Road, 2023" loading="lazy" width="1500" height="2250"></div>
+      <figure class="gitem" data-cat="portrait" data-title="Mountain Road" data-year="2023" data-res="1500×2250" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/mountain road.webp" alt="Mountain Road, 2023" loading="lazy" decoding="async" width="1500" height="2250"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Moncton View" data-year="2023" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/moncton-view.webp" alt="Moncton View, 2023" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Moncton View" data-year="2023" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/moncton-view.webp" alt="Moncton View, 2023" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Red Dragon" data-year="2023" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/red-dragon.webp" alt="Red Dragon, 2023" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="general" data-title="Red Dragon" data-year="2023" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/red-dragon.webp" alt="Red Dragon, 2023" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Fog" data-year="2023" data-res="1500×1125" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/fog.webp" alt="Fog, 2023" loading="lazy" width="1500" height="1125"></div>
+      <figure class="gitem" data-cat="general" data-title="Fog" data-year="2023" data-res="1500×1125" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/fog.webp" alt="Fog, 2023" loading="lazy" decoding="async" width="1500" height="1125"></div>
       </figure>
 
-      <figure class="gitem" data-cat="landscape" data-title="Prince Edward Island" data-year="2023" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/prince edward.webp" alt="Prince Edward Island, 2023" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="landscape" data-title="Prince Edward Island" data-year="2023" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/prince edward.webp" alt="Prince Edward Island, 2023" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Stop" data-year="2023" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/sign2.webp" alt="Stop, 2023" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="general" data-title="Stop" data-year="2023" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/sign2.webp" alt="Stop, 2023" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Dawn" data-year="2023" data-res="1500×1000" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/night life.webp" alt="Dawn, 2023" loading="lazy" width="1500" height="1000"></div>
+      <figure class="gitem" data-cat="general" data-title="Dawn" data-year="2023" data-res="1500×1000" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/night life.webp" alt="Dawn, 2023" loading="lazy" decoding="async" width="1500" height="1000"></div>
       </figure>
 
-      <figure class="gitem" data-cat="general" data-title="Winter" data-year="2023" data-res="900x900" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/winter2023.webp" alt="Winter, 2023" loading="lazy" width="5472" height="3648"></div>
+      <figure class="gitem" data-cat="general" data-title="Winter" data-year="2023" data-res="900x900" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/winter2023.webp" alt="Winter, 2023" loading="lazy" decoding="async" width="5472" height="3648"></div>
       </figure>
 
-      <figure class="gitem" data-cat="cars" data-title="Cadillac" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/A.webp" alt="Cadillac, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="cars" data-title="Cadillac" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/A.webp" alt="Cadillac, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="cars" data-title="Ford" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/B.webp" alt="Ford, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="cars" data-title="Ford" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/B.webp" alt="Ford, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="cars" data-title="Corvette" data-year="2024" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/C.webp" alt="Corvette, 2024" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="cars" data-title="Corvette" data-year="2024" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/C.webp" alt="Corvette, 2024" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
-      <figure class="gitem" data-cat="cars" data-title="Dodge" data-year="2025" data-res="5184×3456" tabindex="0">
-        <div class="gi-wrap"><img src="../assets/low_res/mopar.webp" alt="Dodge, 2025" loading="lazy" width="5184" height="3456"></div>
+      <figure class="gitem" data-cat="cars" data-title="Dodge" data-year="2025" data-res="5184×3456" tabindex="0" role="button">
+        <div class="gi-wrap"><img src="../assets/low_res/mopar.webp" alt="Dodge, 2025" loading="lazy" decoding="async" width="5184" height="3456"></div>
       </figure>
 
     </div>
   </main>
 
-  <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
     <div class="lb-bg"></div>
     <div class="lb-topbar">
       <div class="lb-meta">
@@ -296,7 +300,7 @@
     </div>
     <div class="lb-stage">
       <div class="lb-img-wrap">
-        <img id="lb-img" src="" alt="" draggable="false">
+        <img id="lb-img" alt="" draggable="false">
       </div>
     </div>
     <button class="lb-nav lb-prev" id="lb-prev" aria-label="Previous">
@@ -314,8 +318,9 @@
     <span>© 2026 Tifelabs. All rights reserved.</span>
   </footer>
 
-  <script src="../js/photo.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y')</script>  
+  <script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W3CM55WK3Y');
+addEventListener('load',function(){(self.requestIdleCallback||setTimeout)(function(){var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=G-W3CM55WK3Y';document.head.appendChild(s)})});
+  </script>
 </body>
 </html>
